@@ -1,0 +1,114 @@
+{
+  "nav": {
+    "about": "About",
+    "gallery": "Gallery",
+    "howIWork": "How I Work",
+    "food": "Nutrition",
+    "financing": "Financing",
+    "testimonials": "Reviews",
+    "community": "Community",
+    "contact": "Contact",
+    "bookSession": "Book Now"
+  },
+  "hero": {
+    "heading": "Transform Your Life with La Bella Vita",
+    "subheading": "Premium personal training designed to unlock the best version of you — body, mind, and spirit.",
+    "cta": "Book a Session"
+  },
+  "about": {
+    "tag": "Meet the trainer",
+    "heading": "Alessandro — Your Personal Trainer",
+    "body1": "Alessandro is a certified personal trainer with over 10 years of experience in fitness and wellness. His philosophy blends science-backed training methods with a holistic approach to healthy living.",
+    "body2": "Every client is a unique project. Alessandro crafts individual training plans tailored to your goals, fitness level, and lifestyle — whether you want to lose weight, build muscle, or improve overall performance.",
+    "body3": "With La Bella Vita, you don't just get a trainer — you get a partner on the journey to your best self.",
+    "cta": "Let's get started"
+  },
+  "gallery": {
+    "tag": "Results speak for themselves",
+    "heading": "Transformation Gallery",
+    "subheading": "Real results from real people. Every story is unique — yours could be next.",
+    "comingSoon": "Image coming soon"
+  },
+  "howIWork": {
+    "tag": "My approach",
+    "heading": "How I Work",
+    "subheading": "A simple, transparent, and effective process that gets you results.",
+    "steps": [
+      {
+        "title": "First Consultation",
+        "desc": "A free meeting where we get to know each other, discuss your goals, and build a roadmap."
+      },
+      {
+        "title": "Personalised Plan",
+        "desc": "I design a training and nutrition programme built specifically for you — no generic templates."
+      },
+      {
+        "title": "Training & Support",
+        "desc": "We train together and I'm available 7 days a week for questions, motivation, and guidance."
+      },
+      {
+        "title": "Progress Tracking",
+        "desc": "We regularly review results and adjust your plan so you keep moving forward without plateaus."
+      }
+    ]
+  },
+  "food": {
+    "tag": "Nutrition & Health",
+    "heading": "Food Collaboration",
+    "body1": "Training is only half the equation. Alessandro partners with nutritionists and chefs to give you a complete approach to healthy eating that is delicious, practical, and sustainable.",
+    "body2": "Our nutrition programmes are designed to complement your training, accelerate results, and teach you how to eat well without stress or restriction.",
+    "cta": "Subscribe for updates"
+  },
+  "financing": {
+    "tag": "Accessible to everyone",
+    "heading": "La Bella Vita Financing Programme",
+    "body": "We believe premium training should be within reach for everyone. Our instalment payment plan lets you spread the cost of your training into convenient monthly payments with zero interest. Start your transformation today — without financial stress.",
+    "features": [
+      "Zero interest",
+      "Flexible instalments",
+      "No hidden fees",
+      "Immediate start"
+    ],
+    "cta": "Learn More"
+  },
+  "testimonials": {
+    "tag": "What clients say",
+    "heading": "Google Reviews",
+    "subheading": "Read what Alessandro's clients say about training with him.",
+    "items": [
+      {
+        "name": "Martina K.",
+        "quote": "Alessandro is an incredible trainer. In 3 months I lost 12 kg and feel better than ever. His approach is motivating and completely professional."
+      },
+      {
+        "name": "Tomáš B.",
+        "quote": "I always thought a personal trainer was a luxury. After working with Alessandro I know it's an investment that pays for itself. The results speak for themselves."
+      },
+      {
+        "name": "Lucia M.",
+        "quote": "La Bella Vita changed my view of fitness. Alessandro is not just a trainer — he's a mentor who genuinely cares about you as a whole person."
+      }
+    ]
+  },
+  "community": {
+    "tag": "Join us",
+    "heading": "La Bella Vita Community",
+    "subheading": "Become part of a family of people who chose a better lifestyle. We share progress, recipes, motivation, and the joy of movement.",
+    "comingSoon": "Image coming soon"
+  },
+  "contact": {
+    "tag": "Let's begin",
+    "heading": "Contact Us",
+    "subheading": "Ready for change? Write to us and we'll get back to you within 24 hours.",
+    "name": "Full name",
+    "email": "Email address",
+    "phone": "Phone number",
+    "message": "Your message",
+    "submit": "Send message",
+    "mapPlaceholder": "Map loading..."
+  },
+  "footer": {
+    "tagline": "Premium personal training for your best self.",
+    "rights": "All rights reserved."
+  }
+}

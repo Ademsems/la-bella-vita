@@ -1,0 +1,114 @@
+{
+  "nav": {
+    "about": "O mne",
+    "gallery": "Galéria",
+    "howIWork": "Ako pracujem",
+    "food": "Výživa",
+    "financing": "Financovanie",
+    "testimonials": "Recenzie",
+    "community": "Komunita",
+    "contact": "Kontakt",
+    "bookSession": "Rezervovať"
+  },
+  "hero": {
+    "heading": "Zmeňte svoj život s La Bella Vita",
+    "subheading": "Prémiový osobný tréning navrhnutý tak, aby odhalil to najlepšie vo vás — telo, myseľ a duch.",
+    "cta": "Rezervovať tréning"
+  },
+  "about": {
+    "tag": "Spoznajte trénera",
+    "heading": "Alessandro — váš osobný tréner",
+    "body1": "Alessandro je certifikovaný osobný tréner s viac ako 10-ročnými skúsenosťami v oblasti fitness a wellnessu. Jeho filozofia spája vedecky podložené tréningové metódy s holistickým prístupom k zdravému životnému štýlu.",
+    "body2": "Každý klient je pre neho jedinečný projekt. Alessandro vytvára individuálne tréningové plány prispôsobené vašim cieľom, kondícii a životnému štýlu — či už chcete schudnúť, nabrať svalovú hmotu alebo zlepšiť celkovú výkonnosť.",
+    "body3": "S La Bella Vita nezískate len trénera — získate partnera na ceste k vašej najlepšej verzii.",
+    "cta": "Začnime spolu"
+  },
+  "gallery": {
+    "tag": "Výsledky hovoria za seba",
+    "heading": "Galéria transformácií",
+    "subheading": "Skutočné výsledky skutočných ľudí. Každý príbeh je jedinečný — váš môže byť ďalší.",
+    "comingSoon": "Fotografia čoskoro"
+  },
+  "howIWork": {
+    "tag": "Môj prístup",
+    "heading": "Ako pracujem",
+    "subheading": "Jednoduchý, transparentný a efektívny proces, ktorý vás dovedie k výsledkom.",
+    "steps": [
+      {
+        "title": "Prvá konzultácia",
+        "desc": "Bezplatné stretnutie, kde sa zoznámime, preberieme vaše ciele a zostavíme plán."
+      },
+      {
+        "title": "Individuálny plán",
+        "desc": "Navrhnem tréningový a výživový program šitý priamo na vás — žiadne generické plány."
+      },
+      {
+        "title": "Tréning a podpora",
+        "desc": "Tréningujeme spolu a ja som vám k dispozícii 7 dní v týždni na otázky a motiváciu."
+      },
+      {
+        "title": "Meranie pokroku",
+        "desc": "Pravidelne vyhodnocujeme výsledky a upravujeme plán tak, aby ste neustále napredovali."
+      }
+    ]
+  },
+  "food": {
+    "tag": "Výživa & Zdravie",
+    "heading": "Spolupráca v oblasti výživy",
+    "body1": "Tréning je len jedna polovica rovnice. Alessandro spolupracuje s výživovými poradcami a kuchármi, aby vám poskytol komplexný prístup k zdravému stravovaniu, ktorý je chutný a udržateľný.",
+    "body2": "Naše výživové programy sú navrhnuté tak, aby doplnili váš tréning, urýchlili výsledky a naučili vás jesť zdravo bez stresu a obmedzení.",
+    "cta": "Odoberať novinky"
+  },
+  "financing": {
+    "tag": "Dostupné pre každého",
+    "heading": "La Bella Vita — Program financovania",
+    "body": "Veríme, že prémiový tréning by mal byť dostupný pre každého. Náš program splátok vám umožňuje rozložiť náklady na tréning do pohodlných mesačných platieb bez úrokov. Začnite svoju transformáciu ešte dnes — bez finančného stresu.",
+    "features": [
+      "Bez úrokov",
+      "Flexibilné splátky",
+      "Žiadne skryté poplatky",
+      "Okamžitý štart"
+    ],
+    "cta": "Zistiť viac"
+  },
+  "testimonials": {
+    "tag": "Čo hovoria klienti",
+    "heading": "Recenzie z Google",
+    "subheading": "Prečítajte si, čo o spolupráci s Alessandrom hovoria jeho klienti.",
+    "items": [
+      {
+        "name": "Martina K.",
+        "quote": "Alessandro je neuveriteľný tréner. Za 3 mesiace som schudla 12 kg a cítim sa lepšie ako kedykoľvek predtým. Jeho prístup je motivujúci a profesionálny."
+      },
+      {
+        "name": "Tomáš B.",
+        "quote": "Vždy som si myslel, že osobný tréner je luxus. Po spolupráci s Alessandrom viem, že je to investícia, ktorá sa oplatí. Výsledky hovorí za seba."
+      },
+      {
+        "name": "Lucia M.",
+        "quote": "La Bella Vita zmenila môj pohľad na fitness. Alessandro nie je len tréner — je to mentor, ktorý vás skutočne zaujíma ako celok."
+      }
+    ]
+  },
+  "community": {
+    "tag": "Pripojte sa k nám",
+    "heading": "La Bella Vita komunita",
+    "subheading": "Staňte sa súčasťou rodiny ľudí, ktorí si vybrali lepší životný štýl. Zdieľame pokroky, recepty, motiváciu a radosť z pohybu.",
+    "comingSoon": "Fotografia čoskoro"
+  },
+  "contact": {
+    "tag": "Začnime",
+    "heading": "Kontaktujte nás",
+    "subheading": "Ste pripravení na zmenu? Napíšte nám a my sa ozveme do 24 hodín.",
+    "name": "Meno a priezvisko",
+    "email": "E-mailová adresa",
+    "phone": "Telefónne číslo",
+    "message": "Vaša správa",
+    "submit": "Odoslať správu",
+    "mapPlaceholder": "Mapa sa načítava..."
+  },
+  "footer": {
+    "tagline": "Prémiovývý osobný tréning pre vašu najlepšiu verziu.",
+    "rights": "Všetky práva vyhradené."
+  }
+}
