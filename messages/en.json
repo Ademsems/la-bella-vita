@@ -1,114 +1,171 @@
 {
   "nav": {
     "about": "About",
-    "gallery": "Gallery",
+    "pillars": "Four Pillars",
+    "transformations": "Stories",
     "howIWork": "How I Work",
-    "food": "Nutrition",
-    "financing": "Financing",
-    "testimonials": "Reviews",
-    "community": "Community",
+    "events": "Events",
+    "corporate": "Corporate",
     "contact": "Contact",
-    "bookSession": "Book Now"
+    "book": "Book Now"
   },
   "hero": {
-    "heading": "Transform Your Life with La Bella Vita",
-    "subheading": "Premium personal training designed to unlock the best version of you — body, mind, and spirit.",
-    "cta": "Book a Session"
+    "headline": "LA BELLA VITA",
+    "subheadline": "Live a beautiful life.",
+    "cta": "Book a Consultation"
+  },
+  "quote": {
+    "text": "Health is not everything. But without health, everything is nothing.",
+    "attribution": "— Arthur Schopenhauer"
+  },
+  "pillars": {
+    "tag": "Philosophy",
+    "heading": "Four Pillars",
+    "subheading": "A beautiful life is built on four foundations. Each one is essential. Together, they are unbeatable.",
+    "items": [
+      {
+        "italian": "MOVIMENTO",
+        "title": "Movement",
+        "desc": "The body is made to move. We will find an exercise you love — not one that punishes you."
+      },
+      {
+        "italian": "NUTRIZIONE",
+        "title": "Nutrition",
+        "desc": "Food is pleasure, not penance. Mediterranean nutrition philosophy for everyday life."
+      },
+      {
+        "italian": "COMUNITÀ",
+        "title": "Community",
+        "desc": "Surround yourself with people who inspire you. Together we go further and stay the course longer."
+      },
+      {
+        "italian": "MENTALITÀ",
+        "title": "Mindset",
+        "desc": "Change begins in the mind. We will teach you to think like someone who truly takes care of themselves."
+      }
+    ]
   },
   "about": {
-    "tag": "Meet the trainer",
-    "heading": "Alessandro — Your Personal Trainer",
-    "body1": "Alessandro is a certified personal trainer with over 10 years of experience in fitness and wellness. His philosophy blends science-backed training methods with a holistic approach to healthy living.",
-    "body2": "Every client is a unique project. Alessandro crafts individual training plans tailored to your goals, fitness level, and lifestyle — whether you want to lose weight, build muscle, or improve overall performance.",
-    "body3": "With La Bella Vita, you don't just get a trainer — you get a partner on the journey to your best self.",
-    "cta": "Let's get started"
+    "tag": "Story",
+    "heading": "Alessandro",
+    "subheading": "Coach, guide, community member.",
+    "body1": "I grew up by the sea — in an environment where movement, food, and friends were a natural part of the day. Not a duty, but a joy. That philosophy came with me.",
+    "body2": "In over ten years of working with clients, I have learned one thing: lasting change does not come from relentless drilling. It comes from genuine interest in oneself — from understanding your body, your rhythm, and your values.",
+    "body3": "La Bella Vita is not a programme. It is a way of life. And I am here to help you find yours.",
+    "cta": "Discover my approach"
   },
-  "gallery": {
-    "tag": "Results speak for themselves",
-    "heading": "Transformation Gallery",
-    "subheading": "Real results from real people. Every story is unique — yours could be next.",
-    "comingSoon": "Image coming soon"
+  "transformations": {
+    "tag": "Results",
+    "heading": "Transformation Stories",
+    "subheading": "No before-and-after shots. Just real stories from real people who chose a different life.",
+    "badge": "Visbody Analysis",
+    "items": [
+      {
+        "name": "Martina, 34",
+        "story": "After my second child I felt lost in my own body. Alessandro helped me find myself again — not just physically, but above all mentally. In eight months I lost 14 kg, but more importantly, I now look forward to moving every morning."
+      },
+      {
+        "name": "Tomáš, 41",
+        "story": "I work in a corporate office, sitting eight hours a day. My spine was sending signals that this could not go on. With Alessandro we built a plan around my packed schedule. Today I have the strength I had at twenty-five."
+      },
+      {
+        "name": "Katarína, 28",
+        "story": "I was never a 'sporty person'. La Bella Vita showed me that movement does not have to be aggressive or stressful. Now we run together by the sea twice a week and I look forward to it all day."
+      }
+    ]
+  },
+  "cta1": {
+    "sentence": "Maybe today is the day you begin.",
+    "button": "Book a consultation"
   },
   "howIWork": {
-    "tag": "My approach",
+    "tag": "Process",
     "heading": "How I Work",
-    "subheading": "A simple, transparent, and effective process that gets you results.",
+    "subheading": "No generic plans. Only your plan — from the first meeting to your first milestone.",
     "steps": [
       {
-        "title": "First Consultation",
-        "desc": "A free meeting where we get to know each other, discuss your goals, and build a roadmap."
+        "title": "First Meeting",
+        "desc": "A free one-hour consultation — we get to know each other, discuss your goals, and I find out what you truly need."
       },
       {
-        "title": "Personalised Plan",
-        "desc": "I design a training and nutrition programme built specifically for you — no generic templates."
+        "title": "Body Analysis",
+        "desc": "A Visbody scan reveals exact body composition, muscle imbalances, and metabolic values — data, not guesswork."
       },
       {
-        "title": "Training & Support",
-        "desc": "We train together and I'm available 7 days a week for questions, motivation, and guidance."
+        "title": "Your Plan",
+        "desc": "Based on the analysis I build a training and nutrition plan made specifically for you. No templates from the internet."
       },
       {
-        "title": "Progress Tracking",
-        "desc": "We regularly review results and adjust your plan so you keep moving forward without plateaus."
+        "title": "The Journey Together",
+        "desc": "We train together, regularly review progress, and fine-tune the plan along the way. I am available to you every day."
       }
     ]
   },
   "food": {
-    "tag": "Nutrition & Health",
-    "heading": "Food Collaboration",
-    "body1": "Training is only half the equation. Alessandro partners with nutritionists and chefs to give you a complete approach to healthy eating that is delicious, practical, and sustainable.",
-    "body2": "Our nutrition programmes are designed to complement your training, accelerate results, and teach you how to eat well without stress or restriction.",
-    "cta": "Subscribe for updates"
+    "tag": "Nutrition",
+    "heading": "Food as pleasure,\nnot punishment.",
+    "body1": "I collaborate with certified nutritionist Zuzana Nováková, who shares my Mediterranean nutrition philosophy. Together we create nutritional plans that are delicious, sustainable, and adapted to your lifestyle.",
+    "body2": "No forbidden foods. No counting calories down to the last gram. Instead, we teach you to eat intelligently — with your head and with pleasure.",
+    "cta": "Subscribe for nutrition news"
   },
   "financing": {
-    "tag": "Accessible to everyone",
+    "tag": "Accessibility",
     "heading": "La Bella Vita Financing Programme",
-    "body": "We believe premium training should be within reach for everyone. Our instalment payment plan lets you spread the cost of your training into convenient monthly payments with zero interest. Start your transformation today — without financial stress.",
+    "body": "We believe health care should never be a question of finances. That is why we offer a flexible, zero-interest instalment plan — spread your investment in your own health into comfortable monthly payments and start without stress.",
     "features": [
       "Zero interest",
-      "Flexible instalments",
+      "3 to 12 months",
       "No hidden fees",
       "Immediate start"
     ],
     "cta": "Learn More"
   },
-  "testimonials": {
-    "tag": "What clients say",
-    "heading": "Google Reviews",
-    "subheading": "Read what Alessandro's clients say about training with him.",
-    "items": [
-      {
-        "name": "Martina K.",
-        "quote": "Alessandro is an incredible trainer. In 3 months I lost 12 kg and feel better than ever. His approach is motivating and completely professional."
-      },
-      {
-        "name": "Tomáš B.",
-        "quote": "I always thought a personal trainer was a luxury. After working with Alessandro I know it's an investment that pays for itself. The results speak for themselves."
-      },
-      {
-        "name": "Lucia M.",
-        "quote": "La Bella Vita changed my view of fitness. Alessandro is not just a trainer — he's a mentor who genuinely cares about you as a whole person."
-      }
-    ]
+  "events": {
+    "tag": "Community in motion",
+    "heading": "La Bella Vita Events",
+    "subheading": "Something happens every week. Join in — movement is more beautiful when you share it.",
+    "filters": ["All", "Running", "Volleyball", "Breakfast", "Workshop", "Sea", "Community"],
+    "comingSoon": "Photo coming soon"
   },
-  "community": {
-    "tag": "Join us",
-    "heading": "La Bella Vita Community",
-    "subheading": "Become part of a family of people who chose a better lifestyle. We share progress, recipes, motivation, and the joy of movement.",
-    "comingSoon": "Image coming soon"
+  "cta2": {
+    "sentence": "Your best year starts with one step.",
+    "button": "Let's begin together"
+  },
+  "corporate": {
+    "tag": "For Companies",
+    "heading": "Corporate Wellbeing",
+    "subheading": "Healthy employees are more productive, happier, and more loyal. Investing in wellbeing is investing in your business.",
+    "offerings": [
+      "Group training sessions at your office or in nature",
+      "Wellness workshops and talks on healthy living",
+      "Visbody body-composition analysis for the whole team",
+      "Nutritional consulting and healthy workplace eating",
+      "Team-building activities in motion — running, volleyball, swimming",
+      "Long-term wellness programmes tailored to your company culture"
+    ],
+    "cta": "Schedule a corporate meeting"
+  },
+  "instagram": {
+    "tag": "Community",
+    "heading": "Follow Us",
+    "subheading": "Daily inspiration, movement, and beautiful life — straight to your feed.",
+    "loading": "Content loading...",
+    "follow": "Follow"
   },
   "contact": {
     "tag": "Let's begin",
-    "heading": "Contact Us",
-    "subheading": "Ready for change? Write to us and we'll get back to you within 24 hours.",
+    "heading": "Book a Consultation",
+    "subheading": "Write to us — we will get back to you within 24 hours and set your first step together.",
     "name": "Full name",
     "email": "Email address",
     "phone": "Phone number",
-    "message": "Your message",
-    "submit": "Send message",
-    "mapPlaceholder": "Map loading..."
+    "message": "What brought you to us?",
+    "submit": "Send",
+    "success": "Thank you! We will be in touch soon.",
+    "mapFallback": "Map coming soon"
   },
   "footer": {
-    "tagline": "Premium personal training for your best self.",
+    "tagline": "Live a beautiful life.",
     "rights": "All rights reserved."
   }
 }

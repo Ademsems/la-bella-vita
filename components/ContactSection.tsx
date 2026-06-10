@@ -3,124 +3,151 @@
 import { motion } from "framer-motion";
 import { useT } from "@/lib/i18n";
 import { useState } from "react";
+import { GOOGLE_MAPS_EMBED_URL } from "@/lib/config";
 
-// TODO: Replace with the real Google My Business embed URL
-const GOOGLE_MAPS_EMBED_URL = "";
+// TODO: Replace GOOGLE_MAPS_EMBED_URL in lib/config.ts with the real Google My Business embed URL
+// TODO: Replace GOOGLE_PLACE_ID in lib/config.ts when live Google reviews are needed
 
 export default function ContactSection() {
   const { t } = useT("contact");
   const [form, setForm] = useState({ name: "", email: "", phone: "", message: "" });
   const [submitted, setSubmitted] = useState(false);
+  const [busy, setBusy] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // TODO: wire up form submission (email service / API route)
+    setBusy(true);
+    // TODO: Replace console.log with Resend (or similar) API call
+    // e.g.: await fetch("/api/contact", { method: "POST", body: JSON.stringify(form) })
+    console.log("Contact form submission:", form);
+    await new Promise((r) => setTimeout(r, 600)); // simulate latency
+    setBusy(false);
     setSubmitted(true);
   };
 
   return (
-    <section id="contact" className="py-24 bg-gray-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="contact" className="py-24 bg-white">
+      <div className="max-w-7xl mx-auto px-5 sm:px-8">
+
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.7, ease: "easeOut" }}
           className="text-center mb-16"
         >
-          <span className="text-[#0BBCD4] font-semibold text-sm uppercase tracking-widest">{t("tag")}</span>
-          <h2 className="mt-3 text-4xl md:text-5xl font-bold text-gray-900">{t("heading")}</h2>
-          <p className="mt-4 text-gray-600 text-lg max-w-2xl mx-auto">{t("subheading")}</p>
+          <p className="font-inter text-xs text-turquoise font-semibold uppercase tracking-[0.2em] mb-3">
+            {t("tag")}
+          </p>
+          <h2 className="font-cormorant text-5xl md:text-6xl font-semibold text-gray-900">
+            {t("heading")}
+          </h2>
+          <p className="mt-4 font-inter text-gray-500 text-base max-w-xl mx-auto leading-relaxed">
+            {t("subheading")}
+          </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
+
+          {/* Form — left */}
           <motion.div
             initial={{ opacity: 0, x: -40 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.7 }}
+            transition={{ duration: 0.7, ease: "easeOut" }}
           >
             {submitted ? (
-              <div className="flex flex-col items-center justify-center h-full py-16 text-center">
-                <div className="w-16 h-16 rounded-full bg-[#0BBCD4] flex items-center justify-center mb-4 shadow-lg">
-                  <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+              <div className="flex flex-col items-center justify-center h-full py-20 text-center">
+                <div className="w-16 h-16 rounded-full bg-turquoise/10 flex items-center justify-center mb-5">
+                  <svg className="w-8 h-8 text-turquoise" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M5 13l4 4L19 7" />
                   </svg>
                 </div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-2">Ďakujeme!</h3>
-                <p className="text-gray-600">Ozveme sa vám do 24 hodín.</p>
+                <h3 className="font-cormorant text-3xl font-semibold text-gray-900 mb-2">
+                  {t("success")}
+                </h3>
+                <div className="h-px w-12 bg-gold mx-auto mt-4" />
               </div>
             ) : (
-              <form onSubmit={handleSubmit} className="space-y-5">
+              <form onSubmit={handleSubmit} className="space-y-4">
+                {/* Name */}
                 <input
                   type="text"
                   placeholder={t("name")}
                   value={form.name}
                   onChange={(e) => setForm({ ...form, name: e.target.value })}
                   required
-                  className="w-full px-5 py-4 rounded-2xl border border-gray-200 bg-white focus:outline-none focus:ring-2 focus:ring-[#0BBCD4] focus:border-transparent transition text-gray-900 placeholder-gray-400"
+                  className="w-full px-5 py-4 rounded-2xl border border-champagne bg-champagne/50 focus:bg-white focus:border-turquoise/50 focus:outline-none focus:ring-2 focus:ring-turquoise/20 transition-all font-inter text-[15px] text-gray-800 placeholder-gray-400"
                 />
+                {/* Email */}
                 <input
                   type="email"
                   placeholder={t("email")}
                   value={form.email}
                   onChange={(e) => setForm({ ...form, email: e.target.value })}
                   required
-                  className="w-full px-5 py-4 rounded-2xl border border-gray-200 bg-white focus:outline-none focus:ring-2 focus:ring-[#0BBCD4] focus:border-transparent transition text-gray-900 placeholder-gray-400"
+                  className="w-full px-5 py-4 rounded-2xl border border-champagne bg-champagne/50 focus:bg-white focus:border-turquoise/50 focus:outline-none focus:ring-2 focus:ring-turquoise/20 transition-all font-inter text-[15px] text-gray-800 placeholder-gray-400"
                 />
+                {/* Phone */}
                 <input
                   type="tel"
                   placeholder={t("phone")}
                   value={form.phone}
                   onChange={(e) => setForm({ ...form, phone: e.target.value })}
-                  className="w-full px-5 py-4 rounded-2xl border border-gray-200 bg-white focus:outline-none focus:ring-2 focus:ring-[#0BBCD4] focus:border-transparent transition text-gray-900 placeholder-gray-400"
+                  className="w-full px-5 py-4 rounded-2xl border border-champagne bg-champagne/50 focus:bg-white focus:border-turquoise/50 focus:outline-none focus:ring-2 focus:ring-turquoise/20 transition-all font-inter text-[15px] text-gray-800 placeholder-gray-400"
                 />
+                {/* Message */}
                 <textarea
                   placeholder={t("message")}
                   value={form.message}
                   onChange={(e) => setForm({ ...form, message: e.target.value })}
                   rows={5}
                   required
-                  className="w-full px-5 py-4 rounded-2xl border border-gray-200 bg-white focus:outline-none focus:ring-2 focus:ring-[#0BBCD4] focus:border-transparent transition text-gray-900 placeholder-gray-400 resize-none"
+                  className="w-full px-5 py-4 rounded-2xl border border-champagne bg-champagne/50 focus:bg-white focus:border-turquoise/50 focus:outline-none focus:ring-2 focus:ring-turquoise/20 transition-all font-inter text-[15px] text-gray-800 placeholder-gray-400 resize-none"
                 />
                 <button
                   type="submit"
-                  className="w-full py-4 bg-[#0BBCD4] text-white font-semibold rounded-2xl hover:bg-[#0891b2] hover:shadow-lg hover:shadow-[#0BBCD4]/30 transition-all duration-300 text-lg"
+                  disabled={busy}
+                  className="w-full py-4 bg-turquoise text-white font-inter font-semibold text-sm rounded-2xl hover:bg-turquoise/90 hover:shadow-lg hover:shadow-turquoise/25 transition-all duration-300 disabled:opacity-60 disabled:cursor-not-allowed"
                 >
-                  {t("submit")}
+                  {busy ? "..." : t("submit")}
                 </button>
               </form>
             )}
           </motion.div>
 
+          {/* Map — right */}
           <motion.div
             initial={{ opacity: 0, x: 40 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.7 }}
-            className="rounded-3xl overflow-hidden shadow-lg min-h-[400px]"
+            transition={{ duration: 0.7, ease: "easeOut" }}
+            className="rounded-3xl overflow-hidden min-h-[420px] shadow-sm border border-champagne"
           >
             {GOOGLE_MAPS_EMBED_URL ? (
               <iframe
                 src={GOOGLE_MAPS_EMBED_URL}
                 width="100%"
                 height="100%"
-                style={{ border: 0, minHeight: "400px" }}
+                style={{ border: 0, minHeight: "420px" }}
                 allowFullScreen
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
-                title="Google Maps"
+                title="La Bella Vita — Google Maps"
               />
             ) : (
-              /* TODO: Replace GOOGLE_MAPS_EMBED_URL with the real Google My Business embed URL */
-              <div className="w-full h-full min-h-[400px] bg-gradient-to-br from-[#0BBCD4]/10 to-[#0891b2]/10 flex flex-col items-center justify-center gap-4">
-                <div className="w-16 h-16 rounded-full bg-[#0BBCD4]/20 flex items-center justify-center">
-                  <svg className="w-8 h-8 text-[#0BBCD4]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+              /* TODO: Set GOOGLE_MAPS_EMBED_URL in lib/config.ts */
+              <div className="w-full h-full min-h-[420px] bg-gradient-to-br from-turquoise/8 to-med-blue/10 flex flex-col items-center justify-center gap-4">
+                <div className="w-14 h-14 rounded-full bg-turquoise/10 flex items-center justify-center">
+                  <svg className="w-7 h-7 text-turquoise" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5}
+                      d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5}
+                      d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                   </svg>
                 </div>
-                <p className="text-gray-500 font-medium">{t("mapPlaceholder")}</p>
+                <p className="font-inter text-sm text-gray-400 font-medium">{t("mapFallback")}</p>
+                <div className="h-px w-8 bg-gold/40" />
               </div>
             )}
           </motion.div>

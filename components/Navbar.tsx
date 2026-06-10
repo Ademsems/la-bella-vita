@@ -3,61 +3,62 @@
 import { useEffect, useState } from "react";
 import { useI18n, useT } from "@/lib/i18n";
 
-const navIds = [
-  { key: "about", id: "about" },
-  { key: "gallery", id: "gallery" },
-  { key: "howIWork", id: "how-i-work" },
-  { key: "food", id: "food" },
-  { key: "financing", id: "financing" },
-  { key: "testimonials", id: "testimonials" },
-  { key: "community", id: "community" },
-  { key: "contact", id: "contact" },
+const NAV_ITEMS = [
+  { key: "about",           id: "about" },
+  { key: "pillars",         id: "pillars" },
+  { key: "transformations", id: "transformations" },
+  { key: "howIWork",        id: "how-i-work" },
+  { key: "events",          id: "events" },
+  { key: "corporate",       id: "corporate" },
+  { key: "contact",         id: "contact" },
 ];
 
 export default function Navbar() {
-  const { t } = useT("nav");
+  const { t }            = useT("nav");
   const { locale, setLocale } = useI18n();
   const [scrolled, setScrolled] = useState(false);
-  const [menuOpen, setMenuOpen] = useState(false);
+  const [open,     setOpen]     = useState(false);
 
   useEffect(() => {
-    const handler = () => setScrolled(window.scrollY > 60);
-    window.addEventListener("scroll", handler, { passive: true });
-    return () => window.removeEventListener("scroll", handler);
+    const fn = () => setScrolled(window.scrollY > 56);
+    window.addEventListener("scroll", fn, { passive: true });
+    return () => window.removeEventListener("scroll", fn);
   }, []);
 
   const scrollTo = (id: string) => {
-    setMenuOpen(false);
+    setOpen(false);
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
   };
 
-  const toggleLocale = () => setLocale(locale === "sk" ? "en" : "sk");
-
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled ? "bg-white shadow-md" : "bg-transparent"
+      className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${
+        scrolled
+          ? "bg-white/95 backdrop-blur-md shadow-sm"
+          : "bg-transparent"
       }`}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
+      <div className="max-w-7xl mx-auto px-5 sm:px-8 flex items-center justify-between h-16">
+
         {/* Logo */}
         <button
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-          aria-label="La Bella Vita"
+          aria-label="La Bella Vita — home"
+          className="flex-shrink-0 group"
         >
-          <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-[#0BBCD4] to-[#0891b2] flex items-center justify-center shadow-lg hover:scale-105 transition-transform">
-            <span className="text-white font-bold text-sm tracking-widest">LVB</span>
+          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-turquoise to-med-blue flex items-center justify-center shadow-md group-hover:shadow-turquoise/40 group-hover:scale-105 transition-all duration-300">
+            <span className="text-white font-bold text-xs tracking-[0.15em] font-inter">LVB</span>
           </div>
         </button>
 
         {/* Desktop nav */}
-        <nav className="hidden lg:flex items-center gap-6">
-          {navIds.map(({ key, id }) => (
+        <nav className="hidden xl:flex items-center gap-7">
+          {NAV_ITEMS.map(({ key, id }) => (
             <button
               key={key}
               onClick={() => scrollTo(id)}
-              className={`text-sm font-medium transition-colors hover:text-[#0BBCD4] ${
-                scrolled ? "text-gray-700" : "text-white"
+              className={`text-[13px] font-medium tracking-wide transition-colors duration-200 hover:text-turquoise ${
+                scrolled ? "text-gray-700" : "text-white/90"
               }`}
             >
               {t(key)}
@@ -65,14 +66,14 @@ export default function Navbar() {
           ))}
         </nav>
 
-        {/* Right side */}
+        {/* Right: locale + book CTA */}
         <div className="flex items-center gap-3">
           <button
-            onClick={toggleLocale}
-            className={`text-xs font-semibold px-3 py-1.5 rounded-full border transition-all hover:scale-105 ${
+            onClick={() => setLocale(locale === "sk" ? "en" : "sk")}
+            className={`text-[11px] font-semibold tracking-widest px-3 py-1.5 rounded-full border transition-all duration-300 hover:scale-105 ${
               scrolled
-                ? "border-[#0BBCD4] text-[#0BBCD4] hover:bg-[#0BBCD4] hover:text-white"
-                : "border-white text-white hover:bg-white hover:text-[#0BBCD4]"
+                ? "border-turquoise text-turquoise hover:bg-turquoise hover:text-white"
+                : "border-white/70 text-white hover:bg-white hover:text-turquoise"
             }`}
           >
             {locale === "sk" ? "EN" : "SK"}
@@ -80,47 +81,51 @@ export default function Navbar() {
 
           <button
             onClick={() => scrollTo("contact")}
-            className="hidden sm:block text-sm font-semibold px-4 py-2 rounded-full bg-[#0BBCD4] text-white hover:bg-[#0891b2] hover:shadow-lg hover:scale-105 transition-all"
+            className={`hidden sm:block text-[13px] font-semibold px-5 py-2 rounded-full border transition-all duration-300 hover:scale-105 ${
+              scrolled
+                ? "bg-turquoise text-white border-turquoise hover:bg-turquoise/90 hover:shadow-lg hover:shadow-turquoise/25"
+                : "bg-white/10 backdrop-blur-sm text-white border-white/50 hover:bg-white hover:text-turquoise"
+            }`}
           >
-            {t("bookSession")}
+            {t("book")}
           </button>
 
+          {/* Hamburger */}
           <button
-            onClick={() => setMenuOpen(!menuOpen)}
-            className={`lg:hidden p-1 ${scrolled ? "text-gray-700" : "text-white"}`}
-            aria-label="Menu"
+            onClick={() => setOpen(!open)}
+            className={`xl:hidden p-1.5 ${scrolled ? "text-gray-700" : "text-white"}`}
+            aria-label="Toggle menu"
           >
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              {menuOpen ? (
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-              ) : (
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-              )}
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              {open
+                ? <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M6 18L18 6M6 6l12 12" />
+                : <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M4 6h16M4 12h16M4 18h16" />
+              }
             </svg>
           </button>
         </div>
       </div>
 
-      {/* Mobile menu */}
-      {menuOpen && (
-        <div className="lg:hidden bg-white border-t shadow-lg py-4 px-6 flex flex-col gap-3">
-          {navIds.map(({ key, id }) => (
+      {/* Mobile drawer */}
+      <div className={`xl:hidden overflow-hidden transition-all duration-300 ${open ? "max-h-screen" : "max-h-0"}`}>
+        <div className="bg-white/98 backdrop-blur-md border-t border-champagne px-5 py-4 flex flex-col gap-1">
+          {NAV_ITEMS.map(({ key, id }) => (
             <button
               key={key}
               onClick={() => scrollTo(id)}
-              className="text-left text-gray-700 font-medium hover:text-[#0BBCD4] transition-colors py-1"
+              className="text-left py-2.5 text-[14px] font-medium text-gray-700 hover:text-turquoise transition-colors"
             >
               {t(key)}
             </button>
           ))}
           <button
             onClick={() => scrollTo("contact")}
-            className="mt-2 text-sm font-semibold px-4 py-2 rounded-full bg-[#0BBCD4] text-white hover:bg-[#0891b2] transition-all"
+            className="mt-3 py-3 bg-turquoise text-white font-semibold rounded-full text-sm hover:bg-turquoise/90 transition-colors"
           >
-            {t("bookSession")}
+            {t("book")}
           </button>
         </div>
-      )}
+      </div>
     </header>
   );
 }

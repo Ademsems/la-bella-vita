@@ -1,96 +1,104 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useRef } from "react";
+import { motion } from "framer-motion";
 import { useT } from "@/lib/i18n";
-
-const slides = [
-  { gradient: "from-[#0BBCD4] via-[#0891b2] to-[#0e7490]" },
-  { gradient: "from-[#F472B6] via-[#ec4899] to-[#be185d]" },
-  { gradient: "from-[#0BBCD4] via-[#a855f7] to-[#F472B6]" },
-  { gradient: "from-[#0e7490] via-[#0BBCD4] to-[#67e8f9]" },
-  { gradient: "from-[#be185d] via-[#F472B6] to-[#fda4af]" },
-];
+import { HERO_VIDEO_URL } from "@/lib/config";
 
 export default function HeroSection() {
   const { t } = useT("hero");
-  const [current, setCurrent] = useState(0);
+  const videoRef = useRef<HTMLVideoElement>(null);
 
-  useEffect(() => {
-    const timer = setInterval(() => setCurrent((c) => (c + 1) % slides.length), 4000);
-    return () => clearInterval(timer);
-  }, []);
+  const scrollToContact = () =>
+    document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
 
   return (
     <section className="relative h-screen w-full overflow-hidden">
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={current}
-          className={`absolute inset-0 bg-gradient-to-br ${slides[current].gradient}`}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 1 }}
+
+      {/* ── Background: video OR gradient fallback ─────────────────────── */}
+      {HERO_VIDEO_URL ? (
+        <video
+          ref={videoRef}
+          src={HERO_VIDEO_URL}
+          autoPlay
+          muted
+          loop
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover"
         />
-      </AnimatePresence>
+      ) : (
+        /* Gradient fallback — slow Ken Burns on a colour wash */
+        <div className="absolute inset-0 bg-gradient-to-br from-[#3ab5b7] via-[#5ecdd0] to-[#a8e6e8] overflow-hidden">
+          {/* Animated blob shapes for visual interest */}
+          <div
+            className="absolute inset-0 opacity-30"
+            style={{
+              background:
+                "radial-gradient(ellipse 80% 60% at 30% 40%, #7ED6E0 0%, transparent 70%), radial-gradient(ellipse 60% 80% at 70% 70%, #F4D7D0 0%, transparent 60%)",
+              animation: "ken-burns 12s ease-in-out infinite alternate",
+            }}
+          />
+          <div className="absolute bottom-0 left-0 right-0 h-1/3 bg-gradient-to-t from-black/20 to-transparent" />
+        </div>
+      )}
 
-      <div className="absolute inset-0 bg-black/30" />
-      <div className="absolute top-20 right-10 w-64 h-64 rounded-full border border-white/10 animate-pulse" />
-      <div className="absolute bottom-20 left-10 w-96 h-96 rounded-full border border-white/10 animate-pulse" style={{ animationDelay: "1s" }} />
+      {/* ── Dark overlay ────────────────────────────────────────────────── */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/10 to-black/50" />
 
-      <div className="relative z-10 h-full flex flex-col items-center justify-center text-center px-4">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          className="mb-4"
+      {/* ── Soft bottom vignette ────────────────────────────────────────── */}
+      <div className="absolute bottom-0 inset-x-0 h-48 bg-gradient-to-t from-white/30 to-transparent pointer-events-none" />
+
+      {/* ── Content ─────────────────────────────────────────────────────── */}
+      <div className="relative z-10 h-full flex flex-col items-center justify-center text-center px-6">
+        <motion.p
+          initial={{ opacity: 0, letterSpacing: "0.5em" }}
+          animate={{ opacity: 1, letterSpacing: "0.35em" }}
+          transition={{ duration: 1.4, ease: "easeOut" }}
+          className="text-white/70 text-xs font-inter font-medium tracking-[0.35em] uppercase mb-6"
         >
-          <div className="w-16 h-16 mx-auto rounded-2xl bg-white/20 backdrop-blur-sm flex items-center justify-center mb-6 shadow-2xl">
-            <span className="text-white font-bold text-2xl tracking-widest">LVB</span>
-          </div>
-        </motion.div>
+          Wellness · Movement · Community
+        </motion.p>
 
         <motion.h1
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-          className="text-4xl md:text-6xl lg:text-7xl font-bold text-white max-w-4xl leading-tight mb-6"
-          style={{ fontFamily: "var(--font-cormorant)" }}
+          transition={{ duration: 1, delay: 0.3, ease: "easeOut" }}
+          className="font-playfair text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-bold text-white tracking-wider leading-none mb-5"
         >
-          {t("heading")}
+          {t("headline")}
         </motion.h1>
 
         <motion.p
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.6 }}
-          className="text-lg md:text-xl text-white/90 max-w-2xl mb-10"
+          transition={{ duration: 1, delay: 0.6, ease: "easeOut" }}
+          className="font-cormorant text-2xl sm:text-3xl text-white/90 italic font-light mb-12"
         >
-          {t("subheading")}
+          {t("subheadline")}
         </motion.p>
 
         <motion.button
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.8 }}
-          onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
-          className="px-8 py-4 bg-white text-[#0BBCD4] font-semibold rounded-full text-lg shadow-2xl hover:shadow-[#0BBCD4]/30 hover:scale-105 hover:bg-[#0BBCD4] hover:text-white transition-all duration-300"
+          transition={{ duration: 0.8, delay: 0.9, ease: "easeOut" }}
+          onClick={scrollToContact}
+          className="group px-9 py-4 bg-white text-turquoise font-inter font-semibold text-sm tracking-wide rounded-full border border-gold hover:bg-turquoise hover:text-white hover:border-turquoise shadow-lg hover:shadow-turquoise/30 transition-all duration-400"
         >
           {t("cta")}
+          <span className="inline-block ml-2 group-hover:translate-x-1 transition-transform duration-300">→</span>
         </motion.button>
       </div>
 
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex gap-2 z-10">
-        {slides.map((_, i) => (
-          <button
-            key={i}
-            onClick={() => setCurrent(i)}
-            className={`h-1.5 rounded-full transition-all duration-300 ${
-              i === current ? "w-8 bg-white" : "w-2 bg-white/40"
-            }`}
-          />
-        ))}
-      </div>
+      {/* ── Scroll indicator ────────────────────────────────────────────── */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.8 }}
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
+      >
+        <span className="text-white/50 text-[10px] font-inter tracking-[0.2em] uppercase">Scroll</span>
+        <div className="w-px h-10 bg-gradient-to-b from-white/50 to-transparent animate-pulse" />
+      </motion.div>
     </section>
   );
 }

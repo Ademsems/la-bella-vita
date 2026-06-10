@@ -8,51 +8,51 @@ export default function FinancingSection() {
   const features = tRaw("features") as string[];
 
   return (
-    <section id="financing" className="py-24 bg-gradient-to-br from-[#0BBCD4] via-[#0891b2] to-[#0e7490] relative overflow-hidden">
-      <div className="absolute top-0 right-0 w-96 h-96 rounded-full bg-white/5 -translate-y-1/2 translate-x-1/2" />
-      <div className="absolute bottom-0 left-0 w-64 h-64 rounded-full bg-white/5 translate-y-1/2 -translate-x-1/2" />
-
-      <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+    <section id="financing" className="py-24 bg-champagne">
+      <div className="max-w-5xl mx-auto px-5 sm:px-8 text-center">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.7, ease: "easeOut" }}
         >
-          <span className="text-white/70 font-semibold text-sm uppercase tracking-widest">{t("tag")}</span>
-          <h2 className="mt-3 text-4xl md:text-5xl font-bold text-white leading-tight">{t("heading")}</h2>
-          <p className="mt-6 text-white/90 text-lg leading-relaxed max-w-2xl mx-auto">{t("body")}</p>
+          <p className="font-inter text-xs text-turquoise font-semibold uppercase tracking-[0.2em] mb-4">
+            {t("tag")}
+          </p>
+          <h2 className="font-cormorant text-4xl md:text-5xl font-semibold text-gray-900 mb-6">
+            {t("heading")}
+          </h2>
+          <p className="font-inter text-gray-500 text-base max-w-2xl mx-auto leading-relaxed mb-12">
+            {t("body")}
+          </p>
 
-          <div className="mt-10 grid grid-cols-2 md:grid-cols-4 gap-4">
-            {Array.isArray(features) && features.map((feature, i) => (
+          {/* Feature chips */}
+          <div className="flex flex-wrap justify-center gap-4 mb-12">
+            {Array.isArray(features) && features.map((f, i) => (
               <motion.div
                 key={i}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
-                className="bg-white/10 backdrop-blur-sm rounded-2xl px-4 py-5 text-white font-medium hover:bg-white/20 transition-colors"
+                transition={{ delay: i * 0.1, duration: 0.5 }}
+                className="flex items-center gap-2 bg-white rounded-full px-5 py-2.5 shadow-sm border border-gold/20"
               >
-                <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center mx-auto mb-2">
-                  <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                <div className="w-5 h-5 rounded-full bg-turquoise/10 flex items-center justify-center flex-shrink-0">
+                  <svg className="w-3 h-3 text-turquoise" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
                   </svg>
                 </div>
-                {feature}
+                <span className="font-inter text-sm text-gray-700 font-medium">{f}</span>
               </motion.div>
             ))}
           </div>
 
-          <motion.button
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.4 }}
+          <button
             onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
-            className="mt-10 px-10 py-4 bg-white text-[#0BBCD4] font-semibold rounded-full text-lg hover:shadow-2xl hover:scale-105 transition-all duration-300"
+            className="px-9 py-4 bg-turquoise text-white font-inter font-semibold text-sm rounded-full hover:bg-turquoise/90 hover:shadow-lg hover:shadow-turquoise/25 hover:scale-105 transition-all duration-300"
           >
             {t("cta")}
-          </motion.button>
+          </button>
         </motion.div>
       </div>
     </section>

@@ -9,21 +9,39 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        primary: "#0BBCD4",
-        accent: "#F472B6",
+        // Primary
+        turquoise: "#4BC6C8",
+        "med-blue": "#7ED6E0",
+        // Secondary
+        "powder-pink": "#F4D7D0",
+        champagne: "#F5EFE6",
+        beige: "#EDE4D8",
+        // Accent — use sparingly
+        gold: "#C6A769",
       },
       fontFamily: {
-        heading: ["var(--font-cormorant)", "serif"],
-        body: ["var(--font-inter)", "sans-serif"],
+        playfair: ["var(--font-playfair)", "serif"],
+        cormorant: ["var(--font-cormorant)", "serif"],
+        inter: ["var(--font-inter)", "sans-serif"],
       },
       keyframes: {
         shimmer: {
           "0%": { backgroundPosition: "-200% 0" },
           "100%": { backgroundPosition: "200% 0" },
         },
+        "ken-burns": {
+          "0%": { transform: "scale(1)" },
+          "100%": { transform: "scale(1.08)" },
+        },
+        "fade-in": {
+          "0%": { opacity: "0" },
+          "100%": { opacity: "1" },
+        },
       },
       animation: {
-        shimmer: "shimmer 2s infinite linear",
+        shimmer: "shimmer 2.4s infinite linear",
+        "ken-burns": "ken-burns 12s ease-in-out infinite alternate",
+        "fade-in": "fade-in 1.2s ease-out forwards",
       },
     },
   },

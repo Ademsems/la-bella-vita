@@ -2,47 +2,84 @@
 
 import { motion } from "framer-motion";
 import { useT } from "@/lib/i18n";
+import { FOOD_COLLAB_URL } from "@/lib/config";
 
 export default function FoodSection() {
   const { t } = useT("food");
 
+  // Heading may contain \n for a two-line display
+  const headingLines = t("heading").split("\n");
+
   return (
-    <section id="food" className="py-24 bg-gray-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+    <section id="food" className="py-24 bg-white">
+      <div className="max-w-7xl mx-auto px-5 sm:px-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
+
+          {/* Image — left */}
           <motion.div
-            initial={{ opacity: 0, x: -60 }}
+            initial={{ opacity: 0, x: -48 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7, ease: "easeOut" }}
           >
-            <span className="text-[#F472B6] font-semibold text-sm uppercase tracking-widest">{t("tag")}</span>
-            <h2 className="mt-3 text-4xl md:text-5xl font-bold text-gray-900 leading-tight">{t("heading")}</h2>
-            <div className="mt-6 space-y-4 text-gray-600 text-lg leading-relaxed">
+            <div
+              className="relative w-full rounded-3xl overflow-hidden shadow-xl"
+              style={{ aspectRatio: "4/5" }}
+            >
+              <div className="absolute inset-0 bg-gradient-to-br from-[#f0e0c8] via-[#e8d0b0] to-[#F4D7D0] flex items-center justify-center">
+                <div className="text-center px-8">
+                  <div className="w-16 h-16 rounded-full bg-white/40 mx-auto mb-4 flex items-center justify-center">
+                    <svg className="w-8 h-8 text-white/80" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5}
+                        d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                    </svg>
+                  </div>
+                  <p className="font-inter text-white/70 text-xs tracking-widest uppercase">Mediterranean Nutrition</p>
+                </div>
+              </div>
+              {/* Decorative corner */}
+              <div className="absolute -bottom-3 -right-3 w-16 h-16 border-b border-r border-gold rounded-br-3xl pointer-events-none" />
+            </div>
+          </motion.div>
+
+          {/* Text — right */}
+          <motion.div
+            initial={{ opacity: 0, x: 48 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7, ease: "easeOut" }}
+          >
+            <p className="font-inter text-xs text-turquoise font-semibold uppercase tracking-[0.2em] mb-4">
+              {t("tag")}
+            </p>
+
+            <h2 className="font-cormorant text-4xl md:text-5xl font-semibold text-gray-900 leading-tight mb-8">
+              {headingLines.map((line, i) => (
+                <span key={i}>{line}{i < headingLines.length - 1 && <br />}</span>
+              ))}
+            </h2>
+
+            <div className="space-y-4 font-inter text-gray-500 text-[15px] leading-relaxed mb-10">
               <p>{t("body1")}</p>
               <p>{t("body2")}</p>
             </div>
-            <button className="mt-8 px-8 py-3 bg-[#F472B6] text-white font-semibold rounded-full hover:bg-[#ec4899] hover:shadow-lg hover:shadow-[#F472B6]/30 hover:scale-105 transition-all duration-300">
-              {t("cta")}
-            </button>
-          </motion.div>
 
-          <motion.div
-            initial={{ opacity: 0, x: 60 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.8 }}
-          >
-            <div className="aspect-square rounded-3xl bg-gradient-to-br from-[#F472B6] via-[#ec4899] to-[#be185d] flex items-center justify-center shadow-2xl">
-              <div className="text-center text-white/80 p-8">
-                <div className="w-24 h-24 rounded-full bg-white/20 mx-auto mb-4 flex items-center justify-center">
-                  <svg className="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
-                  </svg>
-                </div>
-                <p className="text-sm font-medium opacity-90">Nutrition & Wellness</p>
-              </div>
-            </div>
+            {/* Subscribe button — href from config, graceful if empty */}
+            {FOOD_COLLAB_URL ? (
+              <a
+                href={FOOD_COLLAB_URL}
+                className="inline-block px-7 py-3 bg-powder-pink text-gray-800 font-inter font-semibold text-sm rounded-full border border-gold/30 hover:bg-beige hover:border-gold/60 hover:shadow-md transition-all duration-300"
+              >
+                {t("cta")}
+              </a>
+            ) : (
+              <button
+                disabled
+                className="px-7 py-3 bg-powder-pink text-gray-800 font-inter font-semibold text-sm rounded-full border border-gold/30 opacity-75 cursor-default"
+              >
+                {t("cta")}
+              </button>
+            )}
           </motion.div>
         </div>
       </div>

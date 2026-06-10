@@ -3,8 +3,17 @@
 @tailwind utilities;
 
 :root {
+  --font-playfair: 'Playfair Display', serif;
   --font-cormorant: 'Cormorant Garamond', serif;
   --font-inter: 'Inter', sans-serif;
+
+  /* Brand colours as CSS vars for easy reuse */
+  --color-turquoise: #4BC6C8;
+  --color-med-blue: #7ED6E0;
+  --color-powder-pink: #F4D7D0;
+  --color-champagne: #F5EFE6;
+  --color-beige: #EDE4D8;
+  --color-gold: #C6A769;
 }
 
 html {
@@ -13,18 +22,54 @@ html {
 
 body {
   font-family: var(--font-inter), sans-serif;
-  color: #1a1a2e;
+  color: #1a1a1a;
   background: #ffffff;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-h1, h2, h3, h4 {
-  font-family: var(--font-cormorant), serif;
+/* ── Typography helpers ─────────────────────────────────────────────────── */
+.font-playfair  { font-family: var(--font-playfair), serif; }
+.font-cormorant { font-family: var(--font-cormorant), serif; }
+
+/* ── Shimmer placeholder ────────────────────────────────────────────────── */
+.shimmer-bg {
+  background: linear-gradient(
+    90deg,
+    var(--color-champagne) 25%,
+    #fdf9f5 50%,
+    var(--color-champagne) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 2.4s infinite linear;
 }
 
-@layer utilities {
-  .shimmer-bg {
-    background: linear-gradient(90deg, #e8e8e8 25%, #f5f5f5 50%, #e8e8e8 75%);
-    background-size: 200% 100%;
-    animation: shimmer 2s infinite linear;
-  }
+/* ── Gold underline utility ─────────────────────────────────────────────── */
+.gold-underline {
+  position: relative;
+  display: inline-block;
+}
+.gold-underline::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: -10px;
+  width: 60px;
+  height: 1px;
+  background: var(--color-gold);
+}
+
+/* ── Smooth section transitions ─────────────────────────────────────────── */
+section {
+  will-change: transform;
+}
+
+@keyframes shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position:  200% 0; }
+}
+@keyframes ken-burns {
+  0%   { transform: scale(1); }
+  100% { transform: scale(1.08); }
 }
