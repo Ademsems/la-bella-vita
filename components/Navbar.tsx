@@ -4,18 +4,18 @@ import { useEffect, useState } from "react";
 import { useI18n, useT } from "@/lib/i18n";
 
 const NAV_ITEMS = [
-  { key: "about",           id: "about" },
+  { key: "whatIsLbv",       id: "what-is-lbv" },
   { key: "pillars",         id: "pillars" },
+  { key: "coaching",        id: "personal-coaching" },
   { key: "transformations", id: "transformations" },
-  { key: "howIWork",        id: "how-i-work" },
-  { key: "events",          id: "events" },
+  { key: "community",       id: "community" },
   { key: "corporate",       id: "corporate" },
   { key: "contact",         id: "contact" },
 ];
 
 export default function Navbar() {
-  const { t }            = useT("nav");
-  const { locale, setLocale } = useI18n();
+  const { t }                  = useT("nav");
+  const { locale, setLocale }  = useI18n();
   const [scrolled, setScrolled] = useState(false);
   const [open,     setOpen]     = useState(false);
 
@@ -33,9 +33,7 @@ export default function Navbar() {
   return (
     <header
       className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${
-        scrolled
-          ? "bg-white/95 backdrop-blur-md shadow-sm"
-          : "bg-transparent"
+        scrolled ? "bg-white/95 backdrop-blur-md shadow-sm" : "bg-transparent"
       }`}
     >
       <div className="max-w-7xl mx-auto px-5 sm:px-8 flex items-center justify-between h-16">
@@ -47,7 +45,7 @@ export default function Navbar() {
           className="flex-shrink-0 group"
         >
           <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-turquoise to-med-blue flex items-center justify-center shadow-md group-hover:shadow-turquoise/40 group-hover:scale-105 transition-all duration-300">
-            <span className="text-white font-bold text-xs tracking-[0.15em] font-inter">LVB</span>
+            <span className="text-white font-bold text-xs tracking-[0.15em] font-inter">LBV</span>
           </div>
         </button>
 

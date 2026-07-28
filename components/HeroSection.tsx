@@ -13,9 +13,9 @@ export default function HeroSection() {
     document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
 
   return (
-    <section className="relative h-screen w-full overflow-hidden">
+    <section className="relative min-h-screen w-full overflow-hidden flex flex-col">
 
-      {/* ── Background: video OR gradient fallback ─────────────────────── */}
+      {/* Background: video OR gradient fallback */}
       {HERO_VIDEO_URL ? (
         <video
           ref={videoRef}
@@ -27,9 +27,7 @@ export default function HeroSection() {
           className="absolute inset-0 w-full h-full object-cover"
         />
       ) : (
-        /* Gradient fallback — slow Ken Burns on a colour wash */
         <div className="absolute inset-0 bg-gradient-to-br from-[#3ab5b7] via-[#5ecdd0] to-[#a8e6e8] overflow-hidden">
-          {/* Animated blob shapes for visual interest */}
           <div
             className="absolute inset-0 opacity-30"
             style={{
@@ -42,14 +40,11 @@ export default function HeroSection() {
         </div>
       )}
 
-      {/* ── Dark overlay ────────────────────────────────────────────────── */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/10 to-black/50" />
+      {/* Dark overlay */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-black/60" />
 
-      {/* ── Soft bottom vignette ────────────────────────────────────────── */}
-      <div className="absolute bottom-0 inset-x-0 h-48 bg-gradient-to-t from-white/30 to-transparent pointer-events-none" />
-
-      {/* ── Content ─────────────────────────────────────────────────────── */}
-      <div className="relative z-10 h-full flex flex-col items-center justify-center text-center px-6">
+      {/* Content */}
+      <div className="relative z-10 flex-1 flex flex-col items-center justify-center text-center px-6 py-32">
         <motion.p
           initial={{ opacity: 0, letterSpacing: "0.5em" }}
           animate={{ opacity: 1, letterSpacing: "0.35em" }}
@@ -72,15 +67,32 @@ export default function HeroSection() {
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.6, ease: "easeOut" }}
-          className="font-cormorant text-2xl sm:text-3xl text-white/90 italic font-light mb-12"
+          className="font-cormorant text-2xl sm:text-3xl text-white/90 italic font-light mb-10"
         >
           {t("subheadline")}
         </motion.p>
 
+        {/* Body copy */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.9, delay: 0.8, ease: "easeOut" }}
+          className="max-w-2xl mx-auto mb-10 space-y-3"
+        >
+          {["body1", "body2", "body3", "body4"].map((key) => (
+            <p key={key} className="font-inter text-white/75 text-sm sm:text-base leading-relaxed">
+              {t(key)}
+            </p>
+          ))}
+          <p className="font-cormorant text-white/90 text-xl italic font-light pt-2">
+            {t("body5")}
+          </p>
+        </motion.div>
+
         <motion.button
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.9, ease: "easeOut" }}
+          transition={{ duration: 0.8, delay: 1.1, ease: "easeOut" }}
           onClick={scrollToContact}
           className="group px-9 py-4 bg-white text-turquoise font-inter font-semibold text-sm tracking-wide rounded-full border border-gold hover:bg-turquoise hover:text-white hover:border-turquoise shadow-lg hover:shadow-turquoise/30 transition-all duration-400"
         >
@@ -89,11 +101,11 @@ export default function HeroSection() {
         </motion.button>
       </div>
 
-      {/* ── Scroll indicator ────────────────────────────────────────────── */}
+      {/* Scroll indicator */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 1.8 }}
+        transition={{ delay: 2.0 }}
         className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
       >
         <span className="text-white/50 text-[10px] font-inter tracking-[0.2em] uppercase">Scroll</span>

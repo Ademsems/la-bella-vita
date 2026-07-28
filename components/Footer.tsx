@@ -3,15 +3,15 @@
 import { useT } from "@/lib/i18n";
 
 const LINKS = [
-  { key: "about",    id: "about" },
-  { key: "howIWork", id: "how-i-work" },
-  { key: "events",   id: "events" },
-  { key: "corporate",id: "corporate" },
-  { key: "contact",  id: "contact" },
+  { key: "whatIsLbv",       id: "what-is-lbv" },
+  { key: "pillars",         id: "pillars" },
+  { key: "community",       id: "community" },
+  { key: "corporate",       id: "corporate" },
+  { key: "contact",         id: "contact" },
 ];
 
 export default function Footer() {
-  const { t } = useT("footer");
+  const { t }    = useT("footer");
   const { t: tNav } = useT("nav");
 
   const scrollTo = (id: string) =>
@@ -19,24 +19,21 @@ export default function Footer() {
 
   return (
     <footer className="bg-gray-950 text-white">
-      {/* Gold top border */}
       <div className="h-px w-full bg-gradient-to-r from-transparent via-gold/40 to-transparent" />
 
       <div className="max-w-7xl mx-auto px-5 sm:px-8 py-14">
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-10">
 
-          {/* Brand */}
           <div>
             <div className="flex items-center gap-3 mb-3">
               <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-turquoise to-med-blue flex items-center justify-center shadow-md">
-                <span className="text-white font-bold text-xs tracking-[0.15em] font-inter">LVB</span>
+                <span className="text-white font-bold text-xs tracking-[0.15em] font-inter">LBV</span>
               </div>
               <span className="font-playfair text-xl font-semibold">La Bella Vita</span>
             </div>
             <p className="font-cormorant text-lg italic text-gray-400">{t("tagline")}</p>
           </div>
 
-          {/* Nav links */}
           <nav className="flex flex-wrap gap-x-7 gap-y-2">
             {LINKS.map(({ key, id }) => (
               <button
@@ -50,7 +47,6 @@ export default function Footer() {
           </nav>
         </div>
 
-        {/* Bottom row */}
         <div className="mt-10 pt-6 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-3">
           <p className="font-inter text-xs text-gray-600">
             © {new Date().getFullYear()} La Bella Vita. {t("rights")}

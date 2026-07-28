@@ -1,117 +1,158 @@
 {
   "nav": {
-    "about": "About",
-    "pillars": "Four Pillars",
+    "whatIsLbv":    "What is LBV",
+    "pillars":      "Pillars",
+    "coaching":     "Coaching",
     "transformations": "Stories",
-    "howIWork": "How I Work",
-    "events": "Events",
-    "corporate": "Corporate",
-    "contact": "Contact",
-    "book": "Book Now"
+    "community":    "Community",
+    "corporate":    "Corporate",
+    "contact":      "Contact",
+    "book":         "Book Now"
   },
   "hero": {
-    "headline": "LA BELLA VITA",
-    "subheadline": "Live a beautiful life.",
-    "cta": "Book a Consultation"
+    "headline":    "LA BELLA VITA",
+    "subheadline": "It's not just about muscles. It's about life.",
+    "body1": "I help people gain more energy, improve their health, build a stronger body, and develop habits that allow them to live a better life.",
+    "body2": "I am not a trainer for everyone. My goal is not for you to live for the gym. My goal is for you to have more energy for your family, better focus at work, more confidence, less pain, and more joy every day.",
+    "body3": "That is why at La Bella Vita you don't just get a training plan. You get individual coaching, personalised nutrition, Visbody measurements, support, community, and a system that helps you feel better — physically and mentally.",
+    "body4": "Because the greatest luxury is not a perfect physique. The greatest luxury is having health, energy, and the freedom to enjoy life fully.",
+    "body5": "Welcome to La Bella Vita.",
+    "cta": "Start Your Journey 🍋"
+  },
+  "whatIsLbv": {
+    "tag":     "Philosophy",
+    "heading": "What is La Bella Vita",
+    "lines": [
+      "Most people don't just want a better body.",
+      "They want a better life.",
+      "They want more energy.",
+      "They want to wake up in the morning without exhaustion.",
+      "They want to feel good in their own body.",
+      "They want to be a better partner, parent, or leader.",
+      "They want the strength to do the things they love."
+    ],
+    "divider": "That is exactly why La Bella Vita was created.",
+    "lines2": [
+      "It is not a fitness programme.",
+      "It is a path to a better quality of life."
+    ],
+    "closing": "We believe health is not one priority among many. It is the foundation on which everything else stands."
   },
   "quote": {
-    "text": "Health is not everything. But without health, everything is nothing.",
+    "text":        "Health is not everything. But without health, everything is nothing.",
     "attribution": "— Arthur Schopenhauer"
   },
   "pillars": {
-    "tag": "Philosophy",
-    "heading": "Four Pillars",
-    "subheading": "A beautiful life is built on four foundations. Each one is essential. Together, they are unbeatable.",
+    "tag":        "Four Pillars",
+    "heading":    "4 Pillars of La Bella Vita",
+    "subheading": "A beautiful life is built on four foundations. Each one is essential.",
     "items": [
       {
         "italian": "MOVIMENTO",
-        "title": "Movement",
-        "desc": "The body is made to move. We will find an exercise you love — not one that punishes you."
+        "title":   "Movement",
+        "body":    "From a scientific perspective we know that regular movement significantly influences hormonal balance, reduces stress, and improves overall quality of life. Movement is therefore not a punishment but a fundamental human need. It is the gateway to La Bella Vita — the beautiful life."
       },
       {
         "italian": "NUTRIZIONE",
-        "title": "Nutrition",
-        "desc": "Food is pleasure, not penance. Mediterranean nutrition philosophy for everyday life."
+        "title":   "Nutrition",
+        "body1":   "Nutrition is not about extremes, starvation, or endless calorie counting. It is about quality, balance, and long-term sustainable habits that support your health, energy, and results.",
+        "body2":   "We set nutrition individually for each client according to their goal, lifestyle, and preferences. They can choose between a personalised nutrition plan with delicious and simple recipes, or the",
+        "easydiet": "EasyDiet",
+        "body3":   "service, where quality meals are prepared and delivered directly to their door.",
+        "body4":   "Because a beautiful life should not be about deprivation. It should taste good."
       },
       {
         "italian": "COMUNITÀ",
-        "title": "Community",
-        "desc": "Surround yourself with people who inspire you. Together we go further and stay the course longer."
+        "title":   "Community",
+        "body":    "No one has to walk this path alone. La Bella Vita is a community of people who have decided to invest in their health, growth, and quality of life. We train together. We play sport together. We celebrate small and big victories together."
       },
       {
         "italian": "MENTALITÀ",
-        "title": "Mindset",
-        "desc": "Change begins in the mind. We will teach you to think like someone who truly takes care of themselves."
+        "title":   "Mindset",
+        "body":    "Results do not happen in a single day. They come from the decisions we make every day. Discipline is not a restriction. It is a form of freedom. The better you take care of yourself, the more you can give to the world around you."
       }
     ]
   },
-  "about": {
-    "tag": "Story",
-    "heading": "Alessandro",
-    "subheading": "Coach, guide, community member.",
-    "body1": "I grew up by the sea — in an environment where movement, food, and friends were a natural part of the day. Not a duty, but a joy. That philosophy came with me.",
-    "body2": "In over ten years of working with clients, I have learned one thing: lasting change does not come from relentless drilling. It comes from genuine interest in oneself — from understanding your body, your rhythm, and your values.",
-    "body3": "La Bella Vita is not a programme. It is a way of life. And I am here to help you find yours.",
-    "cta": "Discover my approach"
+  "myStory": {
+    "tag":     "My Story",
+    "heading": "My Story",
+    "body1":   "I was not always a trainer.",
+    "body2":   "I was someone who struggled with their weight from a young age.",
+    "body3":   "Later I went through a period that changed my life forever.",
+    "body4":   "The loss of my father taught me how fragile physical and mental health can be.",
+    "body5":   "It was then that movement became something more than just training. It became a support. It helped me find direction. It helped me find myself.",
+    "body6":   "And today my mission is to help people build a life in which they feel strong, healthy, and content.",
+    "body7":   "Not just for a few weeks. For life.",
+    "signature": "— Alessandro"
+  },
+  "personalCoaching": {
+    "tag":        "Personal Coaching",
+    "heading":    "Individual approach. Real results.",
+    "intro1":     "Every person is different.",
+    "intro2":     "That is why we do not create generic plans.",
+    "intro3":     "Together we will set a strategy that respects your lifestyle, goals, possibilities, and pace.",
+    "inclLabel":  "What is included:",
+    "inclusions": [
+      "Initial consultation",
+      "Visbody diagnostics",
+      "Tailored training plan",
+      "Tailored nutrition plan",
+      "Regular measurements and monitoring",
+      "Long-term guidance"
+    ],
+    "cta": "Book a consultation"
+  },
+  "onlineCoaching": {
+    "tag":     "Online Coaching",
+    "heading": "Your plan. Anywhere in the world.",
+    "body1":   "With the Trainerize app you have everything in one place.",
+    "features": [
+      "Training",
+      "Nutrition",
+      "Progress",
+      "Communication",
+      "Support"
+    ],
+    "body2": "Modern coaching that allows you to achieve results no matter where you are.",
+    "cta":   "Learn more about online coaching"
   },
   "transformations": {
-    "tag": "Results",
-    "heading": "Transformation Stories",
-    "subheading": "No before-and-after shots. Just real stories from real people who chose a different life.",
-    "badge": "Visbody Analysis",
+    "tag":       "Transformations",
+    "heading":   "Transformations",
+    "intro1":    "Every result has its story.",
+    "intro2":    "We don't focus only on the number on the scale. We track energy. Health. Performance. Movement. Confidence.",
+    "visbody":   "Visbody gives us a detailed view of your body composition: body fat percentage, muscle mass, visceral fat, muscle distribution between left and right, postural deviations, and the overall development of your physique. Combined with regular check-ins and individual guidance, you get a clear picture of what is really happening in your body and what progress you are making on your journey to La Bella Vita.",
+    "badge":     "Visbody Results",
     "items": [
       {
-        "name": "Martina, 34",
-        "story": "After my second child I felt lost in my own body. Alessandro helped me find myself again — not just physically, but above all mentally. In eight months I lost 14 kg, but more importantly, I now look forward to moving every morning."
+        "name":  "Martina, 34",
+        "story": "After my second child I felt lost in my own body. Alessandro helped me find myself again — not just physically but above all mentally. In eight months I achieved results I thought would never be possible again."
       },
       {
-        "name": "Tomáš, 41",
-        "story": "I work in a corporate office, sitting eight hours a day. My spine was sending signals that this could not go on. With Alessandro we built a plan around my packed schedule. Today I have the strength I had at twenty-five."
+        "name":  "Tomáš, 41",
+        "story": "I work in a corporate office, sitting eight hours a day. My spine was sending signals that this could not go on. With Alessandro we built a plan around my packed schedule. Today I have the strength and energy I had at twenty-five."
       },
       {
-        "name": "Katarína, 28",
-        "story": "I was never a 'sporty person'. La Bella Vita showed me that movement does not have to be aggressive or stressful. Now we run together by the sea twice a week and I look forward to it all day."
+        "name":  "Katarína, 28",
+        "story": "I was never a 'sporty type'. La Bella Vita showed me that movement doesn't have to be aggressive or stressful. Now I genuinely look forward to every session and the results speak for themselves."
       }
     ]
   },
   "cta1": {
     "sentence": "Maybe today is the day you begin.",
-    "button": "Book a consultation"
-  },
-  "howIWork": {
-    "tag": "Process",
-    "heading": "How I Work",
-    "subheading": "No generic plans. Only your plan — from the first meeting to your first milestone.",
-    "steps": [
-      {
-        "title": "First Meeting",
-        "desc": "A free one-hour consultation — we get to know each other, discuss your goals, and I find out what you truly need."
-      },
-      {
-        "title": "Body Analysis",
-        "desc": "A Visbody scan reveals exact body composition, muscle imbalances, and metabolic values — data, not guesswork."
-      },
-      {
-        "title": "Your Plan",
-        "desc": "Based on the analysis I build a training and nutrition plan made specifically for you. No templates from the internet."
-      },
-      {
-        "title": "The Journey Together",
-        "desc": "We train together, regularly review progress, and fine-tune the plan along the way. I am available to you every day."
-      }
-    ]
+    "button":   "Book a consultation"
   },
   "food": {
-    "tag": "Nutrition",
+    "tag":     "Nutrition & EasyDiet",
     "heading": "Food as pleasure,\nnot punishment.",
-    "body1": "I collaborate with certified nutritionist Zuzana Nováková, who shares my Mediterranean nutrition philosophy. Together we create nutritional plans that are delicious, sustainable, and adapted to your lifestyle.",
-    "body2": "No forbidden foods. No counting calories down to the last gram. Instead, we teach you to eat intelligently — with your head and with pleasure.",
-    "cta": "Subscribe for nutrition news"
+    "body1":   "I collaborate with EasyDiet, which shares my nutrition philosophy. Quality, delicious, and healthy meals — prepared and delivered directly to your door.",
+    "body2":   "No forbidden foods. No counting calories down to the last gram. Instead, simple and sustainable eating that supports your results and gives you more energy every day.",
+    "cta":     "Find out more about EasyDiet"
   },
   "financing": {
-    "tag": "Accessibility",
-    "heading": "La Bella Vita Financing Programme",
-    "body": "We believe health care should never be a question of finances. That is why we offer a flexible, zero-interest instalment plan — spread your investment in your own health into comfortable monthly payments and start without stress.",
+    "tag":      "Accessibility",
+    "heading":  "La Bella Vita Financing Programme",
+    "body":     "We believe health care should never be a question of finances. That is why we offer a flexible, zero-interest instalment plan — spread your investment in your own health into comfortable monthly payments and start without stress.",
     "features": [
       "Zero interest",
       "3 to 12 months",
@@ -120,52 +161,79 @@
     ],
     "cta": "Learn More"
   },
-  "events": {
-    "tag": "Community in motion",
-    "heading": "La Bella Vita Events",
-    "subheading": "Something happens every week. Join in — movement is more beautiful when you share it.",
-    "filters": ["All", "Running", "Volleyball", "Breakfast", "Workshop", "Sea", "Community"],
+  "community": {
+    "tag":        "Community",
+    "heading":    "La Bella Vita Community",
+    "subheading": "A beautiful life is lived better together.",
+    "body":       "Running Club. Volleyball tournaments. Group breakfasts. Workshops. Community events. We are building an environment where a healthy lifestyle is not an obligation. It is a natural part of life.",
+    "filters":    ["All", "Running", "Volleyball", "Breakfast", "Workshop", "Sea", "Community"],
     "comingSoon": "Photo coming soon"
   },
-  "cta2": {
-    "sentence": "Your best year starts with one step.",
-    "button": "Let's begin together"
-  },
   "corporate": {
-    "tag": "For Companies",
-    "heading": "Corporate Wellbeing",
-    "subheading": "Healthy employees are more productive, happier, and more loyal. Investing in wellbeing is investing in your business.",
-    "offerings": [
-      "Group training sessions at your office or in nature",
-      "Wellness workshops and talks on healthy living",
-      "Visbody body-composition analysis for the whole team",
-      "Nutritional consulting and healthy workplace eating",
-      "Team-building activities in motion — running, volleyball, swimming",
-      "Long-term wellness programmes tailored to your company culture"
+    "tag":        "Corporate Wellbeing",
+    "heading":    "Healthier employees. Stronger company.",
+    "subheading": "A company's performance reflects the health of the people who make it. We help companies create an environment where employees have more energy, less stress, and a better quality of life.",
+    "offerings":  [
+      "Talks on healthy lifestyle",
+      "Workshops and practical training sessions",
+      "Stretching classes on-site",
+      "Visbody analyses for the whole team",
+      "Bespoke wellbeing programmes",
+      "La Bella Vita philosophy directly in your company"
     ],
     "cta": "Schedule a corporate meeting"
   },
+  "cta2": {
+    "sentence": "Your best year starts with one step.",
+    "button":   "Let's begin together"
+  },
   "instagram": {
-    "tag": "Community",
-    "heading": "Follow Us",
+    "tag":        "Community",
+    "heading":    "Follow Us",
     "subheading": "Daily inspiration, movement, and beautiful life — straight to your feed.",
-    "loading": "Content loading...",
-    "follow": "Follow"
+    "loading":    "Content loading...",
+    "follow":     "Follow"
+  },
+  "testimonials": {
+    "tag":        "Reviews",
+    "heading":    "What clients say",
+    "subheading": "Real experiences from real people.",
+    "items": [
+      {
+        "name":  "Martina K.",
+        "quote": "Alessandro is an incredible trainer. In 3 months I lost 12 kg and feel better than ever. His approach is motivating and completely professional."
+      },
+      {
+        "name":  "Tomáš B.",
+        "quote": "I always thought a personal trainer was a luxury. After working with Alessandro I know it is an investment that pays for itself. The results speak for themselves."
+      },
+      {
+        "name":  "Lucia M.",
+        "quote": "La Bella Vita changed my view of fitness. Alessandro is not just a trainer — he is a mentor who genuinely cares about you as a whole person."
+      }
+    ]
+  },
+  "finalCta": {
+    "line1":  "Health is not a given.",
+    "line2":  "It is a gift that deserves your attention every day.",
+    "line3":  "Decide to live better.",
+    "line4":  "Decide on La Bella Vita.",
+    "cta":    "Book a consultation"
   },
   "contact": {
-    "tag": "Let's begin",
-    "heading": "Book a Consultation",
+    "tag":        "Let's begin",
+    "heading":    "Book a Consultation",
     "subheading": "Write to us — we will get back to you within 24 hours and set your first step together.",
-    "name": "Full name",
-    "email": "Email address",
-    "phone": "Phone number",
-    "message": "What brought you to us?",
-    "submit": "Send",
-    "success": "Thank you! We will be in touch soon.",
-    "mapFallback": "Map coming soon"
+    "name":       "Full name",
+    "email":      "Email address",
+    "phone":      "Phone number",
+    "message":    "What brought you to us?",
+    "submit":     "Send",
+    "success":    "Thank you! We will be in touch soon.",
+    "mapFallback":"Map coming soon"
   },
   "footer": {
     "tagline": "Live a beautiful life.",
-    "rights": "All rights reserved."
+    "rights":  "All rights reserved."
   }
 }

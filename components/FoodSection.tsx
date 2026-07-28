@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { useT } from "@/lib/i18n";
-import { FOOD_COLLAB_URL } from "@/lib/config";
+// Replaced by FoodEasyDietSection — kept to avoid orphan file errors
 
 export default function FoodSection() {
   const { t } = useT("food");
@@ -64,22 +64,12 @@ export default function FoodSection() {
               <p>{t("body2")}</p>
             </div>
 
-            {/* Subscribe button — href from config, graceful if empty */}
-            {FOOD_COLLAB_URL ? (
-              <a
-                href={FOOD_COLLAB_URL}
-                className="inline-block px-7 py-3 bg-powder-pink text-gray-800 font-inter font-semibold text-sm rounded-full border border-gold/30 hover:bg-beige hover:border-gold/60 hover:shadow-md transition-all duration-300"
-              >
-                {t("cta")}
-              </a>
-            ) : (
-              <button
-                disabled
-                className="px-7 py-3 bg-powder-pink text-gray-800 font-inter font-semibold text-sm rounded-full border border-gold/30 opacity-75 cursor-default"
-              >
-                {t("cta")}
-              </button>
-            )}
+            <button
+              disabled
+              className="px-7 py-3 bg-powder-pink text-gray-800 font-inter font-semibold text-sm rounded-full border border-gold/30 opacity-75 cursor-default"
+            >
+              {t("cta")}
+            </button>
           </motion.div>
         </div>
       </div>
