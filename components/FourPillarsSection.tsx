@@ -1,5 +1,7 @@
 "use client";
 
+import { useState } from "react";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { useT } from "@/lib/i18n";
 import { EASYDIET_URL } from "@/lib/config";
@@ -9,6 +11,14 @@ const PILLAR_GRADIENTS = [
   "from-[#f0e0c8] via-[#e8d0b0] to-[#d4b896]",
   "from-[#F4D7D0] via-[#f0c8be] to-[#e8b4a6]",
   "from-[#EDE4D8] via-[#e0d4c4] to-[#c8baa8]",
+];
+
+// Client-supplied photos — falls back to the gradient above if a file is ever missing
+const PILLAR_IMAGES = [
+  "/images/01-pohyb.jpg",
+  "/images/02-vyziva.jpg",
+  "/images/03-komunita.jpg",
+  "/images/04-nastavenie-mysle.jpg",
 ];
 
 type PillarItem = {
@@ -25,6 +35,10 @@ type PillarItem = {
 export default function FourPillarsSection() {
   const { t, tRaw } = useT("pillars");
   const items = tRaw("items") as PillarItem[];
+  const [failed, setFailed] = useState<boolean[]>([false, false, false, false]);
+
+  const markFailed = (i: number) =>
+    setFailed((prev) => prev.map((v, idx) => (idx === i ? true : v)));
 
   return (
     <section id="pillars" className="py-24 bg-champagne">
@@ -59,9 +73,23 @@ export default function FourPillarsSection() {
               className="group relative overflow-hidden rounded-3xl cursor-default"
               style={{ minHeight: "420px" }}
             >
+              {/* Gradient fallback — always rendered underneath */}
               <div
                 className={`absolute inset-0 bg-gradient-to-br ${PILLAR_GRADIENTS[i]} transition-transform duration-700 group-hover:scale-[1.03]`}
               />
+
+              {/* Real photo — layered on top, hidden if it fails to load */}
+              {!failed[i] && (
+                <Image
+                  src={PILLAR_IMAGES[i]}
+                  alt={pillar.title}
+                  fill
+                  sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
+                  className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+                  onError={() => markFailed(i)}
+                />
+              )}
+
               <div className="absolute inset-0 rounded-3xl border border-transparent group-hover:border-gold/50 transition-all duration-500 pointer-events-none z-10" />
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
 

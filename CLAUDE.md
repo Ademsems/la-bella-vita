@@ -27,6 +27,7 @@ Design language: Four Seasons × Apple × Amalfi Coast. Morning light, sea, comm
 - **v1** (Initial build): 10-section one-pager — carousel hero, about, gallery, how-I-work, food collab, financing, testimonials, community, contact. Delivered + pushed to GitHub.
 - **v2** (Luxury rebrand): Client sent visual/creative brief. New palette, video hero with gradient fallback, graceful degradation for all assets, `lib/config.ts` as single source of truth. 12 sections + 2 CTA bands. Added Playfair Display, Four Pillars, Transformations, Corporate Wellbeing, Instagram Feed.
 - **v3** (Final client copy + new sections): Client sent final Slovak copy. Added: What-is-LBV, Personal Coaching, Online Coaching (Trainerize). Food Collaboration → EasyDiet. Diagnostics branding → Visbody. Optional Testimonials section. Final CTA = client's marked "Variant 1". Dropped generic How-I-Work (absorbed into coaching sections). CLAUDE.md added.
+- **v3.1** (Real images + meta title): Client's 8 photos wired into their sections with `next/image`, graceful gradient fallback preserved via `onError` state per component. Files renamed to URL-safe slugs (see Image Assets below). Meta title updated to "LBV - Umenie žiť krásny život" (SK default, static metadata — see note in `app/layout.tsx`).
 
 ## Section Order (v3)
 0. Navbar
@@ -60,6 +61,22 @@ Footer
 | `GOOGLE_PLACE_ID` | `NEXT_PUBLIC_GOOGLE_PLACE_ID` |
 | `EASYDIET_URL` | `NEXT_PUBLIC_EASYDIET_URL` |
 | `TRAINERIZE_URL` | `NEXT_PUBLIC_TRAINERIZE_URL` |
+
+## Image Assets (`public/images/`)
+Client-supplied photos, renamed from their original Slovak filenames (which had spaces/commas/diacritics — unsafe in URLs) to slugs. Original name → new path → wired into:
+
+| Original filename | New path | Component |
+|---|---|---|
+| `1. Pohyb.jpg` | `/images/01-pohyb.jpg` | `FourPillarsSection.tsx` — MOVIMENTO card |
+| `2. Výživa.jpg` | `/images/02-vyziva.jpg` | `FourPillarsSection.tsx` — NUTRIZIONE card |
+| `3. Komunita.jpg` | `/images/03-komunita.jpg` | `FourPillarsSection.tsx` — COMUNITÀ card |
+| `4. Nastavenie mysle.jpg` | `/images/04-nastavenie-mysle.jpg` | `FourPillarsSection.tsx` — MENTALITÀ card |
+| `5. Môj príbeh.jpg` | `/images/05-moj-pribeh.jpg` | `MyStorySection.tsx` — portrait |
+| `6. Individuálny prístup.jpg` | `/images/06-individualny-pristup.jpg` | `PersonalCoachingSection.tsx` — visual |
+| `7. Trainerize.jpg` | `/images/07-trainerize.jpg` | `OnlineCoachingSection.tsx` — visual |
+| `8. Jedlo ako radosť, nie ako trest.jpg` | `/images/08-jedlo-ako-radost.jpg` | `FoodEasyDietSection.tsx` — visual |
+
+All 8 use `next/image` with `fill` + `onError` — if a file is ever deleted/renamed, the component falls back to its original gradient placeholder (icon + label), never a broken-image icon. Sections with no client photo yet (Transformations, Community gallery, Corporate Wellbeing, Final CTA band) are untouched and still use gradient-only placeholders.
 
 ## Graceful Degradation Rules
 - Missing image → styled gradient placeholder div, **never** a broken-image icon

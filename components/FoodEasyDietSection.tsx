@@ -1,11 +1,14 @@
 "use client";
 
+import { useState } from "react";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { useT } from "@/lib/i18n";
 import { EASYDIET_URL } from "@/lib/config";
 
 export default function FoodEasyDietSection() {
   const { t } = useT("food");
+  const [imgFailed, setImgFailed] = useState(false);
 
   const heading = t("heading");
 
@@ -63,15 +66,26 @@ export default function FoodEasyDietSection() {
             transition={{ duration: 0.8, ease: "easeOut" }}
             className="relative"
           >
-            <div className="aspect-square rounded-3xl overflow-hidden bg-gradient-to-br from-[#f0e0c8] via-[#e8d0b0] to-[#d4b896] shadow-xl">
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="text-center p-8">
-                  <div className="w-20 h-20 rounded-full bg-white/30 mx-auto mb-4 flex items-center justify-center">
-                    <span className="text-4xl">🍋</span>
+            <div className="relative aspect-square rounded-3xl overflow-hidden bg-gradient-to-br from-[#f0e0c8] via-[#e8d0b0] to-[#d4b896] shadow-xl">
+              {!imgFailed ? (
+                <Image
+                  src="/images/08-jedlo-ako-radost.jpg"
+                  alt={t("tag")}
+                  fill
+                  sizes="(min-width: 1024px) 50vw, 100vw"
+                  className="object-cover"
+                  onError={() => setImgFailed(true)}
+                />
+              ) : (
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="text-center p-8">
+                    <div className="w-20 h-20 rounded-full bg-white/30 mx-auto mb-4 flex items-center justify-center">
+                      <span className="text-4xl">🍋</span>
+                    </div>
+                    <p className="font-inter text-white/60 text-xs">EasyDiet</p>
                   </div>
-                  <p className="font-inter text-white/60 text-xs">EasyDiet</p>
                 </div>
-              </div>
+              )}
             </div>
             <div className="absolute -bottom-5 -left-5 w-28 h-28 rounded-full bg-gold/10 -z-10" />
           </motion.div>

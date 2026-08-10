@@ -1,5 +1,7 @@
 "use client";
 
+import { useState } from "react";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { useT } from "@/lib/i18n";
 import { TRAINERIZE_URL } from "@/lib/config";
@@ -7,6 +9,7 @@ import { TRAINERIZE_URL } from "@/lib/config";
 export default function OnlineCoachingSection() {
   const { t, tRaw } = useT("onlineCoaching");
   const features = tRaw("features") as string[];
+  const [imgFailed, setImgFailed] = useState(false);
 
   const ICONS = [
     // Training
@@ -45,18 +48,29 @@ export default function OnlineCoachingSection() {
             transition={{ duration: 0.8, ease: "easeOut" }}
             className="relative"
           >
-            <div className="aspect-square rounded-3xl overflow-hidden bg-gradient-to-br from-[#4BC6C8] via-[#3ab5b7] to-[#2a9496] shadow-xl">
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="text-center p-8">
-                  <div className="w-20 h-20 rounded-full bg-white/20 mx-auto mb-4 flex items-center justify-center">
-                    <svg className="w-10 h-10 text-white/80" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.2}
-                        d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
-                    </svg>
+            <div className="relative aspect-square rounded-3xl overflow-hidden bg-gradient-to-br from-[#4BC6C8] via-[#3ab5b7] to-[#2a9496] shadow-xl">
+              {!imgFailed ? (
+                <Image
+                  src="/images/07-trainerize.jpg"
+                  alt={t("heading")}
+                  fill
+                  sizes="(min-width: 1024px) 50vw, 100vw"
+                  className="object-cover"
+                  onError={() => setImgFailed(true)}
+                />
+              ) : (
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="text-center p-8">
+                    <div className="w-20 h-20 rounded-full bg-white/20 mx-auto mb-4 flex items-center justify-center">
+                      <svg className="w-10 h-10 text-white/80" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.2}
+                          d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                      </svg>
+                    </div>
+                    <p className="font-inter text-white/60 text-xs">Trainerize</p>
                   </div>
-                  <p className="font-inter text-white/60 text-xs">Trainerize</p>
                 </div>
-              </div>
+              )}
             </div>
             <div className="absolute -bottom-5 -right-5 w-28 h-28 rounded-full bg-turquoise/10 -z-10" />
           </motion.div>

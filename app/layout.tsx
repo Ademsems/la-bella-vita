@@ -25,8 +25,11 @@ const inter = Inter({
   display: "swap",
 });
 
+// Metadata is static (single-route App Router, no per-locale paths) — defaults to
+// Slovak per the project's SK-source-language rule. EN visitors still see this
+// title in the browser tab; the in-page content still toggles via lib/i18n.tsx.
 export const metadata: Metadata = {
-  title: "La Bella Vita — Ži krásny život",
+  title: "LBV - Umenie žiť krásny život",
   description:
     "Prémiový wellness a osobný tréning s Alessandrom. Pohyb, výživa, komunita a mentalita — štyri piliere krásneho života.",
   openGraph: {

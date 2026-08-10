@@ -1,11 +1,14 @@
 "use client";
 
+import { useState } from "react";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { useT } from "@/lib/i18n";
 
 export default function PersonalCoachingSection() {
   const { t, tRaw } = useT("personalCoaching");
   const inclusions = tRaw("inclusions") as string[];
+  const [imgFailed, setImgFailed] = useState(false);
 
   const scrollToContact = () =>
     document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
@@ -71,18 +74,29 @@ export default function PersonalCoachingSection() {
             transition={{ duration: 0.8, ease: "easeOut" }}
             className="relative"
           >
-            <div className="aspect-square rounded-3xl overflow-hidden bg-gradient-to-br from-[#EDE4D8] via-[#d8ccbc] to-[#c4b4a0] shadow-xl">
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="text-center p-8">
-                  <div className="w-20 h-20 rounded-full bg-white/30 mx-auto mb-4 flex items-center justify-center">
-                    <svg className="w-10 h-10 text-white/70" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.2}
-                        d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-                    </svg>
+            <div className="relative aspect-square rounded-3xl overflow-hidden bg-gradient-to-br from-[#EDE4D8] via-[#d8ccbc] to-[#c4b4a0] shadow-xl">
+              {!imgFailed ? (
+                <Image
+                  src="/images/06-individualny-pristup.jpg"
+                  alt={t("heading")}
+                  fill
+                  sizes="(min-width: 1024px) 50vw, 100vw"
+                  className="object-cover"
+                  onError={() => setImgFailed(true)}
+                />
+              ) : (
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="text-center p-8">
+                    <div className="w-20 h-20 rounded-full bg-white/30 mx-auto mb-4 flex items-center justify-center">
+                      <svg className="w-10 h-10 text-white/70" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.2}
+                          d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                      </svg>
+                    </div>
+                    <p className="font-inter text-white/50 text-xs">Osobný coaching</p>
                   </div>
-                  <p className="font-inter text-white/50 text-xs">Osobný coaching</p>
                 </div>
-              </div>
+              )}
             </div>
             <div className="absolute -bottom-5 -left-5 w-28 h-28 rounded-full bg-powder-pink/30 -z-10" />
           </motion.div>
