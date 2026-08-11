@@ -3,13 +3,14 @@
 import { useState } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { useT } from "@/lib/i18n";
+import { useT, useContent } from "@/lib/i18n";
 
 export default function MyStorySection() {
   const { t } = useT("myStory");
+  const c = useContent();
   const [imgFailed, setImgFailed] = useState(false);
 
-  const paragraphs = ["body1", "body2", "body3", "body4", "body5", "body6", "body7"];
+  const paragraphs = [1, 2, 3, 4, 5, 6, 7].map((n) => `mystory_line_${n}`);
 
   return (
     <section id="my-story" className="py-24 bg-beige">
@@ -70,7 +71,7 @@ export default function MyStorySection() {
             <div className="space-y-4">
               {paragraphs.map((key) => (
                 <p key={key} className="font-inter text-[15px] text-gray-600 leading-relaxed">
-                  {t(key)}
+                  {c(key)}
                 </p>
               ))}
             </div>
@@ -78,7 +79,7 @@ export default function MyStorySection() {
             <div className="mt-8 flex items-center gap-4">
               <div className="h-px flex-1 bg-gold/30" />
               <p className="font-cormorant text-xl italic text-gold font-light">
-                {t("signature")}
+                {c("mystory_signature")}
               </p>
             </div>
           </motion.div>

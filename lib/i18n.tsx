@@ -4,6 +4,7 @@
 import { createContext, useContext, useState, useCallback, ReactNode } from "react";
 import sk from "@/messages/sk.json";
 import en from "@/messages/en.json";
+import type { ContentMap } from "@/lib/content";
 
 type Locale = "sk" | "en";
 
@@ -18,6 +19,8 @@ interface I18nContextValue {
   setLocale: (l: Locale) => void;
   t: (key: string) => string;
   tRaw: (key: string) => any;
+  /** Sheet-driven content lookup (see lib/content.ts) — falls back to the key itself if missing. */
+  c: (key: string) => string;
 }
 
 const I18nContext = createContext<I18nContextValue>({
@@ -25,9 +28,17 @@ const I18nContext = createContext<I18nContextValue>({
   setLocale: () => {},
   t: (k) => k,
   tRaw: (k) => k,
+  c: (k) => k,
 });
 
-export function I18nProvider({ children }: { children: ReactNode }) {
+interface I18nProviderProps {
+  children: ReactNode;
+  /** Merged sheet + JSON-fallback content maps, built server-side — see app/page.tsx. */
+  contentSk?: ContentMap;
+  contentEn?: ContentMap;
+}
+
+export function I18nProvider({ children, contentSk = {}, contentEn = {} }: I18nProviderProps) {
   const [locale, setLocaleState] = useState<Locale>(() => {
     if (typeof window !== "undefined") {
       const stored = document.cookie
@@ -54,8 +65,13 @@ export function I18nProvider({ children }: { children: ReactNode }) {
     [locale]
   );
 
+  const c = useCallback(
+    (key: string) => (locale === "sk" ? contentSk : contentEn)[key] ?? key,
+    [locale, contentSk, contentEn]
+  );
+
   return (
-    <I18nContext.Provider value={{ locale, setLocale, t, tRaw }}>
+    <I18nContext.Provider value={{ locale, setLocale, t, tRaw, c }}>
       {children}
     </I18nContext.Provider>
   );
@@ -71,4 +87,10 @@ export function useT(namespace: string) {
     t: (key: string) => t(`${namespace}.${key}`),
     tRaw: (key: string) => tRaw(`${namespace}.${key}`),
   };
+}
+
+/** Sheet-driven content lookup — reads canonical flat keys (see lib/content.ts). */
+export function useContent() {
+  const { c } = useI18n();
+  return c;
 }

@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
-import { useT } from "@/lib/i18n";
+import { useT, useContent } from "@/lib/i18n";
 import { useState } from "react";
 
 type Category = string;
@@ -31,6 +31,7 @@ const TILE_GRADIENTS = [
 
 export default function CommunitySection() {
   const { t, tRaw } = useT("community");
+  const c = useContent();
   const filters = tRaw("filters") as string[];
   const [active, setActive] = useState<string>(filters[0] ?? "Všetko");
 
@@ -59,10 +60,10 @@ export default function CommunitySection() {
             {t("heading")}
           </h2>
           <p className="mt-4 font-inter text-gray-600 text-lg font-light italic max-w-xl mx-auto">
-            {t("subheading")}
+            {c("community_tagline")}
           </p>
           <p className="mt-3 font-inter text-gray-500 text-base max-w-2xl mx-auto leading-relaxed">
-            {t("body")}
+            {c("community_body")}
           </p>
         </motion.div>
 

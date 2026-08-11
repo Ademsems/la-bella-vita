@@ -1,11 +1,12 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useT } from "@/lib/i18n";
+import { useT, useContent } from "@/lib/i18n";
 
 export default function FinancingSection() {
-  const { t, tRaw } = useT("financing");
-  const features = tRaw("features") as string[];
+  const { t } = useT("financing");
+  const c = useContent();
+  const features = [1, 2, 3, 4].map((n) => c(`financing_chip_${n}`));
 
   return (
     <section id="financing" className="py-24 bg-champagne">
@@ -23,12 +24,12 @@ export default function FinancingSection() {
             {t("heading")}
           </h2>
           <p className="font-inter text-gray-500 text-base max-w-2xl mx-auto leading-relaxed mb-12">
-            {t("body")}
+            {c("financing_body")}
           </p>
 
           {/* Feature chips */}
           <div className="flex flex-wrap justify-center gap-4 mb-12">
-            {Array.isArray(features) && features.map((f, i) => (
+            {features.map((f, i) => (
               <motion.div
                 key={i}
                 initial={{ opacity: 0, scale: 0.9 }}
@@ -51,7 +52,7 @@ export default function FinancingSection() {
             onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
             className="px-9 py-4 bg-turquoise text-white font-inter font-semibold text-sm rounded-full hover:bg-turquoise/90 hover:shadow-lg hover:shadow-turquoise/25 hover:scale-105 transition-all duration-300"
           >
-            {t("cta")}
+            {c("financing_button")}
           </button>
         </motion.div>
       </div>

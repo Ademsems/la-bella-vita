@@ -1,11 +1,16 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useT } from "@/lib/i18n";
+import { useT, useContent } from "@/lib/i18n";
 
 export default function CorporateSection() {
-  const { t, tRaw } = useT("corporate");
-  const offerings = tRaw("offerings") as string[];
+  const { t } = useT("corporate");
+  const c = useContent();
+  const offerings = [1, 2, 3, 4, 5, 6].map((n) => c(`corporate_item_${n}`));
+  const stats = [1, 2, 3].map((n) => ({
+    val: c(`corporate_stat_${n}_num`),
+    label: c(`corporate_stat_${n}_label`),
+  }));
 
   return (
     <section id="corporate" className="py-24 bg-white">
@@ -37,8 +42,8 @@ export default function CorporateSection() {
                   <p className="font-playfair text-white/60 text-xs tracking-[0.25em] uppercase mb-2">
                     Corporate Wellness
                   </p>
-                  <h3 className="font-playfair text-white text-3xl font-semibold leading-tight">
-                    Invest in<br />your people.
+                  <h3 className="font-playfair text-white text-3xl font-semibold leading-tight whitespace-pre-line">
+                    {c("corporate_overlay")}
                   </h3>
                 </div>
               </div>
@@ -49,7 +54,7 @@ export default function CorporateSection() {
 
             {/* Stats row */}
             <div className="grid grid-cols-3 gap-4 mt-5">
-              {[["87%", "employee satisfaction"], ["2×", "productivity gains"], ["−34%", "sick days"]].map(([val, label], i) => (
+              {stats.map(({ val, label }, i) => (
                 <div key={i} className="bg-champagne rounded-2xl p-4 text-center border border-beige">
                   <p className="font-playfair text-2xl font-bold text-turquoise">{val}</p>
                   <p className="font-inter text-[10px] text-gray-400 mt-1 leading-tight">{label}</p>
@@ -70,15 +75,15 @@ export default function CorporateSection() {
             </p>
 
             <h2 className="font-cormorant text-4xl md:text-5xl font-semibold text-gray-900 leading-tight mb-4">
-              {t("heading")}
+              {c("corporate_headline")}
             </h2>
             <p className="font-inter text-gray-500 text-[15px] leading-relaxed mb-8">
-              {t("subheading")}
+              {c("corporate_body")}
             </p>
 
             {/* Offerings list */}
             <ul className="space-y-3.5 mb-10">
-              {Array.isArray(offerings) && offerings.map((item, i) => (
+              {offerings.map((item, i) => (
                 <li key={i} className="flex items-start gap-3">
                   <div className="flex-shrink-0 w-5 h-5 rounded-full bg-turquoise/10 flex items-center justify-center mt-0.5">
                     <svg className="w-3 h-3 text-turquoise" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -94,7 +99,7 @@ export default function CorporateSection() {
               onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
               className="group px-7 py-3.5 bg-gray-900 text-white font-inter font-semibold text-sm rounded-full hover:bg-gray-800 hover:shadow-lg transition-all duration-300"
             >
-              {t("cta")}
+              {c("corporate_button")}
               <span className="inline-block ml-2 group-hover:translate-x-1 transition-transform">→</span>
             </button>
           </motion.div>

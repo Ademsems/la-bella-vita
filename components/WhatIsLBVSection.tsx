@@ -1,12 +1,14 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useT } from "@/lib/i18n";
+import { useT, useContent } from "@/lib/i18n";
 
 export default function WhatIsLBVSection() {
-  const { t, tRaw } = useT("whatIsLbv");
-  const lines  = tRaw("lines")  as string[];
-  const lines2 = tRaw("lines2") as string[];
+  const { t } = useT("whatIsLbv");
+  const c = useContent();
+
+  const lines = [1, 2, 3, 4, 5, 6, 7].map((n) => c(`whatis_line_${n}`));
+  const lines2 = [c("whatis_subline_1"), c("whatis_subline_2")];
 
   return (
     <section id="what-is-lbv" className="py-24 bg-white">
@@ -28,7 +30,7 @@ export default function WhatIsLBVSection() {
 
         {/* Staggered lines */}
         <div className="space-y-3 mb-10">
-          {Array.isArray(lines) && lines.map((line, i) => (
+          {lines.map((line, i) => (
             <motion.p
               key={i}
               initial={{ opacity: 0, x: -20 }}
@@ -62,11 +64,11 @@ export default function WhatIsLBVSection() {
           transition={{ duration: 0.7, delay: 0.2, ease: "easeOut" }}
           className="font-cormorant text-3xl md:text-4xl font-semibold text-turquoise mb-4"
         >
-          {t("divider")}
+          {c("whatis_highlight")}
         </motion.p>
 
         <div className="space-y-2 mb-10">
-          {Array.isArray(lines2) && lines2.map((line, i) => (
+          {lines2.map((line, i) => (
             <motion.p
               key={i}
               initial={{ opacity: 0, y: 12 }}
@@ -87,7 +89,7 @@ export default function WhatIsLBVSection() {
           transition={{ duration: 0.7, delay: 0.3, ease: "easeOut" }}
           className="font-inter text-base text-gray-500 leading-relaxed max-w-2xl mx-auto"
         >
-          {t("closing")}
+          {c("whatis_closing")}
         </motion.p>
       </div>
     </section>

@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { Playfair_Display, Cormorant_Garamond, Inter } from "next/font/google";
-import { I18nProvider } from "@/lib/i18n";
 import "./globals.css";
 
 const playfair = Playfair_Display({
@@ -45,9 +44,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       lang="sk"
       className={`${playfair.variable} ${cormorant.variable} ${inter.variable}`}
     >
-      <body>
-        <I18nProvider>{children}</I18nProvider>
-      </body>
+      <body>{children}</body>
     </html>
   );
 }

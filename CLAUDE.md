@@ -28,6 +28,7 @@ Design language: Four Seasons × Apple × Amalfi Coast. Morning light, sea, comm
 - **v2** (Luxury rebrand): Client sent visual/creative brief. New palette, video hero with gradient fallback, graceful degradation for all assets, `lib/config.ts` as single source of truth. 12 sections + 2 CTA bands. Added Playfair Display, Four Pillars, Transformations, Corporate Wellbeing, Instagram Feed.
 - **v3** (Final client copy + new sections): Client sent final Slovak copy. Added: What-is-LBV, Personal Coaching, Online Coaching (Trainerize). Food Collaboration → EasyDiet. Diagnostics branding → Visbody. Optional Testimonials section. Final CTA = client's marked "Variant 1". Dropped generic How-I-Work (absorbed into coaching sections). CLAUDE.md added.
 - **v3.1** (Real images + meta title): Client's 8 photos wired into their sections with `next/image`, graceful gradient fallback preserved via `onError` state per component. Files renamed to URL-safe slugs (see Image Assets below). Meta title updated to "LBV - Umenie žiť krásny život" (SK default, static metadata — see note in `app/layout.tsx`).
+- **v3.2** (Sheet-driven content layer): All body copy (paragraphs, list items, card text — NOT nav/footer/headings/images) can now be edited live from a published Google Sheet CSV, one tab per language, with the `messages/*.json` values as the always-available offline fallback. See "Sheet-Driven Content" below.
 
 ## Section Order (v3)
 0. Navbar
@@ -61,6 +62,56 @@ Footer
 | `GOOGLE_PLACE_ID` | `NEXT_PUBLIC_GOOGLE_PLACE_ID` |
 | `EASYDIET_URL` | `NEXT_PUBLIC_EASYDIET_URL` |
 | `TRAINERIZE_URL` | `NEXT_PUBLIC_TRAINERIZE_URL` |
+| `SHEET_CSV_URL_SK` | `NEXT_PUBLIC_SHEET_CSV_URL_SK` |
+| `SHEET_CSV_URL_EN` | `NEXT_PUBLIC_SHEET_CSV_URL_EN` |
+
+## Sheet-Driven Content (v3.2)
+Body copy — paragraphs, list items, chip labels, card text — is editable live from a
+published Google Sheet, without a redeploy. **Nav links, footer, section H2s, uppercase
+eyebrow labels, the four Pillar names (Movimento/Nutrizione/Comunità/Mentalità), community
+filter chips, the hero wordmark, meta title, and all images stay hardcoded in code —
+they are never sheet-driven.**
+
+**Priority order:** Google Sheet CSV (runtime) → `messages/*.json` flat keys (build-time
+fallback) → the key itself (should never surface — every canonical key has a fallback).
+A bad, empty, or unreachable sheet can never break the page.
+
+**Setup:** In the Sheet, one tab per language with columns `key`, `section`, `element`,
+`text` (only `text` is read; `section`/`element` are for the client's own bookkeeping).
+File → Share → Publish to web → CSV, per tab. Put those two URLs in
+`NEXT_PUBLIC_SHEET_CSV_URL_SK` / `_EN` in Vercel. Leave empty to run purely on the JSON
+fallback.
+
+**How it's wired:**
+- `lib/content.ts` — `parseCsv()` (dependency-free, RFC 4180 quoted-field parser),
+  `fetchContent(url)` (fetches + builds a `{key: text}` map, returns `{}` on *any* failure
+  — bad URL, network error, empty body, malformed row), `getContent(sheet, fallback)`
+  (sheet wins per-key only when non-empty, otherwise fallback is kept).
+- `app/page.tsx` (`Home`, now an async server component) fetches both language CSVs
+  server-side, merges each against its JSON fallback, and passes `contentSk`/`contentEn`
+  into `<I18nProvider>`. The CSV URLs are read and used only on the server — they never
+  reach the browser.
+- `lib/i18n.tsx` — `I18nProvider` now accepts `contentSk`/`contentEn` props; the SK/EN
+  toggle switches between the two merged maps client-side with zero network calls and no
+  reload. New `useContent()` hook returns `c(key)` for canonical sheet-driven keys,
+  alongside the existing `useT(namespace)` for locked/nested strings.
+- **Canonical keys** are the flat, top-level string values in `messages/sk.json` /
+  `messages/en.json` (e.g. `hero_subheadline`, `coaching_item_3`, `finalcta_line_2`).
+  Everything else in those files is a nested object (`nav`, `footer`, `hero.headline`,
+  `pillars.tag`, `pillars.items[].italian/title`, etc.) and stays locked — read via
+  `useT()`, never sheet-driven. `app/page.tsx`'s `extractFallback()` picks only the
+  top-level string entries to build the fallback map, so locked/nested groups never leak
+  into the sheet-driven layer.
+- **NUTRIZIONE pillar exception:** the canonical list only allows 3 body keys
+  (`pillar_nutrition_body_1..3`) for what used to be 5 pieces (2 paragraphs + an inline
+  "EasyDiet" link + 2 more fragments). `pillar_nutrition_body_2` is now one natural
+  sentence that mentions "EasyDiet" inline; `FourPillarsSection.tsx` finds that substring
+  at render time and wraps it in a link to `EASYDIET_URL` (or a plain bold span if unset).
+  Content editors just write a normal sentence — no manual link markup needed.
+- **New canonical keys with no prior equivalent:** `corporate_overlay` (the dark-card
+  headline, was hardcoded English-only) and `corporate_stat_1..3_num/label` (the 3 stat
+  tiles, were hardcoded in the component). Both now have SK + EN fallback values and are
+  sheet-editable like everything else in that section.
 
 ## Image Assets (`public/images/`)
 Client-supplied photos, renamed from their original Slovak filenames (which had spaces/commas/diacritics — unsafe in URLs) to slugs. Original name → new path → wired into:

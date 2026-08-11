@@ -2,11 +2,12 @@
 
 import { useRef } from "react";
 import { motion } from "framer-motion";
-import { useT } from "@/lib/i18n";
+import { useT, useContent } from "@/lib/i18n";
 import { HERO_VIDEO_URL } from "@/lib/config";
 
 export default function HeroSection() {
   const { t } = useT("hero");
+  const c = useContent();
   const videoRef = useRef<HTMLVideoElement>(null);
 
   const scrollToContact = () =>
@@ -69,7 +70,7 @@ export default function HeroSection() {
           transition={{ duration: 1, delay: 0.6, ease: "easeOut" }}
           className="font-cormorant text-2xl sm:text-3xl text-white/90 italic font-light mb-10"
         >
-          {t("subheadline")}
+          {c("hero_subheadline")}
         </motion.p>
 
         {/* Body copy */}
@@ -79,13 +80,13 @@ export default function HeroSection() {
           transition={{ duration: 0.9, delay: 0.8, ease: "easeOut" }}
           className="max-w-2xl mx-auto mb-10 space-y-3"
         >
-          {["body1", "body2", "body3", "body4"].map((key) => (
+          {["hero_paragraph_1", "hero_paragraph_2", "hero_paragraph_3", "hero_paragraph_4"].map((key) => (
             <p key={key} className="font-inter text-white/75 text-sm sm:text-base leading-relaxed">
-              {t(key)}
+              {c(key)}
             </p>
           ))}
           <p className="font-cormorant text-white/90 text-xl italic font-light pt-2">
-            {t("body5")}
+            {c("hero_welcome")}
           </p>
         </motion.div>
 
@@ -96,7 +97,7 @@ export default function HeroSection() {
           onClick={scrollToContact}
           className="group px-9 py-4 bg-white text-turquoise font-inter font-semibold text-sm tracking-wide rounded-full border border-gold hover:bg-turquoise hover:text-white hover:border-turquoise shadow-lg hover:shadow-turquoise/30 transition-all duration-400"
         >
-          {t("cta")}
+          {c("hero_button")}
           <span className="inline-block ml-2 group-hover:translate-x-1 transition-transform duration-300">→</span>
         </motion.button>
       </div>

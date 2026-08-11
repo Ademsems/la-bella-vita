@@ -3,14 +3,15 @@
 import { useState } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { useT } from "@/lib/i18n";
+import { useT, useContent } from "@/lib/i18n";
 import { EASYDIET_URL } from "@/lib/config";
 
 export default function FoodEasyDietSection() {
   const { t } = useT("food");
+  const c = useContent();
   const [imgFailed, setImgFailed] = useState(false);
 
-  const heading = t("heading");
+  const heading = c("food_headline");
 
   return (
     <section id="nutrition" className="py-24 bg-white">
@@ -31,10 +32,10 @@ export default function FoodEasyDietSection() {
               {heading}
             </h2>
             <p className="font-inter text-[15px] text-gray-500 leading-relaxed mb-5">
-              {t("body1")}
+              {c("food_body_1")}
             </p>
             <p className="font-inter text-[15px] text-gray-500 leading-relaxed mb-8">
-              {t("body2")}
+              {c("food_body_2")}
             </p>
 
             {EASYDIET_URL ? (
@@ -44,7 +45,7 @@ export default function FoodEasyDietSection() {
                 rel="noopener noreferrer"
                 className="group inline-flex items-center px-8 py-3.5 bg-turquoise text-white font-inter font-semibold text-sm rounded-full hover:bg-turquoise/90 hover:shadow-lg hover:shadow-turquoise/25 transition-all duration-300"
               >
-                {t("cta")}
+                {c("food_button")}
                 <span className="inline-block ml-2 group-hover:translate-x-1 transition-transform duration-300">→</span>
               </a>
             ) : (
@@ -52,7 +53,7 @@ export default function FoodEasyDietSection() {
                 onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
                 className="group px-8 py-3.5 bg-turquoise text-white font-inter font-semibold text-sm rounded-full hover:bg-turquoise/90 hover:shadow-lg hover:shadow-turquoise/25 transition-all duration-300"
               >
-                {t("cta")}
+                {c("food_button")}
                 <span className="inline-block ml-2 group-hover:translate-x-1 transition-transform duration-300">→</span>
               </button>
             )}

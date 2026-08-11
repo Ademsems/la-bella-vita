@@ -10,230 +10,205 @@
     "book":         "Rezervovať"
   },
   "hero": {
-    "headline":    "LA BELLA VITA",
-    "subheadline": "Nie je to len o svaloch. Je to o živote.",
-    "body1": "Pomáham ľuďom získať viac energie, zlepšiť zdravie, vybudovať silnejšie telo a vytvoriť si návyky, ktoré im umožnia žiť kvalitnejší život.",
-    "body2": "Nie som tréner pre každého. Mojím cieľom nie je, aby si žil/a pre fitko. Mojím cieľom je, aby si mal/a viac energie pre svoju rodinu, lepšiu koncentráciu v práci, viac sebavedomia, menej bolesti a viac radosti z každého dňa.",
-    "body3": "Preto v La Bella Vita nedostaneš len tréningový plán. Dostaneš individuálny coaching, výživu na mieru, merania Visbody, podporu, komunitu a systém, ktorý ti pomôže cítiť sa lepšie fyzicky aj mentálne.",
-    "body4": "Pretože najväčší luxus nie je dokonalá postava. Najväčší luxus je mať zdravie, energiu a slobodu užívať si život naplno.",
-    "body5": "Vitaj v La Bella Vita.",
-    "cta": "Začať svoju cestu 🍋"
+    "headline": "LA BELLA VITA"
   },
   "whatIsLbv": {
     "tag":     "Filozofia",
-    "heading": "Čo je La Bella Vita",
-    "lines": [
-      "Väčšina ľudí nechce iba lepšie telo.",
-      "Chce lepší život.",
-      "Chce mať viac energie.",
-      "Chce sa ráno zobúdzať bez únavy.",
-      "Chce sa cítiť dobre vo vlastnom tele.",
-      "Chce byť lepším partnerom, rodičom alebo lídrom.",
-      "Chce mať silu robiť veci, ktoré miluje."
-    ],
-    "divider": "Práve preto vznikla La Bella Vita.",
-    "lines2": [
-      "Nie je to fitness program.",
-      "Ale cesta ku kvalitnejšiemu životu."
-    ],
-    "closing": "Veríme, že zdravie nie je jedna z priorít. Je to základ, na ktorom stojí všetko ostatné."
-  },
-  "quote": {
-    "text":        "Zdravie nie je všetko. Ale bez zdravia je všetko nič.",
-    "attribution": "— Arthur Schopenhauer"
+    "heading": "Čo je La Bella Vita"
   },
   "pillars": {
-    "tag":        "Štyri piliere",
-    "heading":    "4 piliere La Bella Vita",
-    "subheading": "Krásny život stojí na štyroch základoch. Každý z nich je nevyhnutný.",
+    "tag":     "Štyri piliere",
+    "heading": "4 piliere La Bella Vita",
     "items": [
-      {
-        "italian": "MOVIMENTO",
-        "title":   "Pohyb",
-        "body":    "Z vedeckého hľadiska vieme, že pravidelný pohyb výrazne ovplyvňuje hormonálnu rovnováhu, znižuje stres a zlepšuje celkovú kvalitu života. Pohyb teda nie je trest, ale základná ľudská potreba. Je to vstupná brána k La Bella Vita — krásnemu životu."
-      },
-      {
-        "italian": "NUTRIZIONE",
-        "title":   "Výživa",
-        "body1":   "Strava nie je o extrémoch, hladovaní ani nekonečnom počítaní kalórií. Je o kvalite, rovnováhe a dlhodobo udržateľných návykoch, ktoré podporujú tvoje zdravie, energiu a výsledky.",
-        "body2":   "Každému klientovi nastavujeme výživu individuálne podľa jeho cieľa, životného štýlu a preferencií. Môže si vybrať medzi personalizovaným nutričným plánom s chutnými a jednoduchými receptami alebo službou",
-        "easydiet": "EasyDiet",
-        "body3":   ", kde má kvalitné jedlá pripravené a doručené priamo k dverám.",
-        "body4":   "Pretože krásny život by nemal byť o odriekaní. Mal by chutiť."
-      },
-      {
-        "italian": "COMUNITÀ",
-        "title":   "Komunita",
-        "body":    "Nikto nemusí kráčať touto cestou sám. La Bella Vita je komunita ľudí, ktorí sa rozhodli investovať do svojho zdravia, rastu a kvality života. Spoločne trénujeme. Spoločne športujeme. Spoločne oslavujeme malé aj veľké víťazstvá."
-      },
-      {
-        "italian": "MENTALITÀ",
-        "title":   "Nastavenie mysle",
-        "body":    "Výsledky nevznikajú za jeden deň. Vznikajú z rozhodnutí, ktoré robíme každý deň. Disciplína nie je obmedzenie. Je to forma slobody. Čím lepšie sa staráš o seba, tým viac môžeš dať svetu okolo seba."
-      }
+      { "italian": "MOVIMENTO", "title": "Pohyb" },
+      { "italian": "NUTRIZIONE", "title": "Výživa" },
+      { "italian": "COMUNITÀ", "title": "Komunita" },
+      { "italian": "MENTALITÀ", "title": "Nastavenie mysle" }
     ]
   },
   "myStory": {
     "tag":     "Môj príbeh",
-    "heading": "Môj príbeh",
-    "body1":   "Nie vždy som bol tréner.",
-    "body2":   "Bol som človek, ktorý od mladého veku bojoval so svojou váhou.",
-    "body3":   "Neskôr som zažil obdobie, ktoré mi navždy zmenilo život.",
-    "body4":   "Strata môjho otca ma naučila, aké krehké dokáže byť fyzické aj mentálne zdravie.",
-    "body5":   "Práve vtedy sa pohyb stal niečím viac než len tréningom. Stal sa oporou. Pomohol mi nájsť smer. Pomohol mi nájsť seba.",
-    "body6":   "A dnes je mojím poslaním pomáhať ľuďom budovať život, v ktorom sa budú cítiť silní, zdraví a spokojní.",
-    "body7":   "Nie len na pár týždňov. Na celý život.",
-    "signature": "— Alessandro"
+    "heading": "Môj príbeh"
   },
   "personalCoaching": {
-    "tag":        "Osobný coaching",
-    "heading":    "Individuálny prístup. Skutočné výsledky.",
-    "intro1":     "Každý človek je iný.",
-    "intro2":     "Preto nevytvárame univerzálne plány.",
-    "intro3":     "Spoločne nastavíme stratégiu, ktorá bude rešpektovať tvoj životný štýl, ciele, možnosti a tempo.",
-    "inclLabel":  "Súčasťou spolupráce je:",
-    "inclusions": [
-      "vstupná konzultácia",
-      "Visbody diagnostika",
-      "tréningový plán na mieru",
-      "nutričný plán na mieru",
-      "pravidelné merania a monitoring",
-      "dlhodobé vedenie"
-    ],
-    "cta": "Rezervovať konzultáciu"
+    "tag": "Osobný coaching"
   },
   "onlineCoaching": {
-    "tag":     "Online coaching",
-    "heading": "Tvoj plán. Kdekoľvek na svete.",
-    "body1":   "Vďaka aplikácii Trainerize máš všetko na jednom mieste.",
-    "features": [
-      "Tréningy",
-      "Výživa",
-      "Progres",
-      "Komunikácia",
-      "Podpora"
-    ],
-    "body2": "Moderný coaching, ktorý ti umožní dosahovať výsledky bez ohľadu na to, kde sa nachádzaš.",
-    "cta":   "Zistiť viac o online coachingu"
+    "tag": "Online coaching"
   },
   "transformations": {
-    "tag":       "Transformácie",
-    "heading":   "Transformácie",
-    "intro1":    "Každý výsledok má svoj príbeh.",
-    "intro2":    "Nezameriavame sa iba na číslo na váhe. Sledujeme energiu. Zdravie. Výkon. Pohyb. Sebavedomie.",
-    "visbody":   "Visbody nám poskytuje detailný pohľad na tvoju telesnú kompozíciu: percento telesného tuku, množstvo svalovej hmoty, viscerálny tuk, rozloženie svalov medzi pravou a ľavou stranou tela, posturálne odchýlky a celkový vývoj tvojej postavy. V kombinácii s pravidelnými kontrolami a individuálnym vedením získavaš jasný obraz o tom, čo sa v tvojom tele skutočne deje a aký progres dosahuješ na svojej ceste k La Bella Vita.",
-    "badge":     "Visbody Results",
-    "items": [
-      {
-        "name":  "Martina, 34",
-        "story": "Po druhom pôrode som sa cítila stratená vo vlastnom tele. Alessandro mi pomohol znovu nájsť sama seba — nielen fyzicky, ale hlavne mentálne. Za osem mesiacov som dosiahla výsledky, o ktorých som si myslela, že už nikdy nebudú možné."
-      },
-      {
-        "name":  "Tomáš, 41",
-        "story": "Pracujem v korporáte, sedím osem hodín denne. Chrbtica mi dávala signály, že takto ďalej to nejde. S Alessandrom sme zostavili plán okolo môjho nabitého rozvrhu. Dnes mám silu a energiu, ktorú som mal dvadsaťpäťročný."
-      },
-      {
-        "name":  "Katarína, 28",
-        "story": "Nikdy som nebola 'športový typ'. La Bella Vita mi ukázala, že pohyb nemusí byť agresívny ani stresujúci. Teraz sa na každý tréning skutočne tešíme a výsledky hovoria samy za seba."
-      }
-    ]
-  },
-  "cta1": {
-    "sentence": "Možno je dnes deň, kedy začneš.",
-    "button":   "Rezervovať konzultáciu"
+    "tag":     "Transformácie",
+    "heading": "Transformácie"
   },
   "food": {
-    "tag":     "Výživa & EasyDiet",
-    "heading": "Jedlo ako radosť,\nnie ako trest.",
-    "body1":   "Spolupracujem so službou EasyDiet, ktorá zdieľa moju filozofiu výživy. Kvalitné, chutné a zdravé jedlá pripravené a doručené priamo k tvojim dverám.",
-    "body2":   "Žiadne zakázané jedlá. Žiadne počítanie kalórií do posledného gramu. Namiesto toho jednoduché a udržateľné stravovanie, ktoré podporí tvoje výsledky a dá ti viac energie každý deň.",
-    "cta":     "Zistiť viac o EasyDiet"
+    "tag": "Výživa & EasyDiet"
   },
   "financing": {
-    "tag":      "Dostupnosť",
-    "heading":  "Program financovania La Bella Vita",
-    "body":     "Veríme, že starostlivosť o zdravie by nemala byť otázkou financií. Preto ponúkame flexibilný splátkový program bez úrokov — rozložte si investíciu do vlastného zdravia do pohodlných mesačných splátok a začnite bez stresu.",
-    "features": [
-      "Bez úrokov",
-      "3 až 12 mesiacov",
-      "Žiadne skryté poplatky",
-      "Okamžitý štart"
-    ],
-    "cta": "Zistiť viac"
+    "tag":     "Dostupnosť",
+    "heading": "Program financovania La Bella Vita"
   },
   "community": {
     "tag":        "Komunita",
     "heading":    "La Bella Vita Community",
-    "subheading": "Krásny život sa žije lepšie spolu.",
-    "body":       "Running Club. Volejbalové turnaje. Spoločné raňajky. Workshopy. Komunitné eventy. Budujeme prostredie, v ktorom zdravý životný štýl nie je povinnosť. Je prirodzenou súčasťou života.",
     "filters":    ["Všetko", "Beh", "Volejbal", "Raňajky", "Workshop", "More", "Komunita"],
     "comingSoon": "Fotografia čoskoro"
   },
   "corporate": {
-    "tag":        "Corporate Wellbeing",
-    "heading":    "Zdravší zamestnanci. Silnejšia firma.",
-    "subheading": "Výkon firmy je odrazom zdravia ľudí, ktorí ju tvoria. Pomáhame spoločnostiam vytvárať prostredie, v ktorom majú zamestnanci viac energie, menej stresu a lepšiu kvalitu života.",
-    "offerings":  [
-      "Prednášky o zdravom životnom štýle",
-      "Workshopy a praktické tréningy",
-      "Strečingové lekcie priamo vo firme",
-      "Visbody analýzy pre celý tím",
-      "Wellbeing programy šité na mieru",
-      "Filozofia La Bella Vita priamo vo vašej firme"
-    ],
-    "cta": "Dohodnutie stretnutia pre firmy"
-  },
-  "cta2": {
-    "sentence": "Váš najlepší rok začína jedným krokom.",
-    "button":   "Začnime spolu"
+    "tag": "Corporate Wellbeing"
   },
   "instagram": {
-    "tag":        "Komunita",
-    "heading":    "Sleduj nás",
-    "subheading": "Každodenné inšpirácie, pohyb a krásny život — priamo do tvojho feedu.",
-    "loading":    "Obsah sa načítava...",
-    "follow":     "Sledovať"
+    "tag":     "Komunita",
+    "heading": "Sleduj nás"
   },
   "testimonials": {
-    "tag":        "Recenzie",
-    "heading":    "Čo hovoria klienti",
-    "subheading": "Skutočné skúsenosti skutočných ľudí.",
-    "items": [
-      {
-        "name":  "Martina K.",
-        "quote": "Alessandro je neuveriteľný tréner. Za 3 mesiace som schudla 12 kg a cítim sa lepšie ako kedykoľvek predtým. Jeho prístup je motivujúci a profesionálny."
-      },
-      {
-        "name":  "Tomáš B.",
-        "quote": "Vždy som si myslel, že osobný tréner je luxus. Po spolupráci s Alessandrom viem, že je to investícia, ktorá sa oplatí. Výsledky hovoria za seba."
-      },
-      {
-        "name":  "Lucia M.",
-        "quote": "La Bella Vita zmenila môj pohľad na fitness. Alessandro nie je len tréner — je to mentor, ktorý vás skutočne zaujíma ako celok."
-      }
-    ]
-  },
-  "finalCta": {
-    "line1":  "Zdravie nie je samozrejmosť.",
-    "line2":  "Je to dar, ktorý si zaslúži tvoju pozornosť každý deň.",
-    "line3":  "Rozhodni sa žiť lepšie.",
-    "line4":  "Rozhodni sa pre La Bella Vita.",
-    "cta":    "Rezervovať konzultáciu"
+    "tag":     "Recenzie",
+    "heading": "Čo hovoria klienti"
   },
   "contact": {
-    "tag":        "Začnime",
-    "heading":    "Dohodnite si konzultáciu",
-    "subheading": "Napíšte nám — ozveme sa do 24 hodín a spoločne nastavíme prvý krok.",
-    "name":       "Meno a priezvisko",
-    "email":      "E-mailová adresa",
-    "phone":      "Telefónne číslo",
-    "message":    "Čo vás priviedlo k nám?",
-    "submit":     "Odoslať",
-    "success":    "Ďakujeme! Ozveme sa čoskoro.",
-    "mapFallback":"Mapa čoskoro"
+    "heading":     "Dohodnite si konzultáciu",
+    "subheading":  "Napíšte nám — ozveme sa do 24 hodín a spoločne nastavíme prvý krok.",
+    "mapFallback": "Mapa čoskoro"
   },
   "footer": {
     "tagline": "Ži krásny život.",
     "rights":  "Všetky práva vyhradené."
-  }
+  },
+
+  "hero_subheadline": "Nie je to len o svaloch. Je to o živote.",
+  "hero_paragraph_1": "Pomáham ľuďom získať viac energie, zlepšiť zdravie, vybudovať silnejšie telo a vytvoriť si návyky, ktoré im umožnia žiť kvalitnejší život.",
+  "hero_paragraph_2": "Nie som tréner pre každého. Mojím cieľom nie je, aby si žil/a pre fitko. Mojím cieľom je, aby si mal/a viac energie pre svoju rodinu, lepšiu koncentráciu v práci, viac sebavedomia, menej bolesti a viac radosti z každého dňa.",
+  "hero_paragraph_3": "Preto v La Bella Vita nedostaneš len tréningový plán. Dostaneš individuálny coaching, výživu na mieru, merania Visbody, podporu, komunitu a systém, ktorý ti pomôže cítiť sa lepšie fyzicky aj mentálne.",
+  "hero_paragraph_4": "Pretože najväčší luxus nie je dokonalá postava. Najväčší luxus je mať zdravie, energiu a slobodu užívať si život naplno.",
+  "hero_welcome": "Vitaj v La Bella Vita.",
+  "hero_button": "Začať svoju cestu 🍋",
+
+  "whatis_line_1": "Väčšina ľudí nechce iba lepšie telo.",
+  "whatis_line_2": "Chce lepší život.",
+  "whatis_line_3": "Chce mať viac energie.",
+  "whatis_line_4": "Chce sa ráno zobúdzať bez únavy.",
+  "whatis_line_5": "Chce sa cítiť dobre vo vlastnom tele.",
+  "whatis_line_6": "Chce byť lepším partnerom, rodičom alebo lídrom.",
+  "whatis_line_7": "Chce mať silu robiť veci, ktoré miluje.",
+  "whatis_highlight": "Práve preto vznikla La Bella Vita.",
+  "whatis_subline_1": "Nie je to fitness program.",
+  "whatis_subline_2": "Ale cesta ku kvalitnejšiemu životu.",
+  "whatis_closing": "Veríme, že zdravie nie je jedna z priorít. Je to základ, na ktorom stojí všetko ostatné.",
+
+  "quote_text": "Zdravie nie je všetko. Ale bez zdravia je všetko nič.",
+  "quote_author": "— Arthur Schopenhauer",
+
+  "pillars_tagline": "Krásny život stojí na štyroch základoch. Každý z nich je nevyhnutný.",
+  "pillar_movement_body": "Z vedeckého hľadiska vieme, že pravidelný pohyb výrazne ovplyvňuje hormonálnu rovnováhu, znižuje stres a zlepšuje celkovú kvalitu života. Pohyb teda nie je trest, ale základná ľudská potreba. Je to vstupná brána k La Bella Vita — krásnemu životu.",
+  "pillar_nutrition_body_1": "Strava nie je o extrémoch, hladovaní ani nekonečnom počítaní kalórií. Je o kvalite, rovnováhe a dlhodobo udržateľných návykoch, ktoré podporujú tvoje zdravie, energiu a výsledky.",
+  "pillar_nutrition_body_2": "Každému klientovi nastavujeme výživu individuálne podľa jeho cieľa, životného štýlu a preferencií. Môže si vybrať medzi personalizovaným nutričným plánom s chutnými a jednoduchými receptami alebo službou EasyDiet, kde má kvalitné jedlá pripravené a doručené priamo k dverám.",
+  "pillar_nutrition_body_3": "Pretože krásny život by nemal byť o odriekaní. Mal by chutiť.",
+  "pillar_community_body": "Nikto nemusí kráčať touto cestou sám. La Bella Vita je komunita ľudí, ktorí sa rozhodli investovať do svojho zdravia, rastu a kvality života. Spoločne trénujeme. Spoločne športujeme. Spoločne oslavujeme malé aj veľké víťazstvá.",
+  "pillar_mindset_body": "Výsledky nevznikajú za jeden deň. Vznikajú z rozhodnutí, ktoré robíme každý deň. Disciplína nie je obmedzenie. Je to forma slobody. Čím lepšie sa staráš o seba, tým viac môžeš dať svetu okolo seba.",
+
+  "mystory_line_1": "Nie vždy som bol tréner.",
+  "mystory_line_2": "Bol som človek, ktorý od mladého veku bojoval so svojou váhou.",
+  "mystory_line_3": "Neskôr som zažil obdobie, ktoré mi navždy zmenilo život.",
+  "mystory_line_4": "Strata môjho otca ma naučila, aké krehké dokáže byť fyzické aj mentálne zdravie.",
+  "mystory_line_5": "Práve vtedy sa pohyb stal niečím viac než len tréningom. Stal sa oporou. Pomohol mi nájsť smer. Pomohol mi nájsť seba.",
+  "mystory_line_6": "A dnes je mojím poslaním pomáhať ľuďom budovať život, v ktorom sa budú cítiť silní, zdraví a spokojní.",
+  "mystory_line_7": "Nie len na pár týždňov. Na celý život.",
+  "mystory_signature": "— Alessandro",
+
+  "coaching_headline": "Individuálny prístup. Skutočné výsledky.",
+  "coaching_intro_1": "Každý človek je iný.",
+  "coaching_intro_2": "Preto nevytvárame univerzálne plány.",
+  "coaching_intro_3": "Spoločne nastavíme stratégiu, ktorá bude rešpektovať tvoj životný štýl, ciele, možnosti a tempo.",
+  "coaching_included_title": "Súčasťou spolupráce je:",
+  "coaching_item_1": "vstupná konzultácia",
+  "coaching_item_2": "Visbody diagnostika",
+  "coaching_item_3": "tréningový plán na mieru",
+  "coaching_item_4": "nutričný plán na mieru",
+  "coaching_item_5": "pravidelné merania a monitoring",
+  "coaching_item_6": "dlhodobé vedenie",
+  "coaching_button": "Rezervovať konzultáciu",
+
+  "online_headline": "Tvoj plán. Kdekoľvek na svete.",
+  "online_intro": "Vďaka aplikácii Trainerize máš všetko na jednom mieste.",
+  "online_chip_1": "Tréningy",
+  "online_chip_2": "Výživa",
+  "online_chip_3": "Progres",
+  "online_chip_4": "Komunikácia",
+  "online_chip_5": "Podpora",
+  "online_body": "Moderný coaching, ktorý ti umožní dosahovať výsledky bez ohľadu na to, kde sa nachádzaš.",
+  "online_button": "Zistiť viac o online coachingu",
+
+  "transform_tagline": "Každý výsledok má svoj príbeh.",
+  "transform_intro": "Nezameriavame sa iba na číslo na váhe. Sledujeme energiu. Zdravie. Výkon. Pohyb. Sebavedomie.",
+  "transform_visbody_body": "Visbody nám poskytuje detailný pohľad na tvoju telesnú kompozíciu: percento telesného tuku, množstvo svalovej hmoty, viscerálny tuk, rozloženie svalov medzi pravou a ľavou stranou tela, posturálne odchýlky a celkový vývoj tvojej postavy. V kombinácii s pravidelnými kontrolami a individuálnym vedením získavaš jasný obraz o tom, čo sa v tvojom tele skutočne deje a aký progres dosahuješ na svojej ceste k La Bella Vita.",
+  "transform_1_name": "Martina, 34",
+  "transform_1_story": "Po druhom pôrode som sa cítila stratená vo vlastnom tele. Alessandro mi pomohol znovu nájsť sama seba — nielen fyzicky, ale hlavne mentálne. Za osem mesiacov som dosiahla výsledky, o ktorých som si myslela, že už nikdy nebudú možné.",
+  "transform_2_name": "Tomáš, 41",
+  "transform_2_story": "Pracujem v korporáte, sedím osem hodín denne. Chrbtica mi dávala signály, že takto ďalej to nejde. S Alessandrom sme zostavili plán okolo môjho nabitého rozvrhu. Dnes mám silu a energiu, ktorú som mal dvadsaťpäťročný.",
+  "transform_3_name": "Katarína, 28",
+  "transform_3_story": "Nikdy som nebola 'športový typ'. La Bella Vita mi ukázala, že pohyb nemusí byť agresívny ani stresujúci. Teraz sa na každý tréning skutočne tešíme a výsledky hovoria samy za seba.",
+  "transform_badge": "Visbody Results",
+
+  "cta1_line": "Možno je dnes deň, kedy začneš.",
+  "cta1_button": "Rezervovať konzultáciu",
+
+  "food_headline": "Jedlo ako radosť,\nnie ako trest.",
+  "food_body_1": "Spolupracujem so službou EasyDiet, ktorá zdieľa moju filozofiu výživy. Kvalitné, chutné a zdravé jedlá pripravené a doručené priamo k tvojim dverám.",
+  "food_body_2": "Žiadne zakázané jedlá. Žiadne počítanie kalórií do posledného gramu. Namiesto toho jednoduché a udržateľné stravovanie, ktoré podporí tvoje výsledky a dá ti viac energie každý deň.",
+  "food_button": "Zistiť viac o EasyDiet",
+
+  "financing_body": "Veríme, že starostlivosť o zdravie by nemala byť otázkou financií. Preto ponúkame flexibilný splátkový program bez úrokov — rozložte si investíciu do vlastného zdravia do pohodlných mesačných splátok a začnite bez stresu.",
+  "financing_chip_1": "Bez úrokov",
+  "financing_chip_2": "3 až 12 mesiacov",
+  "financing_chip_3": "Žiadne skryté poplatky",
+  "financing_chip_4": "Okamžitý štart",
+  "financing_button": "Zistiť viac",
+
+  "community_tagline": "Krásny život sa žije lepšie spolu.",
+  "community_body": "Running Club. Volejbalové turnaje. Spoločné raňajky. Workshopy. Komunitné eventy. Budujeme prostredie, v ktorom zdravý životný štýl nie je povinnosť. Je prirodzenou súčasťou života.",
+
+  "cta2_line": "Váš najlepší rok začína jedným krokom.",
+  "cta2_button": "Začnime spolu",
+
+  "corporate_headline": "Zdravší zamestnanci. Silnejšia firma.",
+  "corporate_overlay": "Investujte\ndo svojich ľudí.",
+  "corporate_body": "Výkon firmy je odrazom zdravia ľudí, ktorí ju tvoria. Pomáhame spoločnostiam vytvárať prostredie, v ktorom majú zamestnanci viac energie, menej stresu a lepšiu kvalitu života.",
+  "corporate_stat_1_num": "87%",
+  "corporate_stat_1_label": "spokojnosť zamestnancov",
+  "corporate_stat_2_num": "2×",
+  "corporate_stat_2_label": "nárast produktivity",
+  "corporate_stat_3_num": "−34%",
+  "corporate_stat_3_label": "menej PN",
+  "corporate_item_1": "Prednášky o zdravom životnom štýle",
+  "corporate_item_2": "Workshopy a praktické tréningy",
+  "corporate_item_3": "Strečingové lekcie priamo vo firme",
+  "corporate_item_4": "Visbody analýzy pre celý tím",
+  "corporate_item_5": "Wellbeing programy šité na mieru",
+  "corporate_item_6": "Filozofia La Bella Vita priamo vo vašej firme",
+  "corporate_button": "Dohodnutie stretnutia pre firmy",
+
+  "instagram_tagline": "Každodenné inšpirácie, pohyb a krásny život — priamo do tvojho feedu.",
+  "instagram_loading": "Obsah sa načítava...",
+  "instagram_button": "Sledovať",
+
+  "reviews_tagline": "Skutočné skúsenosti skutočných ľudí.",
+  "review_1_text": "Alessandro je neuveriteľný tréner. Za 3 mesiace som schudla 12 kg a cítim sa lepšie ako kedykoľvek predtým. Jeho prístup je motivujúci a profesionálny.",
+  "review_1_author": "Martina K.",
+  "review_2_text": "Vždy som si myslel, že osobný tréner je luxus. Po spolupráci s Alessandrom viem, že je to investícia, ktorá sa oplatí. Výsledky hovoria za seba.",
+  "review_2_author": "Tomáš B.",
+  "review_3_text": "La Bella Vita zmenila môj pohľad na fitness. Alessandro nie je len tréner — je to mentor, ktorý vás skutočne zaujíma ako celok.",
+  "review_3_author": "Lucia M.",
+
+  "finalcta_line_1": "Zdravie nie je samozrejmosť.",
+  "finalcta_line_2": "Je to dar, ktorý si zaslúži tvoju pozornosť každý deň.",
+  "finalcta_line_3": "Rozhodni sa žiť lepšie.",
+  "finalcta_line_4": "Rozhodni sa pre La Bella Vita.",
+  "finalcta_button": "Rezervovať konzultáciu",
+
+  "contact_tagline": "Začnime",
+  "contact_field_name": "Meno a priezvisko",
+  "contact_field_email": "E-mailová adresa",
+  "contact_field_phone": "Telefónne číslo",
+  "contact_field_message": "Čo vás priviedlo k nám?",
+  "contact_button": "Odoslať",
+  "contact_success": "Ďakujeme! Ozveme sa čoskoro."
 }

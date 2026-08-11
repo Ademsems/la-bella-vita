@@ -3,12 +3,13 @@
 import { useState } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { useT } from "@/lib/i18n";
+import { useT, useContent } from "@/lib/i18n";
 import { TRAINERIZE_URL } from "@/lib/config";
 
 export default function OnlineCoachingSection() {
-  const { t, tRaw } = useT("onlineCoaching");
-  const features = tRaw("features") as string[];
+  const { t } = useT("onlineCoaching");
+  const c = useContent();
+  const features = [1, 2, 3, 4, 5].map((n) => c(`online_chip_${n}`));
   const [imgFailed, setImgFailed] = useState(false);
 
   const ICONS = [
@@ -52,7 +53,7 @@ export default function OnlineCoachingSection() {
               {!imgFailed ? (
                 <Image
                   src="/images/07-trainerize.jpg"
-                  alt={t("heading")}
+                  alt={c("online_headline")}
                   fill
                   sizes="(min-width: 1024px) 50vw, 100vw"
                   className="object-cover"
@@ -86,15 +87,15 @@ export default function OnlineCoachingSection() {
               {t("tag")}
             </p>
             <h2 className="font-cormorant text-5xl md:text-6xl font-semibold text-gray-900 mb-6">
-              {t("heading")}
+              {c("online_headline")}
             </h2>
             <p className="font-inter text-[15px] text-gray-500 leading-relaxed mb-8">
-              {t("body1")}
+              {c("online_intro")}
             </p>
 
             {/* Feature pills */}
             <div className="flex flex-wrap gap-3 mb-8">
-              {Array.isArray(features) && features.map((feat, i) => (
+              {features.map((feat, i) => (
                 <div key={i} className="flex items-center gap-2.5 bg-white rounded-full px-4 py-2.5 shadow-sm border border-champagne">
                   <span className="text-turquoise">{ICONS[i]}</span>
                   <span className="font-inter text-sm font-medium text-gray-700">{feat}</span>
@@ -103,7 +104,7 @@ export default function OnlineCoachingSection() {
             </div>
 
             <p className="font-inter text-[15px] text-gray-500 leading-relaxed mb-8">
-              {t("body2")}
+              {c("online_body")}
             </p>
 
             {TRAINERIZE_URL ? (
@@ -113,7 +114,7 @@ export default function OnlineCoachingSection() {
                 rel="noopener noreferrer"
                 className="group inline-flex items-center px-8 py-3.5 bg-turquoise text-white font-inter font-semibold text-sm rounded-full hover:bg-turquoise/90 hover:shadow-lg hover:shadow-turquoise/25 transition-all duration-300"
               >
-                {t("cta")}
+                {c("online_button")}
                 <span className="inline-block ml-2 group-hover:translate-x-1 transition-transform duration-300">→</span>
               </a>
             ) : (
@@ -121,7 +122,7 @@ export default function OnlineCoachingSection() {
                 onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
                 className="group px-8 py-3.5 bg-turquoise text-white font-inter font-semibold text-sm rounded-full hover:bg-turquoise/90 hover:shadow-lg hover:shadow-turquoise/25 transition-all duration-300"
               >
-                {t("cta")}
+                {c("online_button")}
                 <span className="inline-block ml-2 group-hover:translate-x-1 transition-transform duration-300">→</span>
               </button>
             )}

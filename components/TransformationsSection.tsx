@@ -1,11 +1,16 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useT } from "@/lib/i18n";
+import { useT, useContent } from "@/lib/i18n";
 
 export default function TransformationsSection() {
-  const { t, tRaw } = useT("transformations");
-  const items = tRaw("items") as { name: string; story: string }[];
+  const { t } = useT("transformations");
+  const c = useContent();
+
+  const items = [1, 2, 3].map((n) => ({
+    name: c(`transform_${n}_name`),
+    story: c(`transform_${n}_story`),
+  }));
 
   const CARD_GRADIENTS = [
     "from-[#EDE4D8] to-[#d8ccbc]",
@@ -30,9 +35,9 @@ export default function TransformationsSection() {
           <h2 className="font-cormorant text-5xl md:text-6xl font-semibold text-gray-900 mb-5">
             {t("heading")}
           </h2>
-          <p className="font-cormorant text-2xl italic text-gray-600 font-light">{t("intro1")}</p>
+          <p className="font-cormorant text-2xl italic text-gray-600 font-light">{c("transform_tagline")}</p>
           <p className="mt-2 font-inter text-gray-500 text-base max-w-xl mx-auto leading-relaxed">
-            {t("intro2")}
+            {c("transform_intro")}
           </p>
         </motion.div>
 
@@ -47,16 +52,16 @@ export default function TransformationsSection() {
           <div className="flex items-center gap-3 mb-3">
             <div className="w-2 h-2 rounded-full bg-turquoise" />
             <span className="font-inter text-xs font-semibold text-turquoise tracking-wide uppercase">
-              {t("badge")}
+              {c("transform_badge")}
             </span>
           </div>
           <p className="font-inter text-sm text-gray-500 leading-relaxed">
-            {t("visbody")}
+            {c("transform_visbody_body")}
           </p>
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-7">
-          {Array.isArray(items) && items.map((item, i) => (
+          {items.map((item, i) => (
             <motion.div
               key={i}
               initial={{ opacity: 0, y: 36 }}
@@ -78,7 +83,7 @@ export default function TransformationsSection() {
                 <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm rounded-full px-3 py-1.5 flex items-center gap-1.5 shadow-sm">
                   <div className="w-2 h-2 rounded-full bg-turquoise" />
                   <span className="font-inter text-[10px] font-semibold text-gray-700 tracking-wide">
-                    {t("badge")}
+                    {c("transform_badge")}
                   </span>
                 </div>
               </div>

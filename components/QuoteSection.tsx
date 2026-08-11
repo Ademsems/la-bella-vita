@@ -1,10 +1,10 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useT } from "@/lib/i18n";
+import { useContent } from "@/lib/i18n";
 
 export default function QuoteSection() {
-  const { t } = useT("quote");
+  const c = useContent();
 
   return (
     <section className="py-28 bg-white">
@@ -19,7 +19,7 @@ export default function QuoteSection() {
           <div className="font-cormorant text-7xl text-turquoise/30 leading-none mb-2 select-none">&ldquo;</div>
 
           <blockquote className="font-cormorant text-3xl sm:text-4xl md:text-5xl italic text-gray-800 leading-snug font-light">
-            {t("text")}
+            {c("quote_text")}
           </blockquote>
 
           {/* Gold underline */}
@@ -28,7 +28,7 @@ export default function QuoteSection() {
           </div>
 
           <p className="font-inter text-sm text-gray-400 tracking-widest uppercase">
-            {t("attribution")}
+            {c("quote_author")}
           </p>
         </motion.div>
       </div>

@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useT } from "@/lib/i18n";
+import { useContent } from "@/lib/i18n";
 
 interface Props {
   variant: "cta1" | "cta2";
@@ -13,7 +13,9 @@ const BAND_GRADIENTS = {
 };
 
 export default function CtaBand({ variant }: Props) {
-  const { t } = useT(variant);
+  const c = useContent();
+  const line = c(`${variant}_line`);
+  const button = c(`${variant}_button`);
 
   return (
     <section className="relative overflow-hidden py-20">
@@ -40,14 +42,14 @@ export default function CtaBand({ variant }: Props) {
           transition={{ duration: 0.7, ease: "easeOut" }}
         >
           <p className="font-cormorant text-3xl sm:text-4xl md:text-5xl italic text-white font-light mb-8 leading-snug">
-            {t("sentence")}
+            {line}
           </p>
 
           <button
             onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
             className="group px-9 py-4 bg-white text-turquoise font-inter font-semibold text-sm tracking-wide rounded-full border border-gold hover:bg-gold hover:text-white hover:border-gold shadow-xl hover:shadow-white/20 transition-all duration-400"
           >
-            {t("button")}
+            {button}
             <span className="inline-block ml-2 group-hover:translate-x-1 transition-transform duration-300">→</span>
           </button>
         </motion.div>

@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useT } from "@/lib/i18n";
+import { useT, useContent } from "@/lib/i18n";
 import { useState } from "react";
 import { GOOGLE_MAPS_EMBED_URL } from "@/lib/config";
 
@@ -10,6 +10,7 @@ import { GOOGLE_MAPS_EMBED_URL } from "@/lib/config";
 
 export default function ContactSection() {
   const { t } = useT("contact");
+  const c = useContent();
   const [form, setForm] = useState({ name: "", email: "", phone: "", message: "" });
   const [submitted, setSubmitted] = useState(false);
   const [busy, setBusy] = useState(false);
@@ -37,7 +38,7 @@ export default function ContactSection() {
           className="text-center mb-16"
         >
           <p className="font-inter text-xs text-turquoise font-semibold uppercase tracking-[0.2em] mb-3">
-            {t("tag")}
+            {c("contact_tagline")}
           </p>
           <h2 className="font-cormorant text-5xl md:text-6xl font-semibold text-gray-900">
             {t("heading")}
@@ -64,7 +65,7 @@ export default function ContactSection() {
                   </svg>
                 </div>
                 <h3 className="font-cormorant text-3xl font-semibold text-gray-900 mb-2">
-                  {t("success")}
+                  {c("contact_success")}
                 </h3>
                 <div className="h-px w-12 bg-gold mx-auto mt-4" />
               </div>
@@ -73,7 +74,7 @@ export default function ContactSection() {
                 {/* Name */}
                 <input
                   type="text"
-                  placeholder={t("name")}
+                  placeholder={c("contact_field_name")}
                   value={form.name}
                   onChange={(e) => setForm({ ...form, name: e.target.value })}
                   required
@@ -82,7 +83,7 @@ export default function ContactSection() {
                 {/* Email */}
                 <input
                   type="email"
-                  placeholder={t("email")}
+                  placeholder={c("contact_field_email")}
                   value={form.email}
                   onChange={(e) => setForm({ ...form, email: e.target.value })}
                   required
@@ -91,14 +92,14 @@ export default function ContactSection() {
                 {/* Phone */}
                 <input
                   type="tel"
-                  placeholder={t("phone")}
+                  placeholder={c("contact_field_phone")}
                   value={form.phone}
                   onChange={(e) => setForm({ ...form, phone: e.target.value })}
                   className="w-full px-5 py-4 rounded-2xl border border-champagne bg-champagne/50 focus:bg-white focus:border-turquoise/50 focus:outline-none focus:ring-2 focus:ring-turquoise/20 transition-all font-inter text-[15px] text-gray-800 placeholder-gray-400"
                 />
                 {/* Message */}
                 <textarea
-                  placeholder={t("message")}
+                  placeholder={c("contact_field_message")}
                   value={form.message}
                   onChange={(e) => setForm({ ...form, message: e.target.value })}
                   rows={5}
@@ -110,7 +111,7 @@ export default function ContactSection() {
                   disabled={busy}
                   className="w-full py-4 bg-turquoise text-white font-inter font-semibold text-sm rounded-2xl hover:bg-turquoise/90 hover:shadow-lg hover:shadow-turquoise/25 transition-all duration-300 disabled:opacity-60 disabled:cursor-not-allowed"
                 >
-                  {busy ? "..." : t("submit")}
+                  {busy ? "..." : c("contact_button")}
                 </button>
               </form>
             )}

@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { useT } from "@/lib/i18n";
+import { useT, useContent } from "@/lib/i18n";
 import { EASYDIET_URL } from "@/lib/config";
 
 const PILLAR_GRADIENTS = [
@@ -21,21 +21,53 @@ const PILLAR_IMAGES = [
   "/images/04-nastavenie-mysle.jpg",
 ];
 
-type PillarItem = {
-  italian: string;
-  title: string;
-  body?: string;
-  body1?: string;
-  body2?: string;
-  easydiet?: string;
-  body3?: string;
-  body4?: string;
-};
+type PillarName = { italian: string; title: string };
+
+/**
+ * The NUTRIZIONE body (pillar_nutrition_body_2) is one sheet-editable sentence
+ * that naturally mentions "EasyDiet". We turn that substring into a link at
+ * render time instead of splitting the sentence into separate sheet keys —
+ * keeps the CSV row a single natural paragraph for content editors.
+ */
+function renderWithEasyDietLink(text: string) {
+  const idx = text.indexOf("EasyDiet");
+  if (idx === -1) return text;
+
+  const before = text.slice(0, idx);
+  const after = text.slice(idx + "EasyDiet".length);
+
+  return (
+    <>
+      {before}
+      {EASYDIET_URL ? (
+        <a
+          href={EASYDIET_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="underline underline-offset-2 text-white hover:text-gold transition-colors"
+        >
+          EasyDiet
+        </a>
+      ) : (
+        <span className="font-semibold">EasyDiet</span>
+      )}
+      {after}
+    </>
+  );
+}
 
 export default function FourPillarsSection() {
   const { t, tRaw } = useT("pillars");
-  const items = tRaw("items") as PillarItem[];
+  const c = useContent();
+  const names = tRaw("items") as PillarName[];
   const [failed, setFailed] = useState<boolean[]>([false, false, false, false]);
+
+  const bodies = [
+    c("pillar_movement_body"),
+    null, // NUTRIZIONE renders its own multi-paragraph block below
+    c("pillar_community_body"),
+    c("pillar_mindset_body"),
+  ];
 
   const markFailed = (i: number) =>
     setFailed((prev) => prev.map((v, idx) => (idx === i ? true : v)));
@@ -58,12 +90,12 @@ export default function FourPillarsSection() {
             {t("heading")}
           </h2>
           <p className="mt-4 font-inter text-gray-500 text-base max-w-xl mx-auto leading-relaxed">
-            {t("subheading")}
+            {c("pillars_tagline")}
           </p>
         </motion.div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-          {Array.isArray(items) && items.map((pillar, i) => (
+          {Array.isArray(names) && names.map((pillar, i) => (
             <motion.div
               key={i}
               initial={{ opacity: 0, y: 40 }}
@@ -101,31 +133,16 @@ export default function FourPillarsSection() {
                   {pillar.title}
                 </h3>
 
-                {/* NUTRIZIONE pillar (index 1) has inline EasyDiet link */}
-                {i === 1 && pillar.body1 ? (
+                {/* NUTRIZIONE pillar (index 1) has 3 paragraphs incl. inline EasyDiet link */}
+                {i === 1 ? (
                   <div className="font-inter text-white/80 text-sm leading-relaxed space-y-2">
-                    <p>{pillar.body1}</p>
-                    <p>
-                      {pillar.body2}{" "}
-                      {EASYDIET_URL ? (
-                        <a
-                          href={EASYDIET_URL}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="underline underline-offset-2 text-white hover:text-gold transition-colors"
-                        >
-                          {pillar.easydiet}
-                        </a>
-                      ) : (
-                        <span className="font-semibold">{pillar.easydiet}</span>
-                      )}
-                      {pillar.body3}
-                    </p>
-                    <p>{pillar.body4}</p>
+                    <p>{c("pillar_nutrition_body_1")}</p>
+                    <p>{renderWithEasyDietLink(c("pillar_nutrition_body_2"))}</p>
+                    <p>{c("pillar_nutrition_body_3")}</p>
                   </div>
                 ) : (
                   <p className="font-inter text-white/80 text-sm leading-relaxed">
-                    {pillar.body}
+                    {bodies[i]}
                   </p>
                 )}
               </div>

@@ -23,3 +23,9 @@ export const EASYDIET_URL = process.env.NEXT_PUBLIC_EASYDIET_URL || "";
 
 // TODO: Set NEXT_PUBLIC_TRAINERIZE_URL to link the "Online Coaching" CTA button
 export const TRAINERIZE_URL = process.env.NEXT_PUBLIC_TRAINERIZE_URL || "";
+
+// TODO: Set NEXT_PUBLIC_SHEET_CSV_URL_SK / _EN to published Google Sheet CSV exports
+// (File → Share → Publish to web → CSV, one tab per language). When empty, the site
+// renders entirely from the messages/*.json fallback — see lib/content.ts.
+export const SHEET_CSV_URL_SK = process.env.NEXT_PUBLIC_SHEET_CSV_URL_SK || "";
+export const SHEET_CSV_URL_EN = process.env.NEXT_PUBLIC_SHEET_CSV_URL_EN || "";

@@ -3,12 +3,14 @@
 import { useState } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { useT } from "@/lib/i18n";
+import { useT, useContent } from "@/lib/i18n";
 
 export default function PersonalCoachingSection() {
-  const { t, tRaw } = useT("personalCoaching");
-  const inclusions = tRaw("inclusions") as string[];
+  const { t } = useT("personalCoaching");
+  const c = useContent();
   const [imgFailed, setImgFailed] = useState(false);
+
+  const inclusions = [1, 2, 3, 4, 5, 6].map((n) => c(`coaching_item_${n}`));
 
   const scrollToContact = () =>
     document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
@@ -30,21 +32,21 @@ export default function PersonalCoachingSection() {
               {t("tag")}
             </p>
             <h2 className="font-cormorant text-5xl md:text-6xl font-semibold text-gray-900 mb-6">
-              {t("heading")}
+              {c("coaching_headline")}
             </h2>
 
             <div className="space-y-3 mb-8">
-              <p className="font-cormorant text-2xl italic text-gray-600 font-light">{t("intro1")}</p>
-              <p className="font-cormorant text-2xl italic text-gray-600 font-light">{t("intro2")}</p>
-              <p className="font-inter text-[15px] text-gray-500 leading-relaxed">{t("intro3")}</p>
+              <p className="font-cormorant text-2xl italic text-gray-600 font-light">{c("coaching_intro_1")}</p>
+              <p className="font-cormorant text-2xl italic text-gray-600 font-light">{c("coaching_intro_2")}</p>
+              <p className="font-inter text-[15px] text-gray-500 leading-relaxed">{c("coaching_intro_3")}</p>
             </div>
 
             <div className="bg-champagne/60 rounded-2xl p-6 mb-8">
               <p className="font-inter text-sm font-semibold text-gray-800 mb-4 uppercase tracking-[0.1em]">
-                {t("inclLabel")}
+                {c("coaching_included_title")}
               </p>
               <ul className="space-y-2.5">
-                {Array.isArray(inclusions) && inclusions.map((item, i) => (
+                {inclusions.map((item, i) => (
                   <li key={i} className="flex items-center gap-3">
                     <div className="w-5 h-5 rounded-full bg-turquoise/15 flex items-center justify-center flex-shrink-0">
                       <svg className="w-3 h-3 text-turquoise" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -61,7 +63,7 @@ export default function PersonalCoachingSection() {
               onClick={scrollToContact}
               className="group px-8 py-3.5 bg-turquoise text-white font-inter font-semibold text-sm rounded-full hover:bg-turquoise/90 hover:shadow-lg hover:shadow-turquoise/25 transition-all duration-300"
             >
-              {t("cta")}
+              {c("coaching_button")}
               <span className="inline-block ml-2 group-hover:translate-x-1 transition-transform duration-300">→</span>
             </button>
           </motion.div>
@@ -78,7 +80,7 @@ export default function PersonalCoachingSection() {
               {!imgFailed ? (
                 <Image
                   src="/images/06-individualny-pristup.jpg"
-                  alt={t("heading")}
+                  alt={c("coaching_headline")}
                   fill
                   sizes="(min-width: 1024px) 50vw, 100vw"
                   className="object-cover"

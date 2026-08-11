@@ -1,11 +1,16 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useT } from "@/lib/i18n";
+import { useT, useContent } from "@/lib/i18n";
 
 export default function TestimonialsSection() {
-  const { t, tRaw } = useT("testimonials");
-  const items = tRaw("items") as { name: string; quote: string }[];
+  const { t } = useT("testimonials");
+  const c = useContent();
+
+  const items = [1, 2, 3].map((n) => ({
+    quote: c(`review_${n}_text`),
+    name: c(`review_${n}_author`),
+  }));
 
   return (
     <section id="testimonials" className="py-24 bg-beige">
@@ -25,12 +30,12 @@ export default function TestimonialsSection() {
             {t("heading")}
           </h2>
           <p className="mt-4 font-inter text-gray-500 text-base max-w-xl mx-auto leading-relaxed">
-            {t("subheading")}
+            {c("reviews_tagline")}
           </p>
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {Array.isArray(items) && items.map((item, i) => (
+          {items.map((item, i) => (
             <motion.div
               key={i}
               initial={{ opacity: 0, y: 32 }}
