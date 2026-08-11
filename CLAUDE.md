@@ -29,6 +29,7 @@ Design language: Four Seasons × Apple × Amalfi Coast. Morning light, sea, comm
 - **v3** (Final client copy + new sections): Client sent final Slovak copy. Added: What-is-LBV, Personal Coaching, Online Coaching (Trainerize). Food Collaboration → EasyDiet. Diagnostics branding → Visbody. Optional Testimonials section. Final CTA = client's marked "Variant 1". Dropped generic How-I-Work (absorbed into coaching sections). CLAUDE.md added.
 - **v3.1** (Real images + meta title): Client's 8 photos wired into their sections with `next/image`, graceful gradient fallback preserved via `onError` state per component. Files renamed to URL-safe slugs (see Image Assets below). Meta title updated to "LBV - Umenie žiť krásny život" (SK default, static metadata — see note in `app/layout.tsx`).
 - **v3.2** (Sheet-driven content layer): All body copy (paragraphs, list items, card text — NOT nav/footer/headings/images) can now be edited live from a published Google Sheet CSV, one tab per language, with the `messages/*.json` values as the always-available offline fallback. See "Sheet-Driven Content" below.
+- **v3.3** (CSV header-matching bug fix): Sheet overrides were silently never applying — see "Known Bugs & Fixes" below.
 
 ## Section Order (v3)
 0. Navbar
@@ -76,9 +77,12 @@ they are never sheet-driven.**
 fallback) → the key itself (should never surface — every canonical key has a fallback).
 A bad, empty, or unreachable sheet can never break the page.
 
-**Setup:** In the Sheet, one tab per language with columns `key`, `section`, `element`,
-`text` (only `text` is read; `section`/`element` are for the client's own bookkeeping).
-File → Share → Publish to web → CSV, per tab. Put those two URLs in
+**Setup:** In the Sheet, one tab per language with a key column and a text column (plus
+any number of reference-only columns in between — see "Known Bugs & Fixes" for why the
+parser doesn't care about their exact names). The published sheet's real headers are
+editor-facing labels: `key (do not edit)`, `Section`, `What is this text?`,
+`TEXT — EDIT HERE (SK)` (or `(EN)` on the English tab) — only the key and text columns
+are read. File → Share → Publish to web → CSV, per tab. Put those two URLs in
 `NEXT_PUBLIC_SHEET_CSV_URL_SK` / `_EN` in Vercel. Leave empty to run purely on the JSON
 fallback.
 
@@ -112,6 +116,27 @@ fallback.
   headline, was hardcoded English-only) and `corporate_stat_1..3_num/label` (the 3 stat
   tiles, were hardcoded in the component). Both now have SK + EN fallback values and are
   sheet-editable like everything else in that section.
+
+### Known Bugs & Fixes
+- **v3.3 — CSV headers never matched, overrides silently no-op'd.** The v3.2 parser in
+  `lib/content.ts` matched columns by *exact* header name (`row.key`, `row.text`). The
+  real published Sheet's headers are editor-facing labels — `key (do not edit)`,
+  `TEXT — EDIT HERE (SK)` / `(EN)` — so the exact match never hit, `fetchContent()`
+  silently returned `{}` every time (by design, per the "never break the page" contract),
+  and the site always rendered the JSON fallback with zero errors anywhere. Nothing
+  looked broken; nothing ever changed when the sheet was edited.
+  **Fix:** `parseCsv()` now returns `{ headers, rows }`; a `findColumn()` helper matches
+  the key/text columns by **case-insensitive prefix** (`startsWith("key")` /
+  `startsWith("text")`) instead of exact name, so `key (do not edit)` and
+  `TEXT — EDIT HERE (SK)`/`(EN)` both resolve correctly regardless of annotation text or
+  language suffix. Reference-only columns (`Section`, `What is this text?`) are still
+  ignored — neither starts with `key` or `text`.
+  **Lesson for future column renames:** the parser is now resilient to *cosmetic*
+  header changes (extra words, punctuation, per-language suffixes) as long as the header
+  still *starts with* `key` or `text`. A rename to something that doesn't start with
+  either word (e.g. "Content" instead of "Text — ...") would still silently break it —
+  if sheet edits ever stop showing up on the site again, check the actual CSV headers
+  first (`curl` the published CSV URL) before assuming it's a caching or fetch issue.
 
 ## Image Assets (`public/images/`)
 Client-supplied photos, renamed from their original Slovak filenames (which had spaces/commas/diacritics — unsafe in URLs) to slugs. Original name → new path → wired into:

@@ -9,12 +9,18 @@
 
 export type ContentMap = Record<string, string>;
 
+export interface ParsedCsv {
+  headers: string[];
+  rows: Record<string, string>[];
+}
+
 /**
  * Small dependency-free CSV parser. Handles quoted fields containing commas,
- * newlines, and escaped quotes ("") per RFC 4180. Returns one object per data
- * row, keyed by the header row.
+ * newlines, and escaped quotes ("") per RFC 4180. Returns the header row plus
+ * one object per data row, keyed by the (raw, untouched) header row — column
+ * matching against those raw headers happens in fetchContent().
  */
-export function parseCsv(text: string): Record<string, string>[] {
+export function parseCsv(text: string): ParsedCsv {
   const rows: string[][] = [];
   let row: string[] = [];
   let field = "";
@@ -60,16 +66,30 @@ export function parseCsv(text: string): Record<string, string>[] {
   }
 
   const nonEmptyRows = rows.filter((r) => r.some((cell) => cell.trim() !== ""));
-  if (nonEmptyRows.length === 0) return [];
+  if (nonEmptyRows.length === 0) return { headers: [], rows: [] };
 
-  const header = nonEmptyRows[0].map((h) => h.trim());
-  return nonEmptyRows.slice(1).map((r) => {
+  const headers = nonEmptyRows[0].map((h) => h.trim());
+  const dataRows = nonEmptyRows.slice(1).map((r) => {
     const obj: Record<string, string> = {};
-    header.forEach((h, i) => {
+    headers.forEach((h, i) => {
       obj[h] = (r[i] ?? "").trim();
     });
     return obj;
   });
+
+  return { headers, rows: dataRows };
+}
+
+/**
+ * Finds the actual header name whose (case-insensitive, trimmed) text starts
+ * with the given prefix. The published Sheet's real headers are editor-facing
+ * labels like "key (do not edit)" or "TEXT — EDIT HERE (SK)", not the bare
+ * "key"/"text" names — matching by prefix survives those annotations and the
+ * per-language suffix on the text column.
+ */
+function findColumn(headers: string[], prefix: string): string | undefined {
+  const lower = prefix.toLowerCase();
+  return headers.find((h) => h.trim().toLowerCase().startsWith(lower));
 }
 
 /**
@@ -88,15 +108,26 @@ export async function fetchContent(url: string): Promise<ContentMap> {
     const text = await res.text();
     if (!text.trim()) return {};
 
-    const rows = parseCsv(text);
+    const { headers, rows } = parseCsv(text);
+
+    // Match by prefix, not exact name — the real Sheet headers are editor-facing
+    // labels ("key (do not edit)", "TEXT — EDIT HERE (SK)"), not bare "key"/"text".
+    const keyHeader = findColumn(headers, "key");
+    const textHeader = findColumn(headers, "text");
+    if (!keyHeader || !textHeader) return {};
+
     const map: ContentMap = {};
     for (const row of rows) {
-      const key = row.key?.trim();
-      const value = row.text;
+      const key = row[keyHeader]?.trim();
+      const value = row[textHeader];
       if (key && value && value.trim() !== "") {
         map[key] = value;
       }
     }
+
+    // TEMPORARY — remove once sheet sync is confirmed working in Vercel logs.
+    console.log(`[content] parsed ${Object.keys(map).length} keys from ${url}`);
+
     return map;
   } catch {
     return {};
