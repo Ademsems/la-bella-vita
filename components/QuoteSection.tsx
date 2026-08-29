@@ -16,9 +16,9 @@ export default function QuoteSection() {
           transition={{ duration: 0.7, ease: "easeOut" }}
         >
           {/* Opening quotation mark */}
-          <div className="font-cormorant text-7xl text-turquoise/30 leading-none mb-2 select-none">&ldquo;</div>
+          <div className="font-heading text-7xl text-turquoise/30 leading-none mb-2 select-none">&ldquo;</div>
 
-          <blockquote className="font-cormorant text-3xl sm:text-4xl md:text-5xl italic text-gray-800 leading-snug font-light">
+          <blockquote className="font-heading text-3xl sm:text-4xl md:text-5xl italic text-gray-800 leading-snug font-light">
             {c("quote_text")}
           </blockquote>
 

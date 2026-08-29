@@ -2,6 +2,8 @@
 
 import { motion } from "framer-motion";
 import { useT, useContent } from "@/lib/i18n";
+import TiltCard from "@/components/ui/TiltCard";
+import HudHotspot from "@/components/ui/HudHotspot";
 
 export default function TransformationsSection() {
   const { t } = useT("transformations");
@@ -32,10 +34,10 @@ export default function TransformationsSection() {
           <p className="font-inter text-xs text-turquoise font-semibold uppercase tracking-[0.2em] mb-3">
             {t("tag")}
           </p>
-          <h2 className="font-cormorant text-5xl md:text-6xl font-semibold text-gray-900 mb-5">
+          <h2 className="font-heading text-5xl md:text-6xl font-semibold text-gray-900 mb-5">
             {t("heading")}
           </h2>
-          <p className="font-cormorant text-2xl italic text-gray-600 font-light">{c("transform_tagline")}</p>
+          <p className="font-heading text-2xl italic text-gray-600 font-light">{c("transform_tagline")}</p>
           <p className="mt-2 font-inter text-gray-500 text-base max-w-xl mx-auto leading-relaxed">
             {c("transform_intro")}
           </p>
@@ -68,30 +70,40 @@ export default function TransformationsSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.7, delay: i * 0.14, ease: "easeOut" }}
-              className="group bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-500 border border-champagne hover:border-gold/30"
             >
-              {/* Photo placeholder */}
-              <div className={`h-64 bg-gradient-to-br ${CARD_GRADIENTS[i]} relative overflow-hidden`}>
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="w-16 h-16 rounded-full bg-white/40 mx-auto flex items-center justify-center">
-                    <svg className="w-8 h-8 text-white/70" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5}
-                        d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                    </svg>
+              <TiltCard
+                intensity={6}
+                className="group bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-shadow duration-500 border border-champagne hover:border-gold/30 border-beam"
+              >
+                {/* Photo placeholder */}
+                <div className={`h-64 bg-gradient-to-br ${CARD_GRADIENTS[i]} relative overflow-hidden`}>
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <div className="w-16 h-16 rounded-full bg-white/40 mx-auto flex items-center justify-center">
+                      <svg className="w-8 h-8 text-white/70" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5}
+                          d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                      </svg>
+                    </div>
                   </div>
+                  <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm rounded-full px-3 py-1.5 flex items-center gap-1.5 shadow-sm">
+                    <div className="w-2 h-2 rounded-full bg-turquoise" />
+                    <span className="font-inter text-[10px] font-semibold text-gray-700 tracking-wide">
+                      {c("transform_badge")}
+                    </span>
+                  </div>
+                  {/* HUD hotspot — expands into the transformation's detail on hover/tap */}
+                  <HudHotspot
+                    label={item.name}
+                    detail={item.story}
+                    style={{ left: "14px", bottom: "14px" }}
+                  />
                 </div>
-                <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm rounded-full px-3 py-1.5 flex items-center gap-1.5 shadow-sm">
-                  <div className="w-2 h-2 rounded-full bg-turquoise" />
-                  <span className="font-inter text-[10px] font-semibold text-gray-700 tracking-wide">
-                    {c("transform_badge")}
-                  </span>
-                </div>
-              </div>
 
-              <div className="p-7">
-                <p className="font-playfair text-lg font-semibold text-gray-900 mb-3">{item.name}</p>
-                <p className="font-inter text-[14px] text-gray-500 leading-relaxed">{item.story}</p>
-              </div>
+                <div className="p-7">
+                  <p className="font-display text-lg font-semibold text-gray-900 mb-3">{item.name}</p>
+                  <p className="font-inter text-[14px] text-gray-500 leading-relaxed">{item.story}</p>
+                </div>
+              </TiltCard>
             </motion.div>
           ))}
         </div>

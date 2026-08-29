@@ -34,25 +34,25 @@ export default function FinalCtaSection() {
             <div className="h-px w-16 bg-gold/40" />
           </div>
 
-          <p className="font-cormorant text-3xl md:text-4xl lg:text-5xl italic text-white font-light leading-snug mb-3">
+          <p className="font-heading text-3xl md:text-4xl lg:text-5xl italic text-white font-light leading-snug mb-3">
             {c("finalcta_line_1")}
           </p>
-          <p className="font-cormorant text-3xl md:text-4xl lg:text-5xl italic text-white/80 font-light leading-snug mb-8">
+          <p className="font-heading text-3xl md:text-4xl lg:text-5xl italic text-white/80 font-light leading-snug mb-8">
             {c("finalcta_line_2")}
           </p>
 
           <div className="h-px w-12 bg-gold/40 mx-auto mb-8" />
 
-          <p className="font-playfair text-xl md:text-2xl text-turquoise font-semibold mb-2">
+          <p className="font-display text-xl md:text-2xl text-turquoise font-semibold mb-2">
             {c("finalcta_line_3")}
           </p>
-          <p className="font-playfair text-xl md:text-2xl text-turquoise font-semibold mb-12">
+          <p className="font-display text-xl md:text-2xl text-turquoise font-semibold mb-12">
             {c("finalcta_line_4")}
           </p>
 
           <button
             onClick={scrollToContact}
-            className="group px-10 py-4 bg-turquoise text-white font-inter font-semibold text-sm rounded-full hover:bg-turquoise/90 hover:shadow-xl hover:shadow-turquoise/30 transition-all duration-400 border border-turquoise/0 hover:border-turquoise"
+            className="group btn-sheen px-10 py-4 bg-turquoise text-white font-inter font-semibold text-sm rounded-full hover:bg-turquoise/90 hover:scale-105 hover:shadow-xl hover:shadow-turquoise/30 transition-all duration-400 border border-turquoise/0 hover:border-turquoise"
           >
             {c("finalcta_button")}
             <span className="inline-block ml-2 group-hover:translate-x-1 transition-transform duration-300">→</span>

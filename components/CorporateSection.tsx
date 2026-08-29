@@ -2,6 +2,8 @@
 
 import { motion } from "framer-motion";
 import { useT, useContent } from "@/lib/i18n";
+import TiltCard from "@/components/ui/TiltCard";
+import Counter from "@/components/ui/Counter";
 
 export default function CorporateSection() {
   const { t } = useT("corporate");
@@ -24,8 +26,9 @@ export default function CorporateSection() {
             viewport={{ once: true }}
             transition={{ duration: 0.7, ease: "easeOut" }}
           >
-            <div
-              className="relative w-full rounded-3xl overflow-hidden shadow-xl"
+            <TiltCard
+              intensity={6}
+              className="relative w-full rounded-3xl overflow-hidden shadow-xl border-beam"
               style={{ aspectRatio: "4/3" }}
             >
               <div className="absolute inset-0 bg-gradient-to-br from-[#1a3a3c] via-[#2a5a5c] to-[#3a7a7c]">
@@ -39,10 +42,10 @@ export default function CorporateSection() {
 
               <div className="absolute inset-0 flex items-end p-8">
                 <div>
-                  <p className="font-playfair text-white/60 text-xs tracking-[0.25em] uppercase mb-2">
+                  <p className="font-display text-white/60 text-xs tracking-[0.25em] uppercase mb-2">
                     Corporate Wellness
                   </p>
-                  <h3 className="font-playfair text-white text-3xl font-semibold leading-tight whitespace-pre-line">
+                  <h3 className="font-display text-white text-3xl font-semibold leading-tight whitespace-pre-line">
                     {c("corporate_overlay")}
                   </h3>
                 </div>
@@ -50,13 +53,15 @@ export default function CorporateSection() {
 
               {/* Gold corner accent */}
               <div className="absolute top-4 right-4 w-12 h-12 border-t border-r border-gold/60 rounded-tr-2xl" />
-            </div>
+            </TiltCard>
 
             {/* Stats row */}
             <div className="grid grid-cols-3 gap-4 mt-5">
               {stats.map(({ val, label }, i) => (
-                <div key={i} className="bg-champagne rounded-2xl p-4 text-center border border-beige">
-                  <p className="font-playfair text-2xl font-bold text-turquoise">{val}</p>
+                <div key={i} className="glass-luxury rounded-2xl p-4 text-center">
+                  <p className="font-display text-2xl font-bold text-metallic">
+                    <Counter value={val} />
+                  </p>
                   <p className="font-inter text-[10px] text-gray-400 mt-1 leading-tight">{label}</p>
                 </div>
               ))}
@@ -74,7 +79,7 @@ export default function CorporateSection() {
               {t("tag")}
             </p>
 
-            <h2 className="font-cormorant text-4xl md:text-5xl font-semibold text-gray-900 leading-tight mb-4">
+            <h2 className="font-heading text-4xl md:text-5xl font-semibold text-gray-900 leading-tight mb-4">
               {c("corporate_headline")}
             </h2>
             <p className="font-inter text-gray-500 text-[15px] leading-relaxed mb-8">
@@ -97,7 +102,7 @@ export default function CorporateSection() {
 
             <button
               onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
-              className="group px-7 py-3.5 bg-gray-900 text-white font-inter font-semibold text-sm rounded-full hover:bg-gray-800 hover:shadow-lg transition-all duration-300"
+              className="group btn-sheen px-7 py-3.5 bg-gray-900 text-white font-inter font-semibold text-sm rounded-full hover:bg-gray-800 hover:scale-105 hover:shadow-lg transition-all duration-300"
             >
               {c("corporate_button")}
               <span className="inline-block ml-2 group-hover:translate-x-1 transition-transform">→</span>

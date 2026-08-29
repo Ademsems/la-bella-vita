@@ -41,13 +41,13 @@ export default function CtaBand({ variant }: Props) {
           viewport={{ once: true }}
           transition={{ duration: 0.7, ease: "easeOut" }}
         >
-          <p className="font-cormorant text-3xl sm:text-4xl md:text-5xl italic text-white font-light mb-8 leading-snug">
+          <p className="font-heading text-3xl sm:text-4xl md:text-5xl italic text-white font-light mb-8 leading-snug">
             {line}
           </p>
 
           <button
             onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
-            className="group px-9 py-4 bg-white text-turquoise font-inter font-semibold text-sm tracking-wide rounded-full border border-gold hover:bg-gold hover:text-white hover:border-gold shadow-xl hover:shadow-white/20 transition-all duration-400"
+            className="group btn-sheen px-9 py-4 bg-white text-turquoise font-inter font-semibold text-sm tracking-wide rounded-full border border-gold hover:bg-gold hover:text-white hover:border-gold hover:scale-105 shadow-xl hover:shadow-white/20 transition-all duration-400"
           >
             {button}
             <span className="inline-block ml-2 group-hover:translate-x-1 transition-transform duration-300">→</span>

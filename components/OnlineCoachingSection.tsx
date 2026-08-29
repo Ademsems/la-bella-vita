@@ -5,6 +5,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { useT, useContent } from "@/lib/i18n";
 import { TRAINERIZE_URL } from "@/lib/config";
+import TiltCard from "@/components/ui/TiltCard";
 
 export default function OnlineCoachingSection() {
   const { t } = useT("onlineCoaching");
@@ -49,7 +50,10 @@ export default function OnlineCoachingSection() {
             transition={{ duration: 0.8, ease: "easeOut" }}
             className="relative"
           >
-            <div className="relative aspect-square rounded-3xl overflow-hidden bg-gradient-to-br from-[#4BC6C8] via-[#3ab5b7] to-[#2a9496] shadow-xl">
+            <TiltCard
+              intensity={6}
+              className="relative aspect-square rounded-3xl overflow-hidden bg-gradient-to-br from-[#4BC6C8] via-[#3ab5b7] to-[#2a9496] shadow-xl border-beam"
+            >
               {!imgFailed ? (
                 <Image
                   src="/images/07-trainerize.jpg"
@@ -72,7 +76,7 @@ export default function OnlineCoachingSection() {
                   </div>
                 </div>
               )}
-            </div>
+            </TiltCard>
             <div className="absolute -bottom-5 -right-5 w-28 h-28 rounded-full bg-turquoise/10 -z-10" />
           </motion.div>
 
@@ -86,7 +90,7 @@ export default function OnlineCoachingSection() {
             <p className="font-inter text-xs text-turquoise font-semibold uppercase tracking-[0.2em] mb-4">
               {t("tag")}
             </p>
-            <h2 className="font-cormorant text-5xl md:text-6xl font-semibold text-gray-900 mb-6">
+            <h2 className="font-heading text-5xl md:text-6xl font-semibold text-gray-900 mb-6">
               {c("online_headline")}
             </h2>
             <p className="font-inter text-[15px] text-gray-500 leading-relaxed mb-8">
@@ -96,7 +100,7 @@ export default function OnlineCoachingSection() {
             {/* Feature pills */}
             <div className="flex flex-wrap gap-3 mb-8">
               {features.map((feat, i) => (
-                <div key={i} className="flex items-center gap-2.5 bg-white rounded-full px-4 py-2.5 shadow-sm border border-champagne">
+                <div key={i} className="flex items-center gap-2.5 glass-luxury rounded-full px-4 py-2.5">
                   <span className="text-turquoise">{ICONS[i]}</span>
                   <span className="font-inter text-sm font-medium text-gray-700">{feat}</span>
                 </div>
@@ -112,7 +116,7 @@ export default function OnlineCoachingSection() {
                 href={TRAINERIZE_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group inline-flex items-center px-8 py-3.5 bg-turquoise text-white font-inter font-semibold text-sm rounded-full hover:bg-turquoise/90 hover:shadow-lg hover:shadow-turquoise/25 transition-all duration-300"
+                className="group btn-sheen inline-flex items-center px-8 py-3.5 bg-turquoise text-white font-inter font-semibold text-sm rounded-full hover:bg-turquoise/90 hover:scale-105 hover:shadow-lg hover:shadow-turquoise/25 transition-all duration-300"
               >
                 {c("online_button")}
                 <span className="inline-block ml-2 group-hover:translate-x-1 transition-transform duration-300">→</span>
@@ -120,7 +124,7 @@ export default function OnlineCoachingSection() {
             ) : (
               <button
                 onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
-                className="group px-8 py-3.5 bg-turquoise text-white font-inter font-semibold text-sm rounded-full hover:bg-turquoise/90 hover:shadow-lg hover:shadow-turquoise/25 transition-all duration-300"
+                className="group btn-sheen px-8 py-3.5 bg-turquoise text-white font-inter font-semibold text-sm rounded-full hover:bg-turquoise/90 hover:scale-105 hover:shadow-lg hover:shadow-turquoise/25 transition-all duration-300"
               >
                 {c("online_button")}
                 <span className="inline-block ml-2 group-hover:translate-x-1 transition-transform duration-300">→</span>

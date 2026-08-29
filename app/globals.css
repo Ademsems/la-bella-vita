@@ -7,6 +7,22 @@
   --font-cormorant: 'Cormorant Garamond', serif;
   --font-inter: 'Inter', sans-serif;
 
+  /*
+   * Display/heading font toggle (luxury motion pass). Athelas/Vanguard are
+   * declared below via @font-face pointing at public/fonts/*.woff2 — those
+   * files aren't licensed/placed yet, so this falls back to Playfair/
+   * Cormorant automatically (a missing @font-face src just 404s silently,
+   * unlike next/font/local which would fail the build). Drop the real
+   * files in public/fonts/ and they start rendering with zero code changes.
+   *
+   * ROLLBACK: to go back to Playfair Display / Cormorant Garamond only,
+   * change these two lines to:
+   *   --font-display: var(--font-playfair), serif;
+   *   --font-heading: var(--font-cormorant), serif;
+   */
+  --font-display: 'Athelas', var(--font-playfair), serif;
+  --font-heading: 'Vanguard', var(--font-cormorant), serif;
+
   /* Brand colours as CSS vars for easy reuse */
   --color-turquoise: #4BC6C8;
   --color-med-blue: #7ED6E0;
@@ -14,6 +30,21 @@
   --color-champagne: #F5EFE6;
   --color-beige: #EDE4D8;
   --color-gold: #C6A769;
+}
+
+@font-face {
+  font-family: 'Athelas';
+  src: url('/fonts/Athelas-Regular.woff2') format('woff2');
+  font-weight: 400 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Vanguard';
+  src: url('/fonts/Vanguard-Regular.woff2') format('woff2');
+  font-weight: 400 700;
+  font-style: normal;
+  font-display: swap;
 }
 
 html {
@@ -31,6 +62,95 @@ body {
 /* ── Typography helpers ─────────────────────────────────────────────────── */
 .font-playfair  { font-family: var(--font-playfair), serif; }
 .font-cormorant { font-family: var(--font-cormorant), serif; }
+.font-display   { font-family: var(--font-display); }
+.font-heading   { font-family: var(--font-heading); }
+
+/* ── Metallic sheen text (gold/turquoise kinetic accents) ────────────────── */
+.text-metallic {
+  background: linear-gradient(90deg, #4BC6C8 0%, #C6A769 50%, #4BC6C8 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: metallic-sheen 5s linear infinite;
+}
+@keyframes metallic-sheen {
+  to { background-position: -200% center; }
+}
+
+/* ── Luxury glassmorphism ──────────────────────────────────────────────── */
+.glass-luxury {
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  box-shadow: 0 8px 32px rgba(75, 198, 200, 0.08);
+}
+
+/* ── Gold/turquoise border-beam hover (pairs with .glass-luxury cards) ──── */
+.border-beam {
+  position: relative;
+}
+.border-beam::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(120deg, transparent, var(--color-gold), var(--color-turquoise), transparent);
+  background-size: 300% 300%;
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+.border-beam:hover::before {
+  opacity: 1;
+  animation: border-beam-sweep 3s linear infinite;
+}
+@keyframes border-beam-sweep {
+  0%   { background-position: 0% 50%; }
+  100% { background-position: 300% 50%; }
+}
+
+/* ── Metallic sheen sweep for primary CTAs (pairs with hover:scale-105) ──── */
+.btn-sheen {
+  position: relative;
+  overflow: hidden;
+}
+.btn-sheen::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -150%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.55), transparent);
+  transform: skewX(-20deg);
+  transition: left 0.7s ease;
+  pointer-events: none;
+}
+.btn-sheen:hover::after {
+  left: 150%;
+}
+
+/* ── 3D tilt perspective (used by components/ui/TiltCard.tsx) ───────────── */
+.tilt-perspective {
+  perspective: 1200px;
+}
+
+/* ── Film grain overlay (mounted once, globally, via GlobalEffects) ─────── */
+.grain-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  opacity: 0.15;
+  pointer-events: none;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
 
 /* ── Shimmer placeholder ────────────────────────────────────────────────── */
 .shimmer-bg {

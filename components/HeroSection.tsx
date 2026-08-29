@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef } from "react";
-import { motion } from "framer-motion";
+import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { useT, useContent } from "@/lib/i18n";
 import { HERO_VIDEO_URL } from "@/lib/config";
 
@@ -10,11 +10,32 @@ export default function HeroSection() {
   const c = useContent();
   const videoRef = useRef<HTMLVideoElement>(null);
 
+  const glowX = useMotionValue(50);
+  const glowY = useMotionValue(50);
+  const springX = useSpring(glowX, { stiffness: 60, damping: 20 });
+  const springY = useSpring(glowY, { stiffness: 60, damping: 20 });
+  const glowLeft = useTransform(springX, (v) => `${v}%`);
+  const glowTop = useTransform(springY, (v) => `${v}%`);
+
+  function handlePointerMove(e: React.MouseEvent<HTMLElement>) {
+    const rect = e.currentTarget.getBoundingClientRect();
+    glowX.set(((e.clientX - rect.left) / rect.width) * 100);
+    glowY.set(((e.clientY - rect.top) / rect.height) * 100);
+  }
+
   const scrollToContact = () =>
     document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
 
   return (
-    <section className="relative min-h-screen w-full overflow-hidden flex flex-col">
+    <section
+      onMouseMove={handlePointerMove}
+      className="relative min-h-screen w-full overflow-hidden flex flex-col"
+    >
+      {/* Ambient mouse-tracking spotlight (luxury motion pass) */}
+      <motion.div
+        className="pointer-events-none absolute z-[1] hidden md:block h-[560px] w-[560px] rounded-full bg-gradient-to-r from-[#4BC6C8]/20 via-[#F4D7D0]/15 to-transparent blur-3xl"
+        style={{ left: glowLeft, top: glowTop, x: "-50%", y: "-50%" }}
+      />
 
       {/* Background: video OR gradient fallback */}
       {HERO_VIDEO_URL ? (
@@ -59,7 +80,7 @@ export default function HeroSection() {
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.3, ease: "easeOut" }}
-          className="font-playfair text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-bold text-white tracking-wider leading-none mb-5"
+          className="font-display text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-bold text-white tracking-wider leading-none mb-5"
         >
           {t("headline")}
         </motion.h1>
@@ -68,7 +89,7 @@ export default function HeroSection() {
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.6, ease: "easeOut" }}
-          className="font-cormorant text-2xl sm:text-3xl text-white/90 italic font-light mb-10"
+          className="font-heading text-2xl sm:text-3xl text-white/90 italic font-light mb-10"
         >
           {c("hero_subheadline")}
         </motion.p>
@@ -85,7 +106,7 @@ export default function HeroSection() {
               {c(key)}
             </p>
           ))}
-          <p className="font-cormorant text-white/90 text-xl italic font-light pt-2">
+          <p className="font-heading text-white/90 text-xl italic font-light pt-2">
             {c("hero_welcome")}
           </p>
         </motion.div>
@@ -95,7 +116,7 @@ export default function HeroSection() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 1.1, ease: "easeOut" }}
           onClick={scrollToContact}
-          className="group px-9 py-4 bg-white text-turquoise font-inter font-semibold text-sm tracking-wide rounded-full border border-gold hover:bg-turquoise hover:text-white hover:border-turquoise shadow-lg hover:shadow-turquoise/30 transition-all duration-400"
+          className="group btn-sheen px-9 py-4 bg-white text-turquoise font-inter font-semibold text-sm tracking-wide rounded-full border border-gold hover:bg-turquoise hover:text-white hover:border-turquoise hover:scale-105 shadow-lg hover:shadow-turquoise/30 transition-all duration-400"
         >
           {c("hero_button")}
           <span className="inline-block ml-2 group-hover:translate-x-1 transition-transform duration-300">→</span>

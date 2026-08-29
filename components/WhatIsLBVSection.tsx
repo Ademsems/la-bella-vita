@@ -23,7 +23,7 @@ export default function WhatIsLBVSection() {
           <p className="font-inter text-xs text-turquoise font-semibold uppercase tracking-[0.2em] mb-4">
             {t("tag")}
           </p>
-          <h2 className="font-cormorant text-5xl md:text-6xl font-semibold text-gray-900 mb-10">
+          <h2 className="font-heading text-5xl md:text-6xl font-semibold text-gray-900 mb-10">
             {t("heading")}
           </h2>
         </motion.div>
@@ -37,7 +37,7 @@ export default function WhatIsLBVSection() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: i * 0.08, ease: "easeOut" }}
-              className="font-cormorant text-2xl md:text-3xl text-gray-700 italic font-light"
+              className="font-heading text-2xl md:text-3xl text-gray-700 italic font-light"
             >
               {line}
             </motion.p>
@@ -62,7 +62,7 @@ export default function WhatIsLBVSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7, delay: 0.2, ease: "easeOut" }}
-          className="font-cormorant text-3xl md:text-4xl font-semibold text-turquoise mb-4"
+          className="font-heading text-3xl md:text-4xl font-semibold text-turquoise mb-4"
         >
           {c("whatis_highlight")}
         </motion.p>
@@ -75,7 +75,7 @@ export default function WhatIsLBVSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: i * 0.1, ease: "easeOut" }}
-              className="font-cormorant text-2xl md:text-3xl text-gray-700 italic font-light"
+              className="font-heading text-2xl md:text-3xl text-gray-700 italic font-light"
             >
               {line}
             </motion.p>

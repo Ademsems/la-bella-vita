@@ -28,7 +28,7 @@ export default function FoodEasyDietSection() {
             <p className="font-inter text-xs text-turquoise font-semibold uppercase tracking-[0.2em] mb-4">
               {t("tag")}
             </p>
-            <h2 className="font-cormorant text-5xl md:text-6xl font-semibold text-gray-900 mb-6 whitespace-pre-line">
+            <h2 className="font-heading text-5xl md:text-6xl font-semibold text-gray-900 mb-6 whitespace-pre-line">
               {heading}
             </h2>
             <p className="font-inter text-[15px] text-gray-500 leading-relaxed mb-5">

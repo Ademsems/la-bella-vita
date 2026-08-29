@@ -40,7 +40,7 @@ export default function ContactSection() {
           <p className="font-inter text-xs text-turquoise font-semibold uppercase tracking-[0.2em] mb-3">
             {c("contact_tagline")}
           </p>
-          <h2 className="font-cormorant text-5xl md:text-6xl font-semibold text-gray-900">
+          <h2 className="font-heading text-5xl md:text-6xl font-semibold text-gray-900">
             {t("heading")}
           </h2>
           <p className="mt-4 font-inter text-gray-500 text-base max-w-xl mx-auto leading-relaxed">
@@ -64,7 +64,7 @@ export default function ContactSection() {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M5 13l4 4L19 7" />
                   </svg>
                 </div>
-                <h3 className="font-cormorant text-3xl font-semibold text-gray-900 mb-2">
+                <h3 className="font-heading text-3xl font-semibold text-gray-900 mb-2">
                   {c("contact_success")}
                 </h3>
                 <div className="h-px w-12 bg-gold mx-auto mt-4" />

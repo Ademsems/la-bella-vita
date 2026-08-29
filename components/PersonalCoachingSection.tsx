@@ -4,6 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { useT, useContent } from "@/lib/i18n";
+import TiltCard from "@/components/ui/TiltCard";
 
 export default function PersonalCoachingSection() {
   const { t } = useT("personalCoaching");
@@ -31,17 +32,17 @@ export default function PersonalCoachingSection() {
             <p className="font-inter text-xs text-turquoise font-semibold uppercase tracking-[0.2em] mb-4">
               {t("tag")}
             </p>
-            <h2 className="font-cormorant text-5xl md:text-6xl font-semibold text-gray-900 mb-6">
+            <h2 className="font-heading text-5xl md:text-6xl font-semibold text-gray-900 mb-6">
               {c("coaching_headline")}
             </h2>
 
             <div className="space-y-3 mb-8">
-              <p className="font-cormorant text-2xl italic text-gray-600 font-light">{c("coaching_intro_1")}</p>
-              <p className="font-cormorant text-2xl italic text-gray-600 font-light">{c("coaching_intro_2")}</p>
+              <p className="font-heading text-2xl italic text-gray-600 font-light">{c("coaching_intro_1")}</p>
+              <p className="font-heading text-2xl italic text-gray-600 font-light">{c("coaching_intro_2")}</p>
               <p className="font-inter text-[15px] text-gray-500 leading-relaxed">{c("coaching_intro_3")}</p>
             </div>
 
-            <div className="bg-champagne/60 rounded-2xl p-6 mb-8">
+            <div className="glass-luxury rounded-2xl p-6 mb-8">
               <p className="font-inter text-sm font-semibold text-gray-800 mb-4 uppercase tracking-[0.1em]">
                 {c("coaching_included_title")}
               </p>
@@ -61,7 +62,7 @@ export default function PersonalCoachingSection() {
 
             <button
               onClick={scrollToContact}
-              className="group px-8 py-3.5 bg-turquoise text-white font-inter font-semibold text-sm rounded-full hover:bg-turquoise/90 hover:shadow-lg hover:shadow-turquoise/25 transition-all duration-300"
+              className="group btn-sheen px-8 py-3.5 bg-turquoise text-white font-inter font-semibold text-sm rounded-full hover:bg-turquoise/90 hover:scale-105 hover:shadow-lg hover:shadow-turquoise/25 transition-all duration-300"
             >
               {c("coaching_button")}
               <span className="inline-block ml-2 group-hover:translate-x-1 transition-transform duration-300">→</span>
@@ -76,7 +77,10 @@ export default function PersonalCoachingSection() {
             transition={{ duration: 0.8, ease: "easeOut" }}
             className="relative"
           >
-            <div className="relative aspect-square rounded-3xl overflow-hidden bg-gradient-to-br from-[#EDE4D8] via-[#d8ccbc] to-[#c4b4a0] shadow-xl">
+            <TiltCard
+              intensity={6}
+              className="relative aspect-square rounded-3xl overflow-hidden bg-gradient-to-br from-[#EDE4D8] via-[#d8ccbc] to-[#c4b4a0] shadow-xl border-beam"
+            >
               {!imgFailed ? (
                 <Image
                   src="/images/06-individualny-pristup.jpg"
@@ -99,7 +103,7 @@ export default function PersonalCoachingSection() {
                   </div>
                 </div>
               )}
-            </div>
+            </TiltCard>
             <div className="absolute -bottom-5 -left-5 w-28 h-28 rounded-full bg-powder-pink/30 -z-10" />
           </motion.div>
         </div>

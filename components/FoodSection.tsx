@@ -53,7 +53,7 @@ export default function FoodSection() {
               {t("tag")}
             </p>
 
-            <h2 className="font-cormorant text-4xl md:text-5xl font-semibold text-gray-900 leading-tight mb-8">
+            <h2 className="font-heading text-4xl md:text-5xl font-semibold text-gray-900 leading-tight mb-8">
               {headingLines.map((line, i) => (
                 <span key={i}>{line}{i < headingLines.length - 1 && <br />}</span>
               ))}

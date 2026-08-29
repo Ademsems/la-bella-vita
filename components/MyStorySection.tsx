@@ -64,7 +64,7 @@ export default function MyStorySection() {
             <p className="font-inter text-xs text-turquoise font-semibold uppercase tracking-[0.2em] mb-4">
               {t("tag")}
             </p>
-            <h2 className="font-cormorant text-5xl md:text-6xl font-semibold text-gray-900 mb-8">
+            <h2 className="font-heading text-5xl md:text-6xl font-semibold text-gray-900 mb-8">
               {t("heading")}
             </h2>
 
@@ -78,7 +78,7 @@ export default function MyStorySection() {
 
             <div className="mt-8 flex items-center gap-4">
               <div className="h-px flex-1 bg-gold/30" />
-              <p className="font-cormorant text-xl italic text-gold font-light">
+              <p className="font-heading text-xl italic text-gold font-light">
                 {c("mystory_signature")}
               </p>
             </div>

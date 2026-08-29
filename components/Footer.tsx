@@ -29,9 +29,9 @@ export default function Footer() {
               <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-turquoise to-med-blue flex items-center justify-center shadow-md">
                 <span className="text-white font-bold text-xs tracking-[0.15em] font-inter">LBV</span>
               </div>
-              <span className="font-playfair text-xl font-semibold">La Bella Vita</span>
+              <span className="font-display text-xl font-semibold">La Bella Vita</span>
             </div>
-            <p className="font-cormorant text-lg italic text-gray-400">{t("tagline")}</p>
+            <p className="font-heading text-lg italic text-gray-400">{t("tagline")}</p>
           </div>
 
           <nav className="flex flex-wrap gap-x-7 gap-y-2">

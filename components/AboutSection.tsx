@@ -41,7 +41,7 @@ export default function AboutSection() {
 
               {/* Floating badge */}
               <div className="absolute -bottom-5 -right-5 bg-white rounded-2xl shadow-xl px-5 py-4 border border-champagne">
-                <p className="font-playfair text-3xl font-bold text-turquoise leading-none">10+</p>
+                <p className="font-display text-3xl font-bold text-turquoise leading-none">10+</p>
                 <p className="font-inter text-xs text-gray-500 mt-1 leading-tight">rokov<br />skúseností</p>
               </div>
 
@@ -62,10 +62,10 @@ export default function AboutSection() {
               {t("tag")}
             </p>
 
-            <h2 className="font-cormorant text-5xl md:text-6xl font-semibold text-gray-900 leading-tight mb-2">
+            <h2 className="font-heading text-5xl md:text-6xl font-semibold text-gray-900 leading-tight mb-2">
               {t("heading")}
             </h2>
-            <p className="font-cormorant text-xl italic text-gray-400 mb-8">
+            <p className="font-heading text-xl italic text-gray-400 mb-8">
               {t("subheading")}
             </p>
 

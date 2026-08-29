@@ -89,7 +89,7 @@ export default function InstagramSection() {
           <p className="font-inter text-xs text-turquoise font-semibold uppercase tracking-[0.2em] mb-3">
             {t("tag")}
           </p>
-          <h2 className="font-cormorant text-5xl md:text-6xl font-semibold text-gray-900">
+          <h2 className="font-heading text-5xl md:text-6xl font-semibold text-gray-900">
             {t("heading")}
           </h2>
           <p className="mt-4 font-inter text-gray-500 text-base max-w-xl mx-auto leading-relaxed">

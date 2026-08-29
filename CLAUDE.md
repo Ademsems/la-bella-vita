@@ -30,6 +30,11 @@ Design language: Four Seasons × Apple × Amalfi Coast. Morning light, sea, comm
 - **v3.1** (Real images + meta title): Client's 8 photos wired into their sections with `next/image`, graceful gradient fallback preserved via `onError` state per component. Files renamed to URL-safe slugs (see Image Assets below). Meta title updated to "LBV - Umenie žiť krásny život" (SK default, static metadata — see note in `app/layout.tsx`).
 - **v3.2** (Sheet-driven content layer): All body copy (paragraphs, list items, card text — NOT nav/footer/headings/images) can now be edited live from a published Google Sheet CSV, one tab per language, with the `messages/*.json` values as the always-available offline fallback. See "Sheet-Driven Content" below.
 - **v3.3** (CSV header-matching bug fix): Sheet overrides were silently never applying — see "Known Bugs & Fixes" below.
+- **v4** (Luxury motion pass — NOT yet committed/pushed, local review only): Ambient
+  cursor spotlight, film grain, glassmorphism, 3D pointer-tilt cards, metallic CTA sheen,
+  scroll-driven stat counters, Visbody/Transformations HUD hotspots, and a reversible
+  display/heading font toggle (Athelas/Vanguard, currently falling back to Playfair/
+  Cormorant since no font files are placed yet). See "Luxury Motion Pass (v4)" below.
 
 ## Section Order (v3)
 0. Navbar
@@ -137,6 +142,72 @@ fallback.
   either word (e.g. "Content" instead of "Text — ...") would still silently break it —
   if sheet edits ever stop showing up on the site again, check the actual CSV headers
   first (`curl` the published CSV URL) before assuming it's a caching or fetch issue.
+
+## Luxury Motion Pass (v4)
+
+Ambient, motion-heavy visual layer added on top of the existing brand palette and
+graceful-degradation rules. Nothing here changes copy, images, or the sheet-driven
+content layer — purely presentational.
+
+**New shared components (`components/ui/`):**
+- `TiltCard.tsx` — pointer-driven 3D tilt (`rotateX`/`rotateY` + `scale: 1.02`) via
+  framer-motion `useMotionValue`/`useSpring`. Wraps a card's *visual* content; keep the
+  existing scroll-entrance `motion.div` (`whileInView`) as the outer wrapper and put
+  `TiltCard` inside it — entrance and tilt compose independently. Applied to: Four
+  Pillars cards, Personal/Online Coaching visuals, Transformations cards, Corporate
+  Wellbeing's dark visual card.
+- `Counter.tsx` — scroll-triggered count-up. Parses the first numeric run out of a
+  sheet-driven string (`"50+"`, `"98%"`) and animates just that span, leaving prefix/
+  suffix text untouched; values with no digits render statically. Applied to Corporate
+  Wellbeing's 3 stat tiles. (Transformations has no numeric stat content yet — the
+  component is ready to reuse there the moment a `transform_stat_*` key exists.)
+- `HudHotspot.tsx` — pulsing gold dot, expands into a `.glass-luxury` detail card on
+  hover/tap. Applied over each Transformations/Visbody card photo, showing that card's
+  own name/story (no new content keys needed).
+- `GlobalEffects.tsx` — mounted once in `app/layout.tsx`, renders the fixed film-grain
+  overlay only. Purely decorative and `pointer-events: none`, so it can never block
+  interaction or break a page that fails to load it.
+
+**New CSS utilities (`app/globals.css`):**
+- `.glass-luxury` — frosted glass card (`backdrop-blur` + translucent white + soft
+  turquoise shadow). Used for Corporate stat tiles, Personal Coaching's "included" box,
+  Online Coaching's feature pills, and `HudHotspot`'s popover.
+- `.border-beam` — gold→turquoise gradient border sweep on hover, paired with
+  `.glass-luxury`/`TiltCard` cards via `border-beam` in the className.
+- `.text-metallic` — animated gold/turquoise clipped-gradient text, used on the
+  Corporate stat numbers.
+- `.btn-sheen` (pair with `hover:scale-105`) — metallic sheen sweep on primary CTAs
+  (Hero, both CTA bands, Corporate, Personal/Online Coaching buttons).
+- `.tilt-perspective` — CSS `perspective` for `TiltCard`.
+- `.grain-overlay` — fixed, `pointer-events: none`, inline-SVG noise texture at low
+  opacity + `mix-blend-mode: overlay`.
+- Hero section also got its own ambient cursor-tracking radial glow (inline in
+  `HeroSection.tsx`, via framer-motion `useMotionValue`/`useSpring` on `left`/`top` —
+  not the same as `.grain-overlay`, which is the separate always-on grain texture).
+
+**Display/heading font toggle (Athelas / Vanguard) — reversible in one line:**
+- `messages`/components still use the same `font-display` / `font-heading` Tailwind
+  classes (renamed from `font-playfair` / `font-cormorant` across every component —
+  the old `font-playfair`/`font-cormorant` classes still exist in `globals.css` and
+  `tailwind.config.ts` for reference/rollback, just unused now).
+- `app/globals.css` declares `--font-display` / `--font-heading` as
+  `'Athelas'/'Vanguard', var(--font-playfair)/var(--font-cormorant), serif` — i.e.
+  Athelas/Vanguard first, falling back to the existing Google fonts, then generic serif.
+- Athelas and Vanguard are **not implemented via `next/font/local`** on purpose: that
+  API throws a build error if the referenced file is missing, which would violate the
+  "must not break the build if font files aren't placed" requirement. Instead they're
+  declared as plain `@font-face` rules pointing at `public/fonts/Athelas-Regular.woff2`
+  / `public/fonts/Vanguard-Regular.woff2` (not present yet) — a missing file just 404s
+  silently and the browser keeps rendering the fallback font. **To activate the real
+  faces:** drop licensed `.woff2` files at those two exact paths; nothing else changes.
+  **To roll back to Playfair Display / Cormorant Garamond only:** in `app/globals.css`,
+  change the two `--font-display`/`--font-heading` lines to
+  `var(--font-playfair), serif` / `var(--font-cormorant), serif` — one line each, no
+  component edits required.
+
+**Verification performed (local only — not committed/pushed per this session's request):**
+- `npm run build` and `npm run lint` — see session output for pass/fail.
+- Dev server left running for manual browser review before any commit.
 
 ## Image Assets (`public/images/`)
 Client-supplied photos, renamed from their original Slovak filenames (which had spaces/commas/diacritics — unsafe in URLs) to slugs. Original name → new path → wired into:

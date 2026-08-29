@@ -44,7 +44,7 @@ export default function HowIWorkSection() {
           <p className="font-inter text-xs text-turquoise font-semibold uppercase tracking-[0.2em] mb-3">
             {t("tag")}
           </p>
-          <h2 className="font-cormorant text-5xl md:text-6xl font-semibold text-gray-900">
+          <h2 className="font-heading text-5xl md:text-6xl font-semibold text-gray-900">
             {t("heading")}
           </h2>
           <p className="mt-4 font-inter text-gray-500 text-base max-w-xl mx-auto leading-relaxed">
@@ -63,7 +63,7 @@ export default function HowIWorkSection() {
               className="group relative bg-champagne rounded-3xl p-8 hover:bg-beige hover:shadow-lg hover:-translate-y-1 transition-all duration-400 border border-transparent hover:border-gold/20"
             >
               {/* Step number — faint behind */}
-              <span className="absolute top-5 right-6 font-playfair text-6xl font-bold text-beige group-hover:text-champagne transition-colors select-none leading-none">
+              <span className="absolute top-5 right-6 font-display text-6xl font-bold text-beige group-hover:text-champagne transition-colors select-none leading-none">
                 {i + 1}
               </span>
 
@@ -72,7 +72,7 @@ export default function HowIWorkSection() {
                 {STEP_ICONS[i]}
               </div>
 
-              <h3 className="font-cormorant text-xl font-semibold text-gray-900 mb-3">
+              <h3 className="font-heading text-xl font-semibold text-gray-900 mb-3">
                 {step.title}
               </h3>
               <p className="font-inter text-sm text-gray-500 leading-relaxed">

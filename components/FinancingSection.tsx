@@ -20,7 +20,7 @@ export default function FinancingSection() {
           <p className="font-inter text-xs text-turquoise font-semibold uppercase tracking-[0.2em] mb-4">
             {t("tag")}
           </p>
-          <h2 className="font-cormorant text-4xl md:text-5xl font-semibold text-gray-900 mb-6">
+          <h2 className="font-heading text-4xl md:text-5xl font-semibold text-gray-900 mb-6">
             {t("heading")}
           </h2>
           <p className="font-inter text-gray-500 text-base max-w-2xl mx-auto leading-relaxed mb-12">
