@@ -29,3 +29,20 @@ export const TRAINERIZE_URL = process.env.NEXT_PUBLIC_TRAINERIZE_URL || "";
 // renders entirely from the messages/*.json fallback — see lib/content.ts.
 export const SHEET_CSV_URL_SK = process.env.NEXT_PUBLIC_SHEET_CSV_URL_SK || "";
 export const SHEET_CSV_URL_EN = process.env.NEXT_PUBLIC_SHEET_CSV_URL_EN || "";
+
+// WhatsApp lead magnet — number in international format, digits only (no "+").
+// Defaults to Alessandro's number; override with NEXT_PUBLIC_WHATSAPP_NUMBER if it changes.
+export const WHATSAPP_NUMBER = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "421948120052";
+export const WHATSAPP_BASE_URL = "https://wa.me";
+
+// ── Server-only (no NEXT_PUBLIC_ prefix → never inlined into the browser bundle) ──
+// Used by app/api/contact/route.ts to forward leads by email via Resend.
+// TODO: Set RESEND_API_KEY in Vercel. When empty, the route logs the lead and returns 200 — never errors.
+// TODO: Set CONTACT_TO_EMAIL to the inbox that should receive leads.
+// TODO: Set CONTACT_FROM_EMAIL to a sender on a Resend-verified domain (the default only
+//       delivers to the Resend account owner's own address — fine for first tests).
+export const RESEND_API_URL = "https://api.resend.com/emails";
+export const RESEND_API_KEY = process.env.RESEND_API_KEY || "";
+export const CONTACT_TO_EMAIL = process.env.CONTACT_TO_EMAIL || "";
+export const CONTACT_FROM_EMAIL =
+  process.env.CONTACT_FROM_EMAIL || "La Bella Vita <onboarding@resend.dev>";

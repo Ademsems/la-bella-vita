@@ -67,14 +67,14 @@ export default function FoodEasyDietSection() {
             transition={{ duration: 0.8, ease: "easeOut" }}
             className="relative"
           >
-            <div className="relative aspect-square rounded-3xl overflow-hidden bg-gradient-to-br from-[#f0e0c8] via-[#e8d0b0] to-[#d4b896] shadow-xl">
+            <div className="relative aspect-[3/4] rounded-3xl overflow-hidden bg-gradient-to-br from-[#f0e0c8] via-[#e8d0b0] to-[#d4b896] shadow-xl">
               {!imgFailed ? (
                 <Image
                   src="/images/08-jedlo-ako-radost.jpg"
                   alt={t("tag")}
                   fill
                   sizes="(min-width: 1024px) 50vw, 100vw"
-                  className="object-cover"
+                  className="object-cover object-[center_top]"
                   onError={() => setImgFailed(true)}
                 />
               ) : (

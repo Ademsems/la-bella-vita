@@ -52,7 +52,7 @@ export default function OnlineCoachingSection() {
           >
             <TiltCard
               intensity={6}
-              className="relative aspect-square rounded-3xl overflow-hidden bg-gradient-to-br from-[#4BC6C8] via-[#3ab5b7] to-[#2a9496] shadow-xl border-beam"
+              className="relative aspect-[3/4] rounded-3xl overflow-hidden bg-gradient-to-br from-[#4BC6C8] via-[#3ab5b7] to-[#2a9496] shadow-xl border-beam"
             >
               {!imgFailed ? (
                 <Image
@@ -60,7 +60,7 @@ export default function OnlineCoachingSection() {
                   alt={c("online_headline")}
                   fill
                   sizes="(min-width: 1024px) 50vw, 100vw"
-                  className="object-cover"
+                  className="object-cover object-[center_top]"
                   onError={() => setImgFailed(true)}
                 />
               ) : (

@@ -51,7 +51,8 @@
     "tag":        "Community",
     "heading":    "La Bella Vita Community",
     "filters":    ["All", "Running", "Volleyball", "Breakfast", "Workshop", "Sea", "Community"],
-    "comingSoon": "Photo coming soon"
+    "comingSoon": "Photo coming soon",
+    "lightbox":   { "close": "Close", "prev": "Previous photo", "next": "Next photo", "open": "Enlarge photo" }
   },
   "corporate": {
     "tag": "Corporate Wellbeing"
@@ -67,7 +68,8 @@
   "contact": {
     "heading":     "Book a Consultation",
     "subheading":  "Write to us — we will get back to you within 24 hours and set your first step together.",
-    "mapFallback": "Map coming soon"
+    "mapFallback": "Map coming soon",
+    "waMessage":   "Hello Aless, I am interested in coaching. Name: {name}, Phone: {phone}, Email: {email}, Message: {message}"
   },
   "footer": {
     "tagline": "Live a beautiful life.",
@@ -209,6 +211,6 @@
   "contact_field_email": "Email address",
   "contact_field_phone": "Phone number",
   "contact_field_message": "What brought you to us?",
-  "contact_button": "Send",
+  "contact_whatsapp_button": "Contact us on WhatsApp",
   "contact_success": "Thank you! We will be in touch soon."
 }

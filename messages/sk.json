@@ -51,7 +51,8 @@
     "tag":        "Komunita",
     "heading":    "La Bella Vita Community",
     "filters":    ["Všetko", "Beh", "Volejbal", "Raňajky", "Workshop", "More", "Komunita"],
-    "comingSoon": "Fotografia čoskoro"
+    "comingSoon": "Fotografia čoskoro",
+    "lightbox":   { "close": "Zavrieť", "prev": "Predchádzajúca fotografia", "next": "Ďalšia fotografia", "open": "Zväčšiť fotografiu" }
   },
   "corporate": {
     "tag": "Corporate Wellbeing"
@@ -67,7 +68,8 @@
   "contact": {
     "heading":     "Dohodnite si konzultáciu",
     "subheading":  "Napíšte nám — ozveme sa do 24 hodín a spoločne nastavíme prvý krok.",
-    "mapFallback": "Mapa čoskoro"
+    "mapFallback": "Mapa čoskoro",
+    "waMessage":   "Dobrý deň Aless, mám záujem o tréning. Moje meno: {name}, Telefón: {phone}, Email: {email}, Správa: {message}"
   },
   "footer": {
     "tagline": "Ži krásny život.",
@@ -209,6 +211,6 @@
   "contact_field_email": "E-mailová adresa",
   "contact_field_phone": "Telefónne číslo",
   "contact_field_message": "Čo vás priviedlo k nám?",
-  "contact_button": "Odoslať",
+  "contact_whatsapp_button": "Napíšte nám na WhatsApp",
   "contact_success": "Ďakujeme! Ozveme sa čoskoro."
 }

@@ -30,11 +30,16 @@ Design language: Four Seasons × Apple × Amalfi Coast. Morning light, sea, comm
 - **v3.1** (Real images + meta title): Client's 8 photos wired into their sections with `next/image`, graceful gradient fallback preserved via `onError` state per component. Files renamed to URL-safe slugs (see Image Assets below). Meta title updated to "LBV - Umenie žiť krásny život" (SK default, static metadata — see note in `app/layout.tsx`).
 - **v3.2** (Sheet-driven content layer): All body copy (paragraphs, list items, card text — NOT nav/footer/headings/images) can now be edited live from a published Google Sheet CSV, one tab per language, with the `messages/*.json` values as the always-available offline fallback. See "Sheet-Driven Content" below.
 - **v3.3** (CSV header-matching bug fix): Sheet overrides were silently never applying — see "Known Bugs & Fixes" below.
-- **v4** (Luxury motion pass — NOT yet committed/pushed, local review only): Ambient
+- **v4** (Luxury motion pass — shipped, commit 972d4ce): Ambient
   cursor spotlight, film grain, glassmorphism, 3D pointer-tilt cards, metallic CTA sheen,
   scroll-driven stat counters, Visbody/Transformations HUD hotspots, and a reversible
   display/heading font toggle (Athelas/Vanguard, currently falling back to Playfair/
   Cormorant since no font files are placed yet). See "Luxury Motion Pass (v4)" below.
+- **v4.1** (Framing + Community lightbox + WhatsApp lead magnet): taller portrait photo
+  containers with top-biased focal points (no more cropped heads), real photos in the
+  Community grid with a floating luxury lightbox, and the contact form rebuilt as a
+  WhatsApp lead magnet that also emails the lead via Resend. See "Image Framing",
+  "Community Lightbox" and "WhatsApp Lead Magnet" below.
 
 ## Section Order (v3)
 0. Navbar
@@ -70,6 +75,10 @@ Footer
 | `TRAINERIZE_URL` | `NEXT_PUBLIC_TRAINERIZE_URL` |
 | `SHEET_CSV_URL_SK` | `NEXT_PUBLIC_SHEET_CSV_URL_SK` |
 | `SHEET_CSV_URL_EN` | `NEXT_PUBLIC_SHEET_CSV_URL_EN` |
+| `WHATSAPP_NUMBER` | `NEXT_PUBLIC_WHATSAPP_NUMBER` (defaults to `421948120052`, digits only, no `+`) |
+| `RESEND_API_KEY` | `RESEND_API_KEY` — **server-only**, no `NEXT_PUBLIC_` prefix |
+| `CONTACT_TO_EMAIL` | `CONTACT_TO_EMAIL` — server-only, inbox that receives leads |
+| `CONTACT_FROM_EMAIL` | `CONTACT_FROM_EMAIL` — server-only, sender on a Resend-verified domain (default `La Bella Vita <onboarding@resend.dev>` only delivers to the Resend account owner) |
 
 ## Sheet-Driven Content (v3.2)
 Body copy — paragraphs, list items, chip labels, card text — is editable live from a
@@ -205,9 +214,61 @@ content layer — purely presentational.
   `var(--font-playfair), serif` / `var(--font-cormorant), serif` — one line each, no
   component edits required.
 
-**Verification performed (local only — not committed/pushed per this session's request):**
-- `npm run build` and `npm run lint` — see session output for pass/fail.
-- Dev server left running for manual browser review before any commit.
+**Verification:** `npm run build` and `npm run lint` clean; shipped in commit 972d4ce.
+
+## Image Framing (v4.1)
+Every client photo is **portrait** (aspect 0.56–0.67), so the old `aspect-square` / `aspect-[3/4]`
+containers cropped heads off. Containers are now taller and every `next/image` uses
+`object-cover object-[center_top]` so the crop only ever trims the bottom:
+- Personal Coaching, Online Coaching, Food/EasyDiet visuals: `aspect-square` → `aspect-[3/4]`
+- My Story portrait: `aspect-[3/4]` → `aspect-[2/3]`
+- Four Pillars cards: `min-h-[420px]` → `min-h-[520px] sm:min-h-[560px]`
+Rule for new photos: never put a portrait photo in a square/landscape box with default
+centering — use a portrait container + `object-[center_top]` (or a ~30% focal point for
+full-body gym shots where heads sit 30–40% down the frame, as in the Community grid).
+
+## Community Lightbox (v4.1)
+- `components/ui/Lightbox.tsx` — full-screen floating viewer: frosted gold/white border
+  (`backdrop-blur-2xl`, `ring-gold/30`), blurred dark backdrop, prev/next glass arrows,
+  touch swipe (framer-motion `drag="x"`, distance/velocity thresholds), keyboard
+  (`←` / `→` / `Esc`), click-outside to close, scroll lock, focus moved in and restored on
+  close, and a bottom strip showing **previous · current · next** thumbnails (cyclic).
+  Frame size is derived from each photo's `ratio` so nothing is cropped.
+  Rendered through a **portal into `<body>`** — every `<section>` has `will-change: transform`
+  in `globals.css`, which makes a `position: fixed` child position relative to the section,
+  not the screen. Don't remove the portal.
+- `CommunitySection.tsx` — `TILES` entries may carry `photo: { src, ratio }`. Wired photos:
+  `Aless&Kika-06.jpg` (Workshop), `Aless&Kika-13.jpg` (Beh), `Aless&Kika-09.jpg` (Workshop),
+  `03-komunita.jpg` (Komunita). Tiles without `photo` stay "Fotografia čoskoro" placeholders
+  so every locked filter chip still has something to show. The lightbox only cycles the photos
+  of the **currently filtered** tiles. Photo tiles use `aspect-[3/4]` + `object-[center_30%]`.
+- Graceful degradation: grid tiles and lightbox (frame + thumbnails) each have `onError`
+  → brand-gradient fallback, never a broken-image icon.
+- Lightbox UI labels (close/prev/next/open) are locked nested strings at `community.lightbox`
+  in `messages/*.json` — not sheet-driven. Filenames contain `&` (`Aless&Kika-NN.jpg`);
+  `next/image` encodes them, but prefer URL-safe slugs for any future photos.
+
+## WhatsApp Lead Magnet (v4.1)
+`ContactSection.tsx` form: Name, Phone, Email (all required), Message/goals (optional), plus a
+hidden honeypot field. Primary button = WhatsApp icon + `contact_whatsapp_button`
+("Napíšte nám na WhatsApp" / "Contact us on WhatsApp"; replaced the old `contact_button` key —
+if the published Sheet still has a `contact_button` row it is simply ignored).
+**On submit (same click handler, no `await` before `window.open`):**
+1. `fetch("/api/contact", { keepalive: true })` fires in the background — never awaited, errors
+   swallowed (WhatsApp is the real handoff; a failed email must not block the visitor).
+2. `window.open("https://wa.me/<WHATSAPP_NUMBER>?text=…")` in a new tab, with
+   `encodeURIComponent` of the locale-specific template from `contact.waMessage` (locked nested
+   string; `{name} {phone} {email} {message}` placeholders; empty message becomes "—"):
+   SK `Dobrý deň Aless, mám záujem o tréning. Moje meno: …, Telefón: …, Email: …, Správa: …` /
+   EN `Hello Aless, I am interested in coaching. Name: …, Phone: …, Email: …, Message: …`.
+   The open has to stay synchronous inside the click or Safari/mobile popup blockers kill it;
+   if it is blocked anyway, the page navigates to the wa.me URL in the same tab.
+3. The form is replaced by the success message (`contact_success`) plus a re-open WhatsApp link.
+**`app/api/contact/route.ts`** — validates (name/phone present, email format, length caps),
+drops honeypot hits, HTML-escapes everything, then POSTs to Resend's REST API
+(`RESEND_API_URL` in `lib/config.ts`; no SDK dependency) with `reply_to` set to the lead's email.
+With `RESEND_API_KEY` or `CONTACT_TO_EMAIL` unset it logs the lead to the server console and
+returns `200 { ok: true, delivered: false }`; a Resend failure returns 502 (ignored by the client).
 
 ## Image Assets (`public/images/`)
 Client-supplied photos, renamed from their original Slovak filenames (which had spaces/commas/diacritics — unsafe in URLs) to slugs. Original name → new path → wired into:

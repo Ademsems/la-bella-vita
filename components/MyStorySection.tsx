@@ -25,14 +25,14 @@ export default function MyStorySection() {
             transition={{ duration: 0.8, ease: "easeOut" }}
             className="relative"
           >
-            <div className="relative aspect-[3/4] rounded-3xl overflow-hidden bg-gradient-to-br from-[#4BC6C8] via-[#7ED6E0] to-[#a8e8eb] shadow-2xl">
+            <div className="relative aspect-[2/3] rounded-3xl overflow-hidden bg-gradient-to-br from-[#4BC6C8] via-[#7ED6E0] to-[#a8e8eb] shadow-2xl">
               {!imgFailed ? (
                 <Image
                   src="/images/05-moj-pribeh.jpg"
                   alt={t("heading")}
                   fill
                   sizes="(min-width: 1024px) 50vw, 100vw"
-                  className="object-cover"
+                  className="object-cover object-[center_top]"
                   onError={() => setImgFailed(true)}
                 />
               ) : (

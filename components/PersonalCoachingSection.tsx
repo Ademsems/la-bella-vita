@@ -79,7 +79,7 @@ export default function PersonalCoachingSection() {
           >
             <TiltCard
               intensity={6}
-              className="relative aspect-square rounded-3xl overflow-hidden bg-gradient-to-br from-[#EDE4D8] via-[#d8ccbc] to-[#c4b4a0] shadow-xl border-beam"
+              className="relative aspect-[3/4] rounded-3xl overflow-hidden bg-gradient-to-br from-[#EDE4D8] via-[#d8ccbc] to-[#c4b4a0] shadow-xl border-beam"
             >
               {!imgFailed ? (
                 <Image
@@ -87,7 +87,7 @@ export default function PersonalCoachingSection() {
                   alt={c("coaching_headline")}
                   fill
                   sizes="(min-width: 1024px) 50vw, 100vw"
-                  className="object-cover"
+                  className="object-cover object-[center_top]"
                   onError={() => setImgFailed(true)}
                 />
               ) : (

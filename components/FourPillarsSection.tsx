@@ -106,7 +106,7 @@ export default function FourPillarsSection() {
             >
               <TiltCard
                 intensity={8}
-                className="group relative overflow-hidden rounded-3xl cursor-default min-h-[420px] border-beam"
+                className="group relative h-full overflow-hidden rounded-3xl cursor-default min-h-[520px] sm:min-h-[560px] border-beam"
               >
                 {/* Gradient fallback — always rendered underneath */}
                 <div
@@ -120,7 +120,7 @@ export default function FourPillarsSection() {
                     alt={pillar.title}
                     fill
                     sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
-                    className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+                    className="object-cover object-[center_top] transition-transform duration-700 group-hover:scale-[1.03]"
                     onError={() => markFailed(i)}
                   />
                 )}

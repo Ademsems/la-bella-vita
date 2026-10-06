@@ -1,21 +1,33 @@
 "use client";
 
+import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { useT, useContent } from "@/lib/i18n";
 import { useState } from "react";
+import Lightbox, { type LightboxImage } from "@/components/ui/Lightbox";
 
 type Category = string;
 
-const TILES: { id: number; category: string; tall: boolean }[] = [
-  { id: 1,  category: "Beh",      tall: true  },
+interface Tile {
+  id: number;
+  category: string;
+  tall: boolean;
+  /** Real client photo. Tiles without one render the "photo coming soon" placeholder. */
+  photo?: { src: string; ratio: number };
+}
+
+// Client photos live in public/images/. Tiles with a `photo` open in the lightbox; the rest
+// are placeholders until more photos arrive (add `photo` to a tile to promote it).
+const TILES: Tile[] = [
+  { id: 1,  category: "Workshop", tall: true,  photo: { src: "/images/Aless&Kika-06.jpg", ratio: 2000 / 3554 } },
   { id: 2,  category: "Komunita", tall: false },
-  { id: 3,  category: "Raňajky",  tall: false },
-  { id: 4,  category: "Volejbal", tall: false },
-  { id: 5,  category: "More",     tall: true  },
-  { id: 6,  category: "Workshop", tall: false },
-  { id: 7,  category: "Komunita", tall: false },
-  { id: 8,  category: "Beh",      tall: false },
-  { id: 9,  category: "Raňajky",  tall: false },
+  { id: 3,  category: "Beh",      tall: true,  photo: { src: "/images/Aless&Kika-13.jpg", ratio: 2000 / 3554 } },
+  { id: 4,  category: "Raňajky",  tall: false },
+  { id: 5,  category: "Workshop", tall: true,  photo: { src: "/images/Aless&Kika-09.jpg", ratio: 2000 / 3554 } },
+  { id: 6,  category: "Volejbal", tall: false },
+  { id: 7,  category: "Komunita", tall: true,  photo: { src: "/images/03-komunita.jpg",   ratio: 4672 / 7008 } },
+  { id: 8,  category: "More",     tall: false },
+  { id: 9,  category: "Beh",      tall: false },
 ];
 
 const FILTER_KEYS_SK = ["Všetko", "Beh", "Volejbal", "Raňajky", "Workshop", "More", "Komunita"];
@@ -41,6 +53,18 @@ export default function CommunitySection() {
   const visible = activeSk
     ? TILES.filter((tile) => tile.category === activeSk)
     : TILES;
+
+  // Lightbox navigates only the photos currently visible (respects the active filter)
+  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
+  const lightboxLabels = tRaw("lightbox") as { close: string; prev: string; next: string; open: string };
+  const photoTiles = visible.filter((tile) => tile.photo);
+  const lightboxImages: LightboxImage[] = photoTiles.map((tile) => ({
+    src: tile.photo!.src,
+    ratio: tile.photo!.ratio,
+    alt: `${t("heading")} — ${tile.category}`,
+  }));
+
+  const [failedPhotos, setFailedPhotos] = useState<Record<number, boolean>>({});
 
   return (
     <section id="community" className="py-24 bg-white">
@@ -87,39 +111,73 @@ export default function CommunitySection() {
         {/* Masonry-style grid */}
         <motion.div layout className="columns-2 md:columns-3 gap-4 space-y-4">
           <AnimatePresence mode="popLayout">
-            {visible.map((tile, i) => (
-              <motion.div
-                key={tile.id}
-                layout
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.95 }}
-                transition={{ duration: 0.4, ease: "easeOut", delay: i * 0.05 }}
-                className={`break-inside-avoid rounded-2xl overflow-hidden shimmer-bg group cursor-default hover:scale-[1.02] transition-transform duration-400 ${
-                  tile.tall ? "h-64" : "h-44"
-                }`}
-              >
-                <div className={`w-full h-full bg-gradient-to-br ${TILE_GRADIENTS[tile.id % TILE_GRADIENTS.length]} relative`}>
-                  <div className="absolute top-3 left-3 bg-white/80 backdrop-blur-sm rounded-full px-3 py-1">
-                    <span className="font-inter text-[10px] font-semibold text-turquoise tracking-wide uppercase">
-                      {tile.category}
-                    </span>
-                  </div>
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="text-center">
-                      <svg className="w-7 h-7 text-gray-300 mx-auto mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5}
-                          d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                      </svg>
-                      <p className="font-inter text-[10px] text-gray-400">{t("comingSoon")}</p>
+            {visible.map((tile, i) => {
+              const photoIdx = photoTiles.indexOf(tile);
+              const showPhoto = tile.photo && !failedPhotos[tile.id];
+              const sizeClass = tile.photo ? "aspect-[3/4]" : tile.tall ? "h-64" : "h-44";
+
+              return (
+                <motion.div
+                  key={tile.id}
+                  layout
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.95 }}
+                  transition={{ duration: 0.4, ease: "easeOut", delay: i * 0.05 }}
+                  className={`break-inside-avoid rounded-2xl overflow-hidden shimmer-bg group hover:scale-[1.02] transition-transform duration-400 ${sizeClass} ${
+                    tile.photo ? "cursor-zoom-in" : "cursor-default"
+                  }`}
+                >
+                  <div className={`w-full h-full bg-gradient-to-br ${TILE_GRADIENTS[tile.id % TILE_GRADIENTS.length]} relative`}>
+                    {showPhoto && (
+                      <Image
+                        src={tile.photo!.src}
+                        alt={`${t("heading")} — ${tile.category}`}
+                        fill
+                        sizes="(min-width: 768px) 33vw, 50vw"
+                        className="object-cover object-[center_30%] transition-transform duration-700 group-hover:scale-[1.04]"
+                        onError={() => setFailedPhotos((f) => ({ ...f, [tile.id]: true }))}
+                      />
+                    )}
+                    {tile.photo && (
+                      <button
+                        type="button"
+                        aria-label={`${lightboxLabels?.open ?? ""} — ${tile.category}`}
+                        onClick={() => setLightboxIndex(photoIdx)}
+                        className="absolute inset-0 z-10 rounded-2xl focus:outline-none focus-visible:ring-2 focus-visible:ring-gold"
+                      />
+                    )}
+                    <div className="absolute top-3 left-3 z-[5] bg-white/80 backdrop-blur-sm rounded-full px-3 py-1">
+                      <span className="font-inter text-[10px] font-semibold text-turquoise tracking-wide uppercase">
+                        {tile.category}
+                      </span>
                     </div>
+                    {!showPhoto && (
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <div className="text-center">
+                          <svg className="w-7 h-7 text-gray-300 mx-auto mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5}
+                              d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                          </svg>
+                          <p className="font-inter text-[10px] text-gray-400">{t("comingSoon")}</p>
+                        </div>
+                      </div>
+                    )}
+                    <div className="absolute inset-0 rounded-2xl border border-transparent group-hover:border-gold/40 transition-all duration-400 pointer-events-none z-[11]" />
                   </div>
-                  <div className="absolute inset-0 rounded-2xl border border-transparent group-hover:border-gold/40 transition-all duration-400 pointer-events-none" />
-                </div>
-              </motion.div>
-            ))}
+                </motion.div>
+              );
+            })}
           </AnimatePresence>
         </motion.div>
+
+        <Lightbox
+          images={lightboxImages}
+          index={lightboxIndex}
+          onClose={() => setLightboxIndex(null)}
+          onIndexChange={setLightboxIndex}
+          labels={lightboxLabels}
+        />
       </div>
     </section>
   );
