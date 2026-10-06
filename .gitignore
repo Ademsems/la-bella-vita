@@ -34,3 +34,8 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Raw desktop font files (TTF/OTF) — licensed for desktop use only, never publish them.
+# Only licensed web-font files (.woff2) belong in public/fonts/.
+/public/fonts/*.ttf
+/public/fonts/*.otf

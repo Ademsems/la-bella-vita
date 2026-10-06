@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Playfair_Display, Cormorant_Garamond, Inter } from "next/font/google";
 import GlobalEffects from "@/components/ui/GlobalEffects";
+import { ADOBE_FONTS_KIT_ID, ADOBE_FONTS_BASE_URL } from "@/lib/config";
 import "./globals.css";
 
 const playfair = Playfair_Display({
@@ -45,6 +46,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       lang="sk"
       className={`${playfair.variable} ${cormorant.variable} ${inter.variable}`}
     >
+      <head>
+        {/* Adobe Fonts web project (licensed Athelas) — only rendered when the kit ID is set */}
+        {ADOBE_FONTS_KIT_ID && (
+          <>
+            <link rel="preconnect" href={ADOBE_FONTS_BASE_URL} crossOrigin="anonymous" />
+            <link rel="stylesheet" href={`${ADOBE_FONTS_BASE_URL}/${ADOBE_FONTS_KIT_ID}.css`} />
+          </>
+        )}
+      </head>
       <body>
         <GlobalEffects />
         {children}

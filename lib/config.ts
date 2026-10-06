@@ -46,3 +46,12 @@ export const RESEND_API_KEY = process.env.RESEND_API_KEY || "";
 export const CONTACT_TO_EMAIL = process.env.CONTACT_TO_EMAIL || "";
 export const CONTACT_FROM_EMAIL =
   process.env.CONTACT_FROM_EMAIL || "La Bella Vita <onboarding@resend.dev>";
+
+// Adobe Fonts (Typekit) web project — the licensed way to use Athelas on the live site.
+// Adobe's Creative Cloud licence covers fonts served from an Adobe Fonts web project, NOT
+// converted/self-hosted files. In Adobe Fonts: create a Web Project, add Athelas, copy the
+// project ID (the 7-char id in https://use.typekit.net/<id>.css) and set it in Vercel.
+// TODO: Set NEXT_PUBLIC_ADOBE_FONTS_KIT_ID. When empty, no request is made and headings
+// fall back to Playfair Display / Cormorant Garamond.
+export const ADOBE_FONTS_KIT_ID = process.env.NEXT_PUBLIC_ADOBE_FONTS_KIT_ID || "";
+export const ADOBE_FONTS_BASE_URL = "https://use.typekit.net";

@@ -75,6 +75,7 @@ Footer
 | `TRAINERIZE_URL` | `NEXT_PUBLIC_TRAINERIZE_URL` |
 | `SHEET_CSV_URL_SK` | `NEXT_PUBLIC_SHEET_CSV_URL_SK` |
 | `SHEET_CSV_URL_EN` | `NEXT_PUBLIC_SHEET_CSV_URL_EN` |
+| `ADOBE_FONTS_KIT_ID` | `NEXT_PUBLIC_ADOBE_FONTS_KIT_ID` (optional — Adobe Fonts web project ID that serves Athelas; empty = Playfair fallback) |
 | `WHATSAPP_NUMBER` | `NEXT_PUBLIC_WHATSAPP_NUMBER` (defaults to `421948120052`, digits only, no `+`) |
 | `RESEND_API_KEY` | `RESEND_API_KEY` — **server-only**, no `NEXT_PUBLIC_` prefix |
 | `CONTACT_TO_EMAIL` | `CONTACT_TO_EMAIL` — server-only, inbox that receives leads |
@@ -202,17 +203,31 @@ content layer — purely presentational.
 - `app/globals.css` declares `--font-display` / `--font-heading` as
   `'Athelas'/'Vanguard', var(--font-playfair)/var(--font-cormorant), serif` — i.e.
   Athelas/Vanguard first, falling back to the existing Google fonts, then generic serif.
-- Athelas and Vanguard are **not implemented via `next/font/local`** on purpose: that
-  API throws a build error if the referenced file is missing, which would violate the
-  "must not break the build if font files aren't placed" requirement. Instead they're
-  declared as plain `@font-face` rules pointing at `public/fonts/Athelas-Regular.woff2`
-  / `public/fonts/Vanguard-Regular.woff2` (not present yet) — a missing file just 404s
-  silently and the browser keeps rendering the fallback font. **To activate the real
-  faces:** drop licensed `.woff2` files at those two exact paths; nothing else changes.
-  **To roll back to Playfair Display / Cormorant Garamond only:** in `app/globals.css`,
-  change the two `--font-display`/`--font-heading` lines to
-  `var(--font-playfair), serif` / `var(--font-cormorant), serif` — one line each, no
-  component edits required.
+- **Licensing — read before touching fonts.** Raw desktop font files must never be
+  committed or deployed: the GitHub repo is **public** and Vercel serves everything in
+  `public/` to every visitor, i.e. self-hosting. Specifically:
+  - **Athelas** comes from Adobe Creative Cloud / Adobe Fonts. That licence covers web use
+    only through an **Adobe Fonts Web Project** (served from `use.typekit.net`), not converted
+    or self-hosted files. Wiring: set `NEXT_PUBLIC_ADOBE_FONTS_KIT_ID` in Vercel (the project ID
+    in `https://use.typekit.net/<id>.css`, created in Adobe Fonts → Web Projects → add Athelas →
+    publish). `app/layout.tsx` then adds the stylesheet `<link>`; the existing
+    `'Athelas'` entry in `--font-display` picks it up (CSS family names are case-insensitive, so
+    Adobe's `athelas` matches). Unset = no request, Playfair fallback. This is the one place the
+    "no external CDN links" rule is deliberately relaxed (opt-in, licence-driven).
+  - **Vanguard** — the files that were dropped in `public/fonts/` are `Fontspring-DEMO-vanguardcf-*.otf`:
+    demo files (trial licence, typically a reduced glyph set that can lack Slovak diacritics
+    č š ž ď ľ ť ň…), not Adobe Fonts. Not licensed for production. To ship Vanguard, buy a
+    **web licence** from Fontspring and place the `.woff2` it provides at
+    `public/fonts/Vanguard-Regular.woff2` (matches the `@font-face` in `globals.css`; add more
+    `@font-face` blocks for other weights if needed). Until then `--font-heading` falls back to
+    Cormorant Garamond.
+  - `.gitignore` blocks `public/fonts/*.ttf` and `*.otf` so `git add .` can't publish desktop
+    fonts by accident. Only licensed `.woff2` webfonts belong in that folder.
+- Not implemented via `next/font/local` on purpose: it throws a build error when the file is
+  missing; plain `@font-face` (+ the font-stack fallback) never breaks the build.
+  **To roll back to Playfair Display / Cormorant Garamond only:** in `app/globals.css`, change
+  the two `--font-display`/`--font-heading` lines to `var(--font-playfair), serif` /
+  `var(--font-cormorant), serif` — one line each, no component edits required.
 
 **Verification:** `npm run build` and `npm run lint` clean; shipped in commit 972d4ce.
 
