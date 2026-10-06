@@ -46,16 +46,17 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       lang="sk"
       className={`${playfair.variable} ${cormorant.variable} ${inter.variable}`}
     >
-      <head>
-        {/* Adobe Fonts web project (licensed Athelas) — only rendered when the kit ID is set */}
-        {ADOBE_FONTS_KIT_ID && (
-          <>
-            <link rel="preconnect" href={ADOBE_FONTS_BASE_URL} crossOrigin="anonymous" />
-            <link rel="stylesheet" href={`${ADOBE_FONTS_BASE_URL}/${ADOBE_FONTS_KIT_ID}.css`} />
-          </>
-        )}
-      </head>
       <body>
+        {/*
+          Adobe Fonts web project (licensed Athelas) — only when the kit ID is set.
+          Deliberately NOT inside an explicit <head> and deliberately a ternary → null:
+          a custom <head> in the root layout plus an empty-string child ("" from `id && …`)
+          caused a hydration mismatch that made React discard the server HTML and crash
+          (React error #329, blank hero). A stylesheet <link> is valid in <body>.
+        */}
+        {ADOBE_FONTS_KIT_ID ? (
+          <link rel="stylesheet" href={`${ADOBE_FONTS_BASE_URL}/${ADOBE_FONTS_KIT_ID}.css`} />
+        ) : null}
         <GlobalEffects />
         {children}
       </body>
