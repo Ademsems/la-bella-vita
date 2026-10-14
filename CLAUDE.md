@@ -39,7 +39,11 @@ Design language: Four Seasons × Apple × Amalfi Coast. Morning light, sea, comm
   containers with top-biased focal points (no more cropped heads), real photos in the
   Community grid with a floating luxury lightbox, and the contact form rebuilt as a
   WhatsApp lead magnet that also emails the lead via Resend. See "Image Framing",
-  "Community Lightbox" and "WhatsApp Lead Magnet" below.
+  "Community Gallery & Lightbox" and "WhatsApp Lead Magnet" below.
+- **v4.2** (Community gallery from real photos): all placeholder tiles replaced by 21 real photos
+  (new restaurant-evening shoot + the gym-coaching shots), URL-safe web-sized copies, filter chips
+  that hide when empty, "show more" reveal, and the lightbox restyled (frosted frame, gold/turquoise
+  arrows, beam-ring dock, neighbour preloading). Camera originals are git-ignored.
 
 ## Section Order (v3)
 0. Navbar
@@ -242,26 +246,62 @@ Rule for new photos: never put a portrait photo in a square/landscape box with d
 centering — use a portrait container + `object-[center_top]` (or a ~30% focal point for
 full-body gym shots where heads sit 30–40% down the frame, as in the Community grid).
 
-## Community Lightbox (v4.1)
-- `components/ui/Lightbox.tsx` — full-screen floating viewer: frosted gold/white border
-  (`backdrop-blur-2xl`, `ring-gold/30`), blurred dark backdrop, prev/next glass arrows,
-  touch swipe (framer-motion `drag="x"`, distance/velocity thresholds), keyboard
-  (`←` / `→` / `Esc`), click-outside to close, scroll lock, focus moved in and restored on
-  close, and a bottom strip showing **previous · current · next** thumbnails (cyclic).
-  Frame size is derived from each photo's `ratio` so nothing is cropped.
-  Rendered through a **portal into `<body>`** — every `<section>` has `will-change: transform`
+## Community Gallery & Lightbox (v4.1 → v4.2)
+**Gallery (`CommunitySection.tsx`)** — a `PHOTOS` registry of **21 real photos**; the old
+"Fotografia čoskoro" placeholder tiles are gone (the same gradient + icon now only appears as the
+`onError` fallback if a file fails to load). Grid is `grid-cols-2 md:grid-cols-3`, tiles
+`aspect-[3/4]` + `object-[center_15%]` (heads in these photos sit 12–45% down the frame; 15%
+only trims the top ~4%). First 9 show; a "Zobraziť viac fotografií (+N)" / "Zobraziť menej" button
+reveals the rest (`INITIAL_VISIBLE`). The lightbox always cycles **every** photo in the active
+filter, revealed or not. Filter chips are the locked list from `messages/*.json`, but a chip is
+only rendered when at least one photo has that category (currently Všetko · Beh · Workshop ·
+Komunita; Volejbal / Raňajky / More reappear automatically the day a photo is tagged with them).
+
+**Registered assets (`public/images/`) — all URL-safe, web-sized:**
+| File | Source | Category |
+|---|---|---|
+| `03-komunita.jpg` | existing (also the Comunità pillar photo) | Komunita |
+| `community-ak-04/06/09.jpg` | renamed from `Aless&Kika-04/06/09.jpg` | Workshop (gym coaching) |
+| `community-ak-13.jpg` | renamed from `Aless&Kika-13.jpg` | Beh |
+| `community-lbv-013 … 046.jpg` (16 files: 013 016 018 019 021 022 024 026 027 028 029 035 039 042 045 046) | web copies of camera originals `Zaži LBV-NNN.jpg` (restaurant dinner / quiz evening) | Komunita |
+
+**How to add community photos:** export a web-sized JPG (**≈1800 px wide, sRGB, quality ~80,
+≤ ~0.7 MB**, no EXIF) with a **URL-safe name** (lowercase, no spaces, no `&`, no diacritics) into
+`public/images/`, then add one line to `PHOTOS` (the `lbv()` / `ak()` helpers build the path and
+ratio; plain objects work too). Order in `PHOTOS` = grid reading order = lightbox order.
+**Never put camera originals in the repo.** The 16 originals (`Zaži LBV-NNN.jpg`, 20–33 MB each,
+~440 MB, 3944×7008, name has a space and a decomposed "ž") sit untracked in `public/images/` and are
+blocked by `.gitignore` (`/public/images/Za*LBV-*.jpg`). The web copies were produced with Pillow:
+EXIF-orient → convert to sRGB → Lanczos resize to 1800 px wide → JPEG q80 progressive, metadata
+stripped. (Unreferenced `public/Aless&Kika-01…16.jpg` duplicates also exist untracked at the
+`public/` root — not wired, not committed.) `next/image` encodes odd filenames, but slugs avoid
+the whole class of problem — the old `&` names were renamed for that reason.
+
+**Lightbox (`components/ui/Lightbox.tsx`)** — full-screen floating viewer:
+- Frame: `backdrop-blur-2xl bg-white/10 border border-white/20 shadow-[0_25px_50px_-12px_rgba(75,198,200,0.25)]`
+  (+ `ring-gold/30`) over a blurred dark backdrop; sized from each photo's `ratio`
+  (`min(88vw, 70vh × ratio)`) so nothing is cropped.
+- Transitions: Framer Motion `opacity` + `scale` (`AnimatePresence mode="wait"`).
+- Controls: delicate gold-bordered, turquoise-glow arrow buttons (and close button); counter "n / N".
+  Touch/mouse **swipe** (`drag="x"`, snap-back, distance 70 px or velocity 450 triggers prev/next);
+  **keyboard** `←` `→` navigate, `Esc` closes; click on the backdrop closes; page scroll locked while
+  open; focus moves into the dialog and is restored on close.
+- **Dock** (bottom): 3 tiles — previous · **active** · next (cyclic). The active tile has the
+  always-on `.beam-ring` (animated gold↔turquoise ring + glow, `globals.css`); clicking a tile
+  jumps to that photo. The ring is drawn outside the button, so image clipping lives on an inner
+  `<span>` — don't put `overflow-hidden` on the button itself.
+- **Preloading:** the previous/next photos are rendered hidden (`sr-only`, `loading="eager"`) with the
+  *same* `sizes` string as the stage image (`STAGE_SIZES`), so the browser fetches the identical
+  optimized URL and navigation is instant. Keep the two `sizes` values in sync.
+- Rendered through a **portal into `<body>`** — every `<section>` has `will-change: transform`
   in `globals.css`, which makes a `position: fixed` child position relative to the section,
   not the screen. Don't remove the portal.
-- `CommunitySection.tsx` — `TILES` entries may carry `photo: { src, ratio }`. Wired photos:
-  `Aless&Kika-06.jpg` (Workshop), `Aless&Kika-13.jpg` (Beh), `Aless&Kika-09.jpg` (Workshop),
-  `03-komunita.jpg` (Komunita). Tiles without `photo` stay "Fotografia čoskoro" placeholders
-  so every locked filter chip still has something to show. The lightbox only cycles the photos
-  of the **currently filtered** tiles. Photo tiles use `aspect-[3/4]` + `object-[center_30%]`.
-- Graceful degradation: grid tiles and lightbox (frame + thumbnails) each have `onError`
+- Graceful degradation: grid tiles, the stage image and the dock thumbnails each have `onError`
   → brand-gradient fallback, never a broken-image icon.
-- Lightbox UI labels (close/prev/next/open) are locked nested strings at `community.lightbox`
-  in `messages/*.json` — not sheet-driven. Filenames contain `&` (`Aless&Kika-NN.jpg`);
-  `next/image` encodes them, but prefer URL-safe slugs for any future photos.
+- UI labels (close/prev/next/open, show more/less) are locked nested strings under `community.*`
+  in `messages/*.json` — not sheet-driven.
+- Dev-only quirk: locally there's no `sharp`, so `next/image` uses the slow WASM optimizer and the
+  first view of each photo is slow (gradient shows meanwhile). On Vercel it's fast.
 
 ## WhatsApp Lead Magnet (v4.1)
 `ContactSection.tsx` form: Name, Phone, Email (all required), Message/goals (optional), plus a
@@ -299,7 +339,7 @@ Client-supplied photos, renamed from their original Slovak filenames (which had 
 | `7. Trainerize.jpg` | `/images/07-trainerize.jpg` | `OnlineCoachingSection.tsx` — visual |
 | `8. Jedlo ako radosť, nie ako trest.jpg` | `/images/08-jedlo-ako-radost.jpg` | `FoodEasyDietSection.tsx` — visual |
 
-All 8 use `next/image` with `fill` + `onError` — if a file is ever deleted/renamed, the component falls back to its original gradient placeholder (icon + label), never a broken-image icon. Sections with no client photo yet (Transformations, Community gallery, Corporate Wellbeing, Final CTA band) are untouched and still use gradient-only placeholders.
+All 8 use `next/image` with `fill` + `onError` — if a file is ever deleted/renamed, the component falls back to its original gradient placeholder (icon + label), never a broken-image icon. Sections with no client photo yet (Transformations, Corporate Wellbeing, Final CTA band) still use gradient-only placeholders. The Community gallery's photos are listed under "Community Gallery & Lightbox" above.
 
 ## Graceful Degradation Rules
 - Missing image → styled gradient placeholder div, **never** a broken-image icon

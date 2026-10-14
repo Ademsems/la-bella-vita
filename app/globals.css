@@ -137,6 +137,28 @@ body {
   left: 150%;
 }
 
+/* ── Always-on gold/turquoise beam ring (active lightbox thumbnail) ──────────
+   Same sweep as .border-beam, but permanently running + a soft glow. The element it is
+   applied to must NOT have overflow:hidden (the ring is drawn outside its box). */
+.beam-ring {
+  position: relative;
+  box-shadow: 0 0 18px rgba(75, 198, 200, 0.45), 0 0 6px rgba(198, 167, 105, 0.55);
+}
+.beam-ring::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+  padding: 2px;
+  background: linear-gradient(120deg, var(--color-gold), var(--color-turquoise), var(--color-gold), var(--color-turquoise));
+  background-size: 300% 300%;
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  animation: border-beam-sweep 3s linear infinite;
+  pointer-events: none;
+}
+
 /* ── 3D tilt perspective (used by components/ui/TiltCard.tsx) ───────────── */
 .tilt-perspective {
   perspective: 1200px;

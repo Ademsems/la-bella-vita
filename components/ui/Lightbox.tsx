@@ -24,23 +24,41 @@ interface LightboxProps {
 const SWIPE_DISTANCE = 70;
 const SWIPE_VELOCITY = 450;
 
-const slide = {
-  enter: (dir: number) => ({ opacity: 0, x: dir * 70, scale: 0.97 }),
-  center: { opacity: 1, x: 0, scale: 1 },
-  exit: (dir: number) => ({ opacity: 0, x: dir * -70, scale: 0.97 }),
+/** Frame height as a share of the viewport height. */
+const FRAME_VH = 70;
+
+/**
+ * `sizes` for the stage image. The frame is min(88vw, FRAME_VH * ratio) wide; every photo is
+ * a ~0.56 portrait, so ~40vh covers it. The hidden neighbour preloads use the SAME string, so
+ * the browser requests the exact same optimized URL and navigation hits the cache.
+ */
+const STAGE_SIZES = "min(88vw, 40vh)";
+
+// Opacity + scale only (swipe/drag supplies the directional motion)
+const fade = {
+  enter: { opacity: 0, scale: 0.94 },
+  center: { opacity: 1, scale: 1 },
+  exit: { opacity: 0, scale: 0.94 },
 };
+
+const ARROW_BTN =
+  "flex h-12 w-12 items-center justify-center rounded-full border border-gold/60 bg-white/10 text-gold " +
+  "shadow-[0_0_20px_rgba(75,198,200,0.25)] backdrop-blur-xl transition-all duration-300 " +
+  "hover:scale-110 hover:border-turquoise hover:bg-turquoise/20 hover:text-white " +
+  "hover:shadow-[0_0_28px_rgba(75,198,200,0.55)] focus:outline-none focus-visible:ring-2 focus-visible:ring-turquoise";
 
 function Chevron({ dir }: { dir: "left" | "right" }) {
   return (
-    <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} aria-hidden="true">
+    <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} aria-hidden="true">
       <path strokeLinecap="round" strokeLinejoin="round" d={dir === "left" ? "M15 5l-7 7 7 7" : "M9 5l7 7-7 7"} />
     </svg>
   );
 }
 
 /**
- * Full-screen floating photo viewer — frosted border, backdrop blur, arrow / keyboard /
- * swipe navigation and a prev–current–next thumbnail strip. Rendered through a portal into
+ * Full-screen floating photo viewer — frosted-glass frame, backdrop blur, gold/turquoise arrow
+ * controls, swipe + keyboard navigation, and a 3-tile dock (previous · active · next) whose
+ * active tile carries an animated gold/turquoise beam ring. Rendered through a portal into
  * <body>: every <section> carries `will-change: transform` (globals.css), which would turn a
  * `position: fixed` overlay into one positioned relative to the section instead of the screen.
  *
@@ -49,7 +67,6 @@ function Chevron({ dir }: { dir: "left" | "right" }) {
  */
 export default function Lightbox({ images, index, onClose, onIndexChange, labels }: LightboxProps) {
   const [mounted, setMounted] = useState(false);
-  const [dir, setDir] = useState(1);
   const [failed, setFailed] = useState<Record<string, boolean>>({});
   const dialogRef = useRef<HTMLDivElement>(null);
   const open = index !== null && images.length > 0;
@@ -60,18 +77,7 @@ export default function Lightbox({ images, index, onClose, onIndexChange, labels
   const go = useCallback(
     (delta: number) => {
       if (index === null || count < 2) return;
-      setDir(delta > 0 ? 1 : -1);
       onIndexChange((index + delta + count) % count);
-    },
-    [index, count, onIndexChange]
-  );
-
-  const jumpTo = useCallback(
-    (target: number) => {
-      if (index === null || target === index) return;
-      const forward = (target - index + count) % count <= count / 2;
-      setDir(forward ? 1 : -1);
-      onIndexChange(target);
     },
     [index, count, onIndexChange]
   );
@@ -113,6 +119,8 @@ export default function Lightbox({ images, index, onClose, onIndexChange, labels
   const nextIndex = index !== null ? (index + 1) % count : 0;
   const thumbIndexes =
     index !== null ? Array.from(new Set([prevIndex, index, nextIndex])) : [];
+  const preloadIndexes =
+    index !== null && count > 1 ? Array.from(new Set([prevIndex, nextIndex])).filter((i) => i !== index) : [];
 
   const markFailed = (src: string) => setFailed((f) => ({ ...f, [src]: true }));
 
@@ -143,9 +151,9 @@ export default function Lightbox({ images, index, onClose, onIndexChange, labels
           <button
             onClick={onClose}
             aria-label={labels.close}
-            className="absolute right-4 top-4 z-20 flex h-11 w-11 items-center justify-center rounded-full border border-white/40 bg-white/15 text-white backdrop-blur-xl transition-all duration-300 hover:scale-105 hover:border-gold/70 hover:bg-white/25 sm:right-8 sm:top-8"
+            className={`absolute right-4 top-4 z-20 !h-11 !w-11 sm:right-8 sm:top-8 ${ARROW_BTN}`}
           >
-            <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} aria-hidden="true">
+            <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} aria-hidden="true">
               <path strokeLinecap="round" strokeLinejoin="round" d="M6 6l12 12M18 6L6 18" />
             </svg>
           </button>
@@ -163,14 +171,14 @@ export default function Lightbox({ images, index, onClose, onIndexChange, labels
               <button
                 onClick={() => go(-1)}
                 aria-label={labels.prev}
-                className="absolute left-3 top-1/2 z-20 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border border-white/40 bg-white/15 text-white backdrop-blur-xl transition-all duration-300 hover:scale-105 hover:border-gold/70 hover:bg-white/25 sm:left-8"
+                className={`absolute left-3 top-1/2 z-20 -translate-y-1/2 sm:left-8 ${ARROW_BTN}`}
               >
                 <Chevron dir="left" />
               </button>
               <button
                 onClick={() => go(1)}
                 aria-label={labels.next}
-                className="absolute right-3 top-1/2 z-20 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border border-white/40 bg-white/15 text-white backdrop-blur-xl transition-all duration-300 hover:scale-105 hover:border-gold/70 hover:bg-white/25 sm:right-8"
+                className={`absolute right-3 top-1/2 z-20 -translate-y-1/2 sm:right-8 ${ARROW_BTN}`}
               >
                 <Chevron dir="right" />
               </button>
@@ -179,11 +187,10 @@ export default function Lightbox({ images, index, onClose, onIndexChange, labels
 
           {/* Stage */}
           <div className="pointer-events-none relative z-10 flex h-full items-center justify-center pb-28 pt-16">
-            <AnimatePresence mode="wait" custom={dir} initial={false}>
+            <AnimatePresence mode="wait" initial={false}>
               <motion.div
                 key={index}
-                custom={dir}
-                variants={slide}
+                variants={fade}
                 initial="enter"
                 animate="center"
                 exit="exit"
@@ -192,13 +199,13 @@ export default function Lightbox({ images, index, onClose, onIndexChange, labels
                 dragSnapToOrigin
                 dragElastic={0.25}
                 onDragEnd={handleDragEnd}
-                className="pointer-events-auto cursor-grab rounded-[28px] border border-white/40 bg-white/10 p-2 shadow-[0_8px_60px_rgba(75,198,200,0.25)] ring-1 ring-gold/30 backdrop-blur-2xl active:cursor-grabbing sm:p-2.5"
+                className="pointer-events-auto cursor-grab rounded-[28px] border border-white/20 bg-white/10 p-2 shadow-[0_25px_50px_-12px_rgba(75,198,200,0.25)] ring-1 ring-gold/30 backdrop-blur-2xl active:cursor-grabbing sm:p-2.5"
               >
                 <div
                   className="relative overflow-hidden rounded-[22px] bg-gradient-to-br from-[#4BC6C8] via-[#7ED6E0] to-[#F4D7D0]"
                   style={{
                     aspectRatio: current.ratio,
-                    width: `min(88vw, calc(66vh * ${current.ratio}))`,
+                    width: `min(88vw, calc(${FRAME_VH}vh * ${current.ratio}))`,
                   }}
                 >
                   {failed[current.src] ? (
@@ -215,7 +222,7 @@ export default function Lightbox({ images, index, onClose, onIndexChange, labels
                       fill
                       priority
                       draggable={false}
-                      sizes="(min-width: 640px) 60vh, 88vw"
+                      sizes={STAGE_SIZES}
                       className="select-none object-cover"
                       onError={() => markFailed(current.src)}
                     />
@@ -225,35 +232,54 @@ export default function Lightbox({ images, index, onClose, onIndexChange, labels
             </AnimatePresence>
           </div>
 
-          {/* Thumbnail strip — previous · current · next */}
+          {/* Warm the cache for the previous/next photo (same `sizes` → same optimized URL) */}
+          {preloadIndexes.map((i) =>
+            failed[images[i].src] ? null : (
+              <div key={`preload-${i}`} className="sr-only" aria-hidden="true">
+                <Image
+                  src={images[i].src}
+                  alt=""
+                  fill
+                  loading="eager"
+                  sizes={STAGE_SIZES}
+                  onError={() => markFailed(images[i].src)}
+                />
+              </div>
+            )
+          )}
+
+          {/* Thumbnail dock — previous · active · next */}
           {count > 1 && (
-            <div className="absolute bottom-5 left-1/2 z-20 flex -translate-x-1/2 items-center gap-3 rounded-2xl border border-white/30 bg-white/10 p-2 shadow-[0_8px_32px_rgba(75,198,200,0.15)] backdrop-blur-2xl sm:bottom-8">
+            <div className="absolute bottom-5 left-1/2 z-20 flex -translate-x-1/2 items-center gap-3 rounded-2xl border border-white/20 bg-white/10 p-2.5 shadow-[0_8px_32px_rgba(75,198,200,0.15)] backdrop-blur-2xl sm:bottom-8">
               {thumbIndexes.map((i) => {
                 const img = images[i];
                 const active = i === index;
                 return (
                   <button
                     key={i}
-                    onClick={() => jumpTo(i)}
+                    onClick={() => onIndexChange(i)}
                     aria-label={img.alt}
                     aria-current={active}
-                    className={`relative overflow-hidden rounded-xl bg-gradient-to-br from-[#4BC6C8] via-[#7ED6E0] to-[#F4D7D0] transition-all duration-300 ${
+                    className={`rounded-xl transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-turquoise ${
                       active
-                        ? "h-[76px] w-[56px] ring-2 ring-gold"
-                        : "h-16 w-12 opacity-60 hover:opacity-100"
+                        ? "beam-ring h-[76px] w-[56px]"
+                        : "h-16 w-12 opacity-60 hover:opacity-100 hover:scale-105"
                     }`}
                   >
-                    {!failed[img.src] && (
-                      <Image
-                        src={img.src}
-                        alt=""
-                        fill
-                        draggable={false}
-                        sizes="64px"
-                        className="object-cover object-[center_30%]"
-                        onError={() => markFailed(img.src)}
-                      />
-                    )}
+                    {/* The ring is drawn outside the button, so the clipping lives on this inner box */}
+                    <span className="relative block h-full w-full overflow-hidden rounded-xl bg-gradient-to-br from-[#4BC6C8] via-[#7ED6E0] to-[#F4D7D0]">
+                      {!failed[img.src] && (
+                        <Image
+                          src={img.src}
+                          alt=""
+                          fill
+                          draggable={false}
+                          sizes="64px"
+                          className="object-cover object-[center_20%]"
+                          onError={() => markFailed(img.src)}
+                        />
+                      )}
+                    </span>
                   </button>
                 );
               })}

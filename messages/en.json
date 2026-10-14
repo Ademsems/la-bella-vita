@@ -52,6 +52,8 @@
     "heading":    "La Bella Vita Community",
     "filters":    ["All", "Running", "Volleyball", "Breakfast", "Workshop", "Sea", "Community"],
     "comingSoon": "Photo coming soon",
+    "showMore":   "Show more photos",
+    "showLess":   "Show less",
     "lightbox":   { "close": "Close", "prev": "Previous photo", "next": "Next photo", "open": "Enlarge photo" }
   },
   "corporate": {

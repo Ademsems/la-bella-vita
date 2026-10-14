@@ -39,3 +39,7 @@ next-env.d.ts
 # Only licensed web-font files (.woff2) belong in public/fonts/.
 /public/fonts/*.ttf
 /public/fonts/*.otf
+
+# Full-resolution camera originals (20–33 MB each, ~440 MB total) — never commit or deploy them.
+# The site uses the web-sized copies instead: public/images/community-lbv-NNN.jpg
+/public/images/Za*LBV-*.jpg

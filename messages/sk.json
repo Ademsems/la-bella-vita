@@ -52,6 +52,8 @@
     "heading":    "La Bella Vita Community",
     "filters":    ["Všetko", "Beh", "Volejbal", "Raňajky", "Workshop", "More", "Komunita"],
     "comingSoon": "Fotografia čoskoro",
+    "showMore":   "Zobraziť viac fotografií",
+    "showLess":   "Zobraziť menej",
     "lightbox":   { "close": "Zavrieť", "prev": "Predchádzajúca fotografia", "next": "Ďalšia fotografia", "open": "Zväčšiť fotografiu" }
   },
   "corporate": {

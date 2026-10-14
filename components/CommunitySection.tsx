@@ -8,27 +8,58 @@ import Lightbox, { type LightboxImage } from "@/components/ui/Lightbox";
 
 type Category = string;
 
-interface Tile {
-  id: number;
+interface Photo {
+  /** Stable key for React + the onError map. */
+  id: string;
+  /** Slovak category — must match an entry of FILTER_KEYS_SK (the locked filter chips). */
   category: string;
-  tall: boolean;
-  /** Real client photo. Tiles without one render the "photo coming soon" placeholder. */
-  photo?: { src: string; ratio: number };
+  /** Always a URL-safe path under /images (no spaces, no "&", no diacritics). */
+  src: string;
+  /** width / height of the source file — sizes the lightbox frame so nothing is cropped. */
+  ratio: number;
 }
 
-// Client photos live in public/images/. Tiles with a `photo` open in the lightbox; the rest
-// are placeholders until more photos arrive (add `photo` to a tile to promote it).
-const TILES: Tile[] = [
-  { id: 1,  category: "Workshop", tall: true,  photo: { src: "/images/Aless&Kika-06.jpg", ratio: 2000 / 3554 } },
-  { id: 2,  category: "Komunita", tall: false },
-  { id: 3,  category: "Beh",      tall: true,  photo: { src: "/images/Aless&Kika-13.jpg", ratio: 2000 / 3554 } },
-  { id: 4,  category: "Raňajky",  tall: false },
-  { id: 5,  category: "Workshop", tall: true,  photo: { src: "/images/Aless&Kika-09.jpg", ratio: 2000 / 3554 } },
-  { id: 6,  category: "Volejbal", tall: false },
-  { id: 7,  category: "Komunita", tall: true,  photo: { src: "/images/03-komunita.jpg",   ratio: 4672 / 7008 } },
-  { id: 8,  category: "More",     tall: false },
-  { id: 9,  category: "Beh",      tall: false },
+// ── Community photo registry ────────────────────────────────────────────────────────────
+// Files live in public/images/. Web-sized copies only (1800 px wide, ~0.6 MB): the full-res
+// camera originals ("Zaži LBV-NNN.jpg", 20–33 MB) are git-ignored and never deployed.
+// To add a photo: put a URL-safe, web-sized JPG in public/images/ and add one line below.
+const R_LBV = 1800 / 3198; // community-lbv-NNN.jpg  (dinner / quiz evening shoot)
+const R_AK = 2000 / 3554;  // community-ak-NN.jpg    (gym coaching shoot, was "Aless&Kika-NN")
+
+const lbv = (n: string, category: string): Photo => ({
+  id: `lbv-${n}`, category, src: `/images/community-lbv-${n}.jpg`, ratio: R_LBV,
+});
+const ak = (n: string, category: string): Photo => ({
+  id: `ak-${n}`, category, src: `/images/community-ak-${n}.jpg`, ratio: R_AK,
+});
+
+// Order is the reading order of the grid (row by row) and of the lightbox.
+const PHOTOS: Photo[] = [
+  { id: "komunita", category: "Komunita", src: "/images/03-komunita.jpg", ratio: 4672 / 7008 },
+  lbv("019", "Komunita"),
+  ak("06", "Workshop"),
+  lbv("045", "Komunita"),
+  lbv("016", "Komunita"),
+  lbv("035", "Komunita"),
+  ak("13", "Beh"),
+  lbv("028", "Komunita"),
+  lbv("039", "Komunita"),
+  lbv("024", "Komunita"),
+  ak("09", "Workshop"),
+  ak("04", "Workshop"),
+  lbv("021", "Komunita"),
+  lbv("018", "Komunita"),
+  lbv("046", "Komunita"),
+  lbv("013", "Komunita"),
+  lbv("029", "Komunita"),
+  lbv("026", "Komunita"),
+  lbv("027", "Komunita"),
+  lbv("042", "Komunita"),
+  lbv("022", "Komunita"),
 ];
+
+/** Photos shown before "show more" (3 columns × 3 rows on desktop). */
+const INITIAL_VISIBLE = 9;
 
 const FILTER_KEYS_SK = ["Všetko", "Beh", "Volejbal", "Raňajky", "Workshop", "More", "Komunita"];
 
@@ -46,25 +77,37 @@ export default function CommunitySection() {
   const c = useContent();
   const filters = tRaw("filters") as string[];
   const [active, setActive] = useState<string>(filters[0] ?? "Všetko");
+  const [expanded, setExpanded] = useState(false);
 
   const skIndex = filters.indexOf(active);
   const activeSk = skIndex > 0 ? FILTER_KEYS_SK[skIndex] : null;
 
-  const visible = activeSk
-    ? TILES.filter((tile) => tile.category === activeSk)
-    : TILES;
+  // Only offer filter chips that actually have photos (an empty chip would show a blank grid)
+  const categoriesWithPhotos = new Set(PHOTOS.map((p) => p.category));
+  const visibleFilters = Array.isArray(filters)
+    ? filters.filter((_, i) => i === 0 || categoriesWithPhotos.has(FILTER_KEYS_SK[i]))
+    : [];
 
-  // Lightbox navigates only the photos currently visible (respects the active filter)
+  const filtered = activeSk ? PHOTOS.filter((p) => p.category === activeSk) : PHOTOS;
+  const shown = expanded ? filtered : filtered.slice(0, INITIAL_VISIBLE);
+  const hiddenCount = filtered.length - shown.length;
+
+  // The lightbox cycles every photo in the active filter, including ones not yet revealed
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
   const lightboxLabels = tRaw("lightbox") as { close: string; prev: string; next: string; open: string };
-  const photoTiles = visible.filter((tile) => tile.photo);
-  const lightboxImages: LightboxImage[] = photoTiles.map((tile) => ({
-    src: tile.photo!.src,
-    ratio: tile.photo!.ratio,
-    alt: `${t("heading")} — ${tile.category}`,
+  const altFor = (p: Photo) => `${t("heading")} — ${p.category}`;
+  const lightboxImages: LightboxImage[] = filtered.map((p) => ({
+    src: p.src,
+    ratio: p.ratio,
+    alt: altFor(p),
   }));
 
-  const [failedPhotos, setFailedPhotos] = useState<Record<number, boolean>>({});
+  const [failedPhotos, setFailedPhotos] = useState<Record<string, boolean>>({});
+
+  const selectFilter = (f: string) => {
+    setActive(f);
+    setExpanded(false);
+  };
 
   return (
     <section id="community" className="py-24 bg-white">
@@ -93,10 +136,10 @@ export default function CommunitySection() {
 
         {/* Filter chips */}
         <div className="flex flex-wrap justify-center gap-2.5 mb-10 mt-10">
-          {Array.isArray(filters) && filters.map((f: Category) => (
+          {visibleFilters.map((f: Category) => (
             <button
               key={f}
-              onClick={() => setActive(f)}
+              onClick={() => selectFilter(f)}
               className={`font-inter text-sm px-5 py-2 rounded-full border transition-all duration-250 ${
                 active === f
                   ? "bg-turquoise text-white border-turquoise shadow-sm"
@@ -108,51 +151,46 @@ export default function CommunitySection() {
           ))}
         </div>
 
-        {/* Masonry-style grid */}
-        <motion.div layout className="columns-2 md:columns-3 gap-4 space-y-4">
+        {/* Photo grid */}
+        <motion.div layout className="grid grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4">
           <AnimatePresence mode="popLayout">
-            {visible.map((tile, i) => {
-              const photoIdx = photoTiles.indexOf(tile);
-              const showPhoto = tile.photo && !failedPhotos[tile.id];
-              const sizeClass = tile.photo ? "aspect-[3/4]" : tile.tall ? "h-64" : "h-44";
+            {shown.map((photo, i) => {
+              const failed = failedPhotos[photo.id];
 
               return (
                 <motion.div
-                  key={tile.id}
+                  key={photo.id}
                   layout
                   initial={{ opacity: 0, scale: 0.95 }}
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.95 }}
-                  transition={{ duration: 0.4, ease: "easeOut", delay: i * 0.05 }}
-                  className={`break-inside-avoid rounded-2xl overflow-hidden shimmer-bg group hover:scale-[1.02] transition-transform duration-400 ${sizeClass} ${
-                    tile.photo ? "cursor-zoom-in" : "cursor-default"
-                  }`}
+                  transition={{ duration: 0.4, ease: "easeOut", delay: Math.min(i, 8) * 0.05 }}
+                  className="relative aspect-[3/4] rounded-2xl overflow-hidden shimmer-bg group cursor-zoom-in hover:scale-[1.02] transition-transform duration-400"
                 >
-                  <div className={`w-full h-full bg-gradient-to-br ${TILE_GRADIENTS[tile.id % TILE_GRADIENTS.length]} relative`}>
-                    {showPhoto && (
+                  <div className={`w-full h-full bg-gradient-to-br ${TILE_GRADIENTS[i % TILE_GRADIENTS.length]} relative`}>
+                    {!failed && (
                       <Image
-                        src={tile.photo!.src}
-                        alt={`${t("heading")} — ${tile.category}`}
+                        src={photo.src}
+                        alt={altFor(photo)}
                         fill
                         sizes="(min-width: 768px) 33vw, 50vw"
-                        className="object-cover object-[center_30%] transition-transform duration-700 group-hover:scale-[1.04]"
-                        onError={() => setFailedPhotos((f) => ({ ...f, [tile.id]: true }))}
+                        className="object-cover object-[center_15%] transition-transform duration-700 group-hover:scale-[1.04]"
+                        onError={() => setFailedPhotos((f) => ({ ...f, [photo.id]: true }))}
                       />
                     )}
-                    {tile.photo && (
-                      <button
-                        type="button"
-                        aria-label={`${lightboxLabels?.open ?? ""} — ${tile.category}`}
-                        onClick={() => setLightboxIndex(photoIdx)}
-                        className="absolute inset-0 z-10 rounded-2xl focus:outline-none focus-visible:ring-2 focus-visible:ring-gold"
-                      />
-                    )}
+                    <button
+                      type="button"
+                      aria-label={`${lightboxLabels?.open ?? ""} — ${photo.category}`}
+                      onClick={() => setLightboxIndex(filtered.indexOf(photo))}
+                      className="absolute inset-0 z-10 rounded-2xl focus:outline-none focus-visible:ring-2 focus-visible:ring-gold"
+                    />
                     <div className="absolute top-3 left-3 z-[5] bg-white/80 backdrop-blur-sm rounded-full px-3 py-1">
                       <span className="font-inter text-[10px] font-semibold text-turquoise tracking-wide uppercase">
-                        {tile.category}
+                        {photo.category}
                       </span>
                     </div>
-                    {!showPhoto && (
+                    {/* Graceful fallback — brand gradient + icon if the file ever fails to load */}
+                    {failed && (
                       <div className="absolute inset-0 flex items-center justify-center">
                         <div className="text-center">
                           <svg className="w-7 h-7 text-gray-300 mx-auto mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -170,6 +208,20 @@ export default function CommunitySection() {
             })}
           </AnimatePresence>
         </motion.div>
+
+        {/* Show more / less — keeps the page from growing by ~2000px on load */}
+        {filtered.length > INITIAL_VISIBLE && (
+          <div className="mt-10 flex justify-center">
+            <button
+              type="button"
+              onClick={() => setExpanded((v) => !v)}
+              aria-expanded={expanded}
+              className="group font-inter text-sm font-medium px-7 py-3 rounded-full border border-gold/60 text-gray-700 bg-white hover:border-turquoise hover:text-turquoise hover:shadow-md hover:shadow-turquoise/15 transition-all duration-300"
+            >
+              {expanded ? t("showLess") : `${t("showMore")} (+${hiddenCount})`}
+            </button>
+          </div>
+        )}
 
         <Lightbox
           images={lightboxImages}
