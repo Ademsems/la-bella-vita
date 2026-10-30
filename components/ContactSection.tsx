@@ -73,7 +73,7 @@ export default function ContactSection() {
           className="text-center mb-16"
         >
           <p className="font-inter text-xs text-turquoise font-semibold uppercase tracking-[0.2em] mb-3">
-            {c("contact_tagline")}
+            {t("tag")}
           </p>
           <h2 className="font-heading text-5xl md:text-6xl font-semibold text-gray-900">
             {t("heading")}

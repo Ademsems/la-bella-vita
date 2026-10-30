@@ -77,6 +77,7 @@
     "heading": "Čo hovoria klienti"
   },
   "contact": {
+    "tag":         "Začnime",
     "heading":     "Dohodnite si konzultáciu",
     "subheading":  "Napíšte nám — ozveme sa do 24 hodín a nastavíme spolu váš prvý krok.",
     "viewOnMaps":  "Zobraziť na Google Maps",
@@ -206,7 +207,6 @@
   "finalcta_line_4": "Rozhodni sa pre La Bella Vita.",
   "finalcta_button": "Rezervovať konzultáciu",
 
-  "contact_tagline": "Začnime",
   "contact_field_name": "Meno a priezvisko",
   "contact_field_email": "E-mailová adresa",
   "contact_field_phone": "Telefónne číslo",

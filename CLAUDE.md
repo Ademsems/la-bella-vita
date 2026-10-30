@@ -324,8 +324,8 @@ in the published Sheet are never read and cannot overwrite Braňo. There was nev
 
 ## Contact copy (v5.1)
 `contact.subheading` is the only place the sentence appears: SK "Napíšte nám — ozveme sa do 24 hodín a nastavíme spolu váš prvý krok." /
-EN "Write to us — we will get back to you within 24 hours and set your first step together." It was already rendered once in the code (no duplicate under the form); if a second copy is seen
-live it comes from the published Google Sheet, not from the repo.
+EN "Write to us — we will get back to you within 24 hours and set your first step together." It was already rendered once in the code (no duplicate under the form); the cause of the live duplicate was the Sheet's `contact_tagline` row (it held this sentence and fed the eyebrow above the H2).
+Fixed: the eyebrow is now the locked `contact.tag` ("Začnime" / "Let's begin"); `contact_tagline` is no longer read, so that Sheet row can be ignored or deleted.
 
 ## WhatsApp Lead Magnet (v4.1)
 `ContactSection.tsx` form: Name, Phone, Email (all required), Message/goals (optional), plus a

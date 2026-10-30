@@ -77,6 +77,7 @@
     "heading": "What clients say"
   },
   "contact": {
+    "tag":         "Let's begin",
     "heading":     "Book a Consultation",
     "subheading":  "Write to us — we will get back to you within 24 hours and set your first step together.",
     "viewOnMaps":  "View on Google Maps",
@@ -206,7 +207,6 @@
   "finalcta_line_4": "Decide on La Bella Vita.",
   "finalcta_button": "Book a consultation",
 
-  "contact_tagline": "Let's begin",
   "contact_field_name": "Full name",
   "contact_field_email": "Email address",
   "contact_field_phone": "Phone number",
