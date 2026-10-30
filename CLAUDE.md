@@ -7,7 +7,7 @@ Client language: Slovak. All copy in SK is client-final. EN is a faithful transl
 
 ## Stack
 Next.js 14 App Router · TypeScript · Tailwind CSS · Framer Motion · custom i18n (`lib/i18n.tsx`, SK default / EN toggle).
-Fonts: Playfair Display + Cormorant Garamond (headings), Inter (body).
+Fonts: **Oswald** (headings) + **Google Sans** (body), self-hosted via `next/font/local` (see "Typography (v5)").
 Repo: github.com/Ademsems/la-bella-vita (branch: master). Hosted on Vercel.
 
 ## Brand Palette
@@ -20,6 +20,7 @@ Repo: github.com/Ademsems/la-bella-vita (branch: master). Hosted on Vercel.
 | champagne | `#F5EFE6` | Secondary — section backgrounds |
 | beige | `#EDE4D8` | Secondary — card backgrounds |
 | gold | `#C6A769` | Accent ONLY — thin underlines, borders, hover glints |
+| amber | `#F59E0B` (`amber`), hover `#D97706` (`amber-dark`) | **Action accent (v5)** — every primary CTA button, hero keyword highlight, focus badges, review stars. Use dark text (`text-gray-900`) on it — white fails contrast |
 
 Design language: Four Seasons × Apple × Amalfi Coast. Morning light, sea, community, movement. **Never gym, never fitness-stock, never bodybuilders.**
 
@@ -40,6 +41,7 @@ Design language: Four Seasons × Apple × Amalfi Coast. Morning light, sea, comm
   Community grid with a floating luxury lightbox, and the contact form rebuilt as a
   WhatsApp lead magnet that also emails the lead via Resend. See "Image Framing",
   "Community Gallery & Lightbox" and "WhatsApp Lead Magnet" below.
+- **v5** (Typography + amber + Braňo + Maps/reviews): Oswald/Google Sans fonts, amber CTA accent, 4-keyword hero badge, text-contrast scrims, Lucide nutrition icon, Braňo's real transformation photos with Tony/British-ambassador slots, Google Maps embed + clickable review cards. See "Typography (v5)", "Amber accent (v5)", "Transformations (v5)", "Google Maps & Reviews (v5)".
 - **v4.2** (Community gallery from real photos): all placeholder tiles replaced by 21 real photos
   (new restaurant-evening shoot + the gym-coaching shots), URL-safe web-sized copies, filter chips
   that hide when empty, "show more" reveal, and the lightbox restyled (frosted frame, gold/turquoise
@@ -73,13 +75,13 @@ Footer
 | `HERO_VIDEO_URL` | `NEXT_PUBLIC_HERO_VIDEO_URL` |
 | `INSTAGRAM_TOKEN` | `NEXT_PUBLIC_INSTAGRAM_TOKEN` |
 | `INSTAGRAM_USERNAME` | `NEXT_PUBLIC_INSTAGRAM_USERNAME` |
-| `GOOGLE_MAPS_EMBED_URL` | `NEXT_PUBLIC_GOOGLE_MAPS_EMBED_URL` |
+| `GOOGLE_MAPS_EMBED_URL` | `NEXT_PUBLIC_GOOGLE_MAPS_EMBED_URL` (defaults to a keyless `google.com/maps?q=…&ll=48.1403914,17.1236786&output=embed` of the same place) |
 | `GOOGLE_PLACE_ID` | `NEXT_PUBLIC_GOOGLE_PLACE_ID` |
 | `EASYDIET_URL` | `NEXT_PUBLIC_EASYDIET_URL` |
 | `TRAINERIZE_URL` | `NEXT_PUBLIC_TRAINERIZE_URL` |
 | `SHEET_CSV_URL_SK` | `NEXT_PUBLIC_SHEET_CSV_URL_SK` |
 | `SHEET_CSV_URL_EN` | `NEXT_PUBLIC_SHEET_CSV_URL_EN` |
-| `ADOBE_FONTS_KIT_ID` | `NEXT_PUBLIC_ADOBE_FONTS_KIT_ID` (optional — Adobe Fonts web project ID that serves Athelas; empty = Playfair fallback) |
+| `GOOGLE_MAPS_URL` | `NEXT_PUBLIC_GOOGLE_MAPS_URL` (defaults to `https://maps.app.goo.gl/fCf8456QEMdTwamy8` — the "Alessandro Kabát" listing) |
 | `WHATSAPP_NUMBER` | `NEXT_PUBLIC_WHATSAPP_NUMBER` (defaults to `421948120052`, digits only, no `+`) |
 | `RESEND_API_KEY` | `RESEND_API_KEY` — **server-only**, no `NEXT_PUBLIC_` prefix |
 | `CONTACT_TO_EMAIL` | `CONTACT_TO_EMAIL` — server-only, inbox that receives leads |
@@ -199,39 +201,7 @@ content layer — purely presentational.
   `HeroSection.tsx`, via framer-motion `useMotionValue`/`useSpring` on `left`/`top` —
   not the same as `.grain-overlay`, which is the separate always-on grain texture).
 
-**Display/heading font toggle (Athelas / Vanguard) — reversible in one line:**
-- `messages`/components still use the same `font-display` / `font-heading` Tailwind
-  classes (renamed from `font-playfair` / `font-cormorant` across every component —
-  the old `font-playfair`/`font-cormorant` classes still exist in `globals.css` and
-  `tailwind.config.ts` for reference/rollback, just unused now).
-- `app/globals.css` declares `--font-display` / `--font-heading` as
-  `'Athelas'/'Vanguard', var(--font-playfair)/var(--font-cormorant), serif` — i.e.
-  Athelas/Vanguard first, falling back to the existing Google fonts, then generic serif.
-- **Licensing — read before touching fonts.** Raw desktop font files must never be
-  committed or deployed: the GitHub repo is **public** and Vercel serves everything in
-  `public/` to every visitor, i.e. self-hosting. Specifically:
-  - **Athelas** comes from Adobe Creative Cloud / Adobe Fonts. That licence covers web use
-    only through an **Adobe Fonts Web Project** (served from `use.typekit.net`), not converted
-    or self-hosted files. Wiring: set `NEXT_PUBLIC_ADOBE_FONTS_KIT_ID` in Vercel (the project ID
-    in `https://use.typekit.net/<id>.css`, created in Adobe Fonts → Web Projects → add Athelas →
-    publish). `app/layout.tsx` then adds the stylesheet `<link>`; the existing
-    `'Athelas'` entry in `--font-display` picks it up (CSS family names are case-insensitive, so
-    Adobe's `athelas` matches). Unset = no request, Playfair fallback. This is the one place the
-    "no external CDN links" rule is deliberately relaxed (opt-in, licence-driven).
-  - **Vanguard** — the files that were dropped in `public/fonts/` are `Fontspring-DEMO-vanguardcf-*.otf`:
-    demo files (trial licence, typically a reduced glyph set that can lack Slovak diacritics
-    č š ž ď ľ ť ň…), not Adobe Fonts. Not licensed for production. To ship Vanguard, buy a
-    **web licence** from Fontspring and place the `.woff2` it provides at
-    `public/fonts/Vanguard-Regular.woff2` (matches the `@font-face` in `globals.css`; add more
-    `@font-face` blocks for other weights if needed). Until then `--font-heading` falls back to
-    Cormorant Garamond.
-  - `.gitignore` blocks `public/fonts/*.ttf` and `*.otf` so `git add .` can't publish desktop
-    fonts by accident. Only licensed `.woff2` webfonts belong in that folder.
-- Not implemented via `next/font/local` on purpose: it throws a build error when the file is
-  missing; plain `@font-face` (+ the font-stack fallback) never breaks the build.
-  **To roll back to Playfair Display / Cormorant Garamond only:** in `app/globals.css`, change
-  the two `--font-display`/`--font-heading` lines to `var(--font-playfair), serif` /
-  `var(--font-cormorant), serif` — one line each, no component edits required.
+**Fonts:** the v4 Athelas/Vanguard toggle was removed in v5 — see "Typography (v5)".
 
 **Verification:** `npm run build` and `npm run lint` clean; shipped in commit 972d4ce.
 
@@ -302,6 +272,46 @@ the whole class of problem — the old `&` names were renamed for that reason.
   in `messages/*.json` — not sheet-driven.
 - Dev-only quirk: locally there's no `sharp`, so `next/image` uses the slow WASM optimizer and the
   first view of each photo is slow (gradient shows meanwhile). On Vercel it's fast.
+
+## Typography (v5)
+- **Oswald** = headings, **Google Sans** = body. Both are SIL OFL (free to self-host). Source files the
+  client dropped in `public/fonts/oswald/` and `public/fonts/Google Sans/` are **git-ignored** (full TTF
+  sets, ~7 MB, would be served publicly). What ships are Latin + Latin-Extended **woff2 subsets** of the
+  variable fonts in `app/fonts/`: `Oswald-Variable.woff2` (35 KB, wght 200–700), `GoogleSans-Variable.woff2`
+  (107 KB) and `GoogleSans-Italic-Variable.woff2` (112 KB), wght 400–700. Slovak diacritics (č š ž ď ľ ť ň ô ä ŕ ĺ) verified present.
+  Regenerate with `python -m fontTools.subset <ttf→woff2> --unicodes="U+0020-007E,U+00A0-024F,U+2010-2027,…" --flavor=woff2`.
+- `app/layout.tsx` loads them with `next/font/local` → CSS vars `--font-oswald`, `--font-google-sans` (with
+  `Arial Narrow`/`system-ui`/`sans-serif` fallbacks) on `<html>`. Playfair, Cormorant, Inter, Athelas, Vanguard and the Adobe Fonts
+  kit (`NEXT_PUBLIC_ADOBE_FONTS_KIT_ID`) were **removed**. A missing woff2 now fails the build (by design — the files are committed).
+- `tailwind.config.ts`: `font-heading` / `font-display` / `font-oswald` → Oswald; `font-sans` / `font-body` → Google Sans;
+  **`font-inter` is a legacy alias for Google Sans** (kept so ~100 components needed no edit — it is NOT Inter any more).
+- Oswald has no italic: `globals.css` forces `font-style: normal` on `.font-heading/.font-display/.font-oswald`, so `italic` on headings is ignored.
+
+## Amber accent (v5)
+`amber` `#F59E0B` / `amber-dark` `#D97706` in `tailwind.config.ts` (+ CSS vars `--color-amber*`). Applied to: Navbar "Book", Hero,
+both CTA bands, Final CTA, Contact submit, Personal/Online Coaching, Corporate and EasyDiet buttons (`bg-amber text-gray-900
+hover:bg-amber-dark`), the first hero keyword + separators, pillar Italian labels, review stars, the transformation badge dots and the nutrition icon.
+Turquoise stays the brand/primary colour for everything non-CTA.
+**Hero badge** is `hero.tagline` in `messages/*.json` (locked nested string): SK `Pohyb · Výživa · Komunita · Nastavenie mysle`,
+EN `Movement · Nutrition · Community · Mindset`; the component splits on ` · `.
+**Contrast:** hero overlay `black/45→70`, hero text `white/90` + text-shadow, Pillar scrim `black/80 → 40 → 5`, a `black/45→transparent` scrim over the
+Personal/Online/My Story/EasyDiet photos (`z-[1]`), fallback label text `white/90`. **Nutrition icon:** Lucide `Salad` (replaces the 🍋 emoji) — badge over the
+EasyDiet photo and the large fallback icon. (The 🍋 is still in `hero_button` copy — client text, untouched.)
+
+## Transformations (v5)
+Slot 1 is **Braňo**, a featured full-width card with his three photos at `public/transformation/Brano/{1,2,3}.jpeg`
+(`/transformation/Brano/N.jpeg`; `next/image`, `onError` → gradient). Slots 2–3 are **Tony** and **British ambassador** placeholders (gradient + person icon + "coming soon").
+Keys `transform_1..3_name/story` were changed to those names; stories are "Jeho príbeh pripravujeme." / "His story is coming soon." — **no testimonial text exists yet**, and
+the old placeholder stories (Martina/Tomáš/Katarína) were removed. Before/after is **not labelled** — it is unknown which photo is which. To add Tony's photo, copy the Braňo block pattern.
+If the published Sheet still has the old `transform_*` rows they will override these JSON values.
+
+## Google Maps & Reviews (v5)
+- `GOOGLE_MAPS_URL` = https://maps.app.goo.gl/fCf8456QEMdTwamy8 (resolves to "Alessandro Kabát", Bratislava, 48.1403914, 17.1236786). Contact section embeds the
+  keyless iframe (`GOOGLE_MAPS_EMBED_URL`) over a placeholder (visible if the embed is blocked) and has an external button `contact.viewOnMaps`
+  ("Zobraziť na Google Maps" / "View on Google Maps", `target="_blank" rel="noopener noreferrer"`).
+- `TestimonialsSection` cards are `<a>` links to `GOOGLE_MAPS_URL` (stars, Google label, name, optional `review_N_date`, hover "View on Google ↗").
+  **The review texts/names are still the client's earlier placeholder copy (`review_1..3_*`) — NOT verified Google reviews.** Replace them with real ones
+  (Sheet or `messages/*.json`) before presenting them as Google reviews. `review_N_date` is empty → no date shown until filled in.
 
 ## WhatsApp Lead Magnet (v4.1)
 `ContactSection.tsx` form: Name, Phone, Email (all required), Message/goals (optional), plus a

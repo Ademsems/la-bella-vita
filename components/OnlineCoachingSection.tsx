@@ -54,6 +54,7 @@ export default function OnlineCoachingSection() {
               intensity={6}
               className="relative aspect-[3/4] rounded-3xl overflow-hidden bg-gradient-to-br from-[#4BC6C8] via-[#3ab5b7] to-[#2a9496] shadow-xl border-beam"
             >
+              <div className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-t from-black/45 via-black/10 to-transparent" aria-hidden="true" />
               {!imgFailed ? (
                 <Image
                   src="/images/07-trainerize.jpg"
@@ -72,7 +73,7 @@ export default function OnlineCoachingSection() {
                           d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
                       </svg>
                     </div>
-                    <p className="font-inter text-white/60 text-xs">Trainerize</p>
+                    <p className="font-inter text-white/90 text-xs">Trainerize</p>
                   </div>
                 </div>
               )}
@@ -116,7 +117,7 @@ export default function OnlineCoachingSection() {
                 href={TRAINERIZE_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group btn-sheen inline-flex items-center px-8 py-3.5 bg-turquoise text-white font-inter font-semibold text-sm rounded-full hover:bg-turquoise/90 hover:scale-105 hover:shadow-lg hover:shadow-turquoise/25 transition-all duration-300"
+                className="group btn-sheen inline-flex items-center px-8 py-3.5 bg-amber text-gray-900 font-inter font-semibold text-sm rounded-full hover:bg-amber-dark hover:scale-105 hover:shadow-lg hover:shadow-amber/30 transition-all duration-300"
               >
                 {c("online_button")}
                 <span className="inline-block ml-2 group-hover:translate-x-1 transition-transform duration-300">→</span>
@@ -124,7 +125,7 @@ export default function OnlineCoachingSection() {
             ) : (
               <button
                 onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
-                className="group btn-sheen px-8 py-3.5 bg-turquoise text-white font-inter font-semibold text-sm rounded-full hover:bg-turquoise/90 hover:scale-105 hover:shadow-lg hover:shadow-turquoise/25 transition-all duration-300"
+                className="group btn-sheen px-8 py-3.5 bg-amber text-gray-900 font-inter font-semibold text-sm rounded-full hover:bg-amber-dark hover:scale-105 hover:shadow-lg hover:shadow-amber/30 transition-all duration-300"
               >
                 {c("online_button")}
                 <span className="inline-block ml-2 group-hover:translate-x-1 transition-transform duration-300">→</span>

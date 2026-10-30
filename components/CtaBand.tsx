@@ -47,7 +47,7 @@ export default function CtaBand({ variant }: Props) {
 
           <button
             onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
-            className="group btn-sheen px-9 py-4 bg-white text-turquoise font-inter font-semibold text-sm tracking-wide rounded-full border border-gold hover:bg-gold hover:text-white hover:border-gold hover:scale-105 shadow-xl hover:shadow-white/20 transition-all duration-400"
+            className="group btn-sheen px-9 py-4 bg-amber text-gray-900 font-inter font-semibold text-sm tracking-wide rounded-full border border-amber hover:bg-amber-dark hover:border-amber-dark hover:scale-105 shadow-xl hover:shadow-amber/30 transition-all duration-400"
           >
             {button}
             <span className="inline-block ml-2 group-hover:translate-x-1 transition-transform duration-300">→</span>

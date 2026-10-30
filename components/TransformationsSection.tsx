@@ -1,13 +1,25 @@
 "use client";
 
+import { useState } from "react";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { useT, useContent } from "@/lib/i18n";
 import TiltCard from "@/components/ui/TiltCard";
 import HudHotspot from "@/components/ui/HudHotspot";
 
+// Braňo's real photos (public/transformation/Brano/). Missing file → brand gradient, never a
+// broken image. Order = display order. Which photo is "before"/"after" is not labelled yet.
+const BRANO_PHOTOS = [
+  "/transformation/Brano/1.jpeg",
+  "/transformation/Brano/2.jpeg",
+  "/transformation/Brano/3.jpeg",
+];
+
 export default function TransformationsSection() {
   const { t } = useT("transformations");
   const c = useContent();
+
+  const [failed, setFailed] = useState<Record<string, boolean>>({});
 
   const items = [1, 2, 3].map((n) => ({
     name: c(`transform_${n}_name`),
@@ -62,8 +74,49 @@ export default function TransformationsSection() {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-7">
-          {items.map((item, i) => (
+        {/* Featured — Braňo (items[0]) with his real photos */}
+        <motion.div
+          initial={{ opacity: 0, y: 36 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7, ease: "easeOut" }}
+          className="mb-7 grid grid-cols-1 lg:grid-cols-5 overflow-hidden rounded-3xl border border-champagne bg-white shadow-sm hover:border-gold/30 hover:shadow-xl transition-all duration-500"
+        >
+          <div className="grid grid-cols-3 gap-2 p-3 sm:p-4 lg:col-span-3">
+            {BRANO_PHOTOS.map((src, p) => (
+              <div
+                key={src}
+                className={`relative aspect-[3/4] overflow-hidden rounded-2xl bg-gradient-to-br ${CARD_GRADIENTS[p % CARD_GRADIENTS.length]}`}
+              >
+                {!failed[src] && (
+                  <Image
+                    src={src}
+                    alt={`${items[0].name} — ${t("photoAlt")}`}
+                    fill
+                    sizes="(min-width: 1024px) 20vw, 33vw"
+                    className="object-cover object-[center_top]"
+                    onError={() => setFailed((f) => ({ ...f, [src]: true }))}
+                  />
+                )}
+                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
+              </div>
+            ))}
+          </div>
+          <div className="flex flex-col justify-center p-7 sm:p-10 lg:col-span-2">
+            <div className="mb-4 inline-flex w-fit items-center gap-1.5 rounded-full bg-amber/15 px-3 py-1.5">
+              <div className="h-2 w-2 rounded-full bg-amber" />
+              <span className="font-inter text-[10px] font-semibold uppercase tracking-wide text-gray-800">
+                {c("transform_badge")}
+              </span>
+            </div>
+            <p className="mb-3 font-display text-3xl font-semibold text-gray-900">{items[0].name}</p>
+            <p className="font-inter text-[15px] leading-relaxed text-gray-600">{items[0].story}</p>
+          </div>
+        </motion.div>
+
+        {/* Slots for upcoming transformations (Tony, British ambassador) */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-7">
+          {items.slice(1).map((item, j) => { const i = j + 1; return (
             <motion.div
               key={i}
               initial={{ opacity: 0, y: 36 }}
@@ -86,7 +139,7 @@ export default function TransformationsSection() {
                     </div>
                   </div>
                   <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm rounded-full px-3 py-1.5 flex items-center gap-1.5 shadow-sm">
-                    <div className="w-2 h-2 rounded-full bg-turquoise" />
+                    <div className="w-2 h-2 rounded-full bg-amber" />
                     <span className="font-inter text-[10px] font-semibold text-gray-700 tracking-wide">
                       {c("transform_badge")}
                     </span>
@@ -105,7 +158,7 @@ export default function TransformationsSection() {
                 </div>
               </TiltCard>
             </motion.div>
-          ))}
+          ); })}
         </div>
       </div>
     </section>

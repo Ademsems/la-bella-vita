@@ -26,6 +26,7 @@ export default function MyStorySection() {
             className="relative"
           >
             <div className="relative aspect-[2/3] rounded-3xl overflow-hidden bg-gradient-to-br from-[#4BC6C8] via-[#7ED6E0] to-[#a8e8eb] shadow-2xl">
+              <div className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-t from-black/45 via-black/10 to-transparent" aria-hidden="true" />
               {!imgFailed ? (
                 <Image
                   src="/images/05-moj-pribeh.jpg"
@@ -39,12 +40,12 @@ export default function MyStorySection() {
                 <div className="absolute inset-0 flex items-center justify-center">
                   <div className="text-center">
                     <div className="w-24 h-24 rounded-full bg-white/30 mx-auto mb-4 flex items-center justify-center">
-                      <svg className="w-12 h-12 text-white/70" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <svg className="w-12 h-12 text-white/90" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.2}
                           d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                       </svg>
                     </div>
-                    <p className="font-inter text-white/50 text-xs">Alessandro</p>
+                    <p className="font-inter text-white/90 text-xs">Alessandro</p>
                   </div>
                 </div>
               )}

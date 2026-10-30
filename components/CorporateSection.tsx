@@ -102,7 +102,7 @@ export default function CorporateSection() {
 
             <button
               onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
-              className="group btn-sheen px-7 py-3.5 bg-gray-900 text-white font-inter font-semibold text-sm rounded-full hover:bg-gray-800 hover:scale-105 hover:shadow-lg transition-all duration-300"
+              className="group btn-sheen px-7 py-3.5 bg-amber text-gray-900 font-inter font-semibold text-sm rounded-full hover:bg-amber-dark hover:scale-105 hover:shadow-lg hover:shadow-amber/30 transition-all duration-300"
             >
               {c("corporate_button")}
               <span className="inline-block ml-2 group-hover:translate-x-1 transition-transform">→</span>

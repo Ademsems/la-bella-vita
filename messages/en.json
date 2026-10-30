@@ -10,7 +10,8 @@
     "book":         "Book Now"
   },
   "hero": {
-    "headline": "LA BELLA VITA"
+    "headline": "LA BELLA VITA",
+    "tagline":  "Movement · Nutrition · Community · Mindset"
   },
   "whatIsLbv": {
     "tag":     "Philosophy",
@@ -37,6 +38,8 @@
     "tag": "Online Coaching"
   },
   "transformations": {
+    "soon":    "His story is coming soon.",
+    "photoAlt": "Braňo — photo from his journey",
     "tag":     "Transformations",
     "heading": "Transformations"
   },
@@ -64,12 +67,15 @@
     "heading": "Follow Us"
   },
   "testimonials": {
+    "googleLabel": "Google review",
+    "viewOnGoogle": "View on Google",
     "tag":     "Reviews",
     "heading": "What clients say"
   },
   "contact": {
     "heading":     "Book a Consultation",
     "subheading":  "Write to us — we will get back to you within 24 hours and set your first step together.",
+    "viewOnMaps":  "View on Google Maps",
     "mapFallback": "Map coming soon",
     "waMessage":   "Hello Aless, I am interested in coaching. Name: {name}, Phone: {phone}, Email: {email}, Message: {message}"
   },
@@ -144,12 +150,12 @@
   "transform_tagline": "Every result has its story.",
   "transform_intro": "We don't focus only on the number on the scale. We track energy. Health. Performance. Movement. Confidence.",
   "transform_visbody_body": "Visbody gives us a detailed view of your body composition: body fat percentage, muscle mass, visceral fat, muscle distribution between left and right, postural deviations, and the overall development of your physique. Combined with regular check-ins and individual guidance, you get a clear picture of what is really happening in your body and what progress you are making on your journey to La Bella Vita.",
-  "transform_1_name": "Martina, 34",
-  "transform_1_story": "After my second child I felt lost in my own body. Alessandro helped me find myself again — not just physically but above all mentally. In eight months I achieved results I thought would never be possible again.",
-  "transform_2_name": "Tomáš, 41",
-  "transform_2_story": "I work in a corporate office, sitting eight hours a day. My spine was sending signals that this could not go on. With Alessandro we built a plan around my packed schedule. Today I have the strength and energy I had at twenty-five.",
-  "transform_3_name": "Katarína, 28",
-  "transform_3_story": "I was never a 'sporty type'. La Bella Vita showed me that movement doesn't have to be aggressive or stressful. Now I genuinely look forward to every session and the results speak for themselves.",
+  "transform_1_name": "Braňo",
+  "transform_1_story": "His story is coming soon.",
+  "transform_2_name": "Tony",
+  "transform_2_story": "His story is coming soon.",
+  "transform_3_name": "British ambassador",
+  "transform_3_story": "His story is coming soon.",
   "transform_badge": "Visbody Results",
 
   "cta1_line": "Maybe today is the day you begin.",
@@ -197,10 +203,13 @@
   "reviews_tagline": "Real experiences from real people.",
   "review_1_text": "Alessandro is an incredible trainer. In 3 months I lost 12 kg and feel better than ever. His approach is motivating and completely professional.",
   "review_1_author": "Martina K.",
+  "review_1_date": "",
   "review_2_text": "I always thought a personal trainer was a luxury. After working with Alessandro I know it is an investment that pays for itself. The results speak for themselves.",
   "review_2_author": "Tomáš B.",
+  "review_2_date": "",
   "review_3_text": "La Bella Vita changed my view of fitness. Alessandro is not just a trainer — he is a mentor who genuinely cares about you as a whole person.",
   "review_3_author": "Lucia M.",
+  "review_3_date": "",
 
   "finalcta_line_1": "Health is not a given.",
   "finalcta_line_2": "It is a gift that deserves your attention every day.",

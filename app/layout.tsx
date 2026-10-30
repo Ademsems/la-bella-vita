@@ -1,29 +1,32 @@
 import type { Metadata } from "next";
-import { Playfair_Display, Cormorant_Garamond, Inter } from "next/font/google";
+import localFont from "next/font/local";
 import GlobalEffects from "@/components/ui/GlobalEffects";
-import { ADOBE_FONTS_KIT_ID, ADOBE_FONTS_BASE_URL } from "@/lib/config";
 import "./globals.css";
 
-const playfair = Playfair_Display({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800", "900"],
-  style: ["normal", "italic"],
-  variable: "--font-playfair",
+// Both families are SIL OFL-licensed (free to self-host). Files live in app/fonts/ as
+// Latin + Latin-Extended subsets (covers Slovak diacritics) of the variable fonts.
+// `fallback` keeps text visible and the layout close while the woff2 loads.
+
+// Primary / headings
+const oswald = localFont({
+  src: "./fonts/Oswald-Variable.woff2",
+  weight: "200 700",
+  style: "normal",
+  variable: "--font-oswald",
   display: "swap",
+  fallback: ["Arial Narrow", "system-ui", "sans-serif"],
 });
 
-const cormorant = Cormorant_Garamond({
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
-  style: ["normal", "italic"],
-  variable: "--font-cormorant",
+// Secondary / body
+const googleSans = localFont({
+  src: [
+    { path: "./fonts/GoogleSans-Variable.woff2", style: "normal" },
+    { path: "./fonts/GoogleSans-Italic-Variable.woff2", style: "italic" },
+  ],
+  weight: "400 700",
+  variable: "--font-google-sans",
   display: "swap",
-});
-
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-inter",
-  display: "swap",
+  fallback: ["system-ui", "sans-serif"],
 });
 
 // Metadata is static (single-route App Router, no per-locale paths) — defaults to
@@ -42,21 +45,8 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html
-      lang="sk"
-      className={`${playfair.variable} ${cormorant.variable} ${inter.variable}`}
-    >
+    <html lang="sk" className={`${oswald.variable} ${googleSans.variable}`}>
       <body>
-        {/*
-          Adobe Fonts web project (licensed Athelas) — only when the kit ID is set.
-          Deliberately NOT inside an explicit <head> and deliberately a ternary → null:
-          a custom <head> in the root layout plus an empty-string child ("" from `id && …`)
-          caused a hydration mismatch that made React discard the server HTML and crash
-          (React error #329, blank hero). A stylesheet <link> is valid in <body>.
-        */}
-        {ADOBE_FONTS_KIT_ID ? (
-          <link rel="stylesheet" href={`${ADOBE_FONTS_BASE_URL}/${ADOBE_FONTS_KIT_ID}.css`} />
-        ) : null}
         <GlobalEffects />
         {children}
       </body>

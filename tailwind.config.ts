@@ -18,15 +18,22 @@ const config: Config = {
         beige: "#EDE4D8",
         // Accent — use sparingly
         gold: "#C6A769",
+        // Action accent — CTAs, highlighted keywords, focus badges
+        amber: {
+          DEFAULT: "#F59E0B",
+          dark: "#D97706",
+        },
       },
       fontFamily: {
-        playfair: ["var(--font-playfair)", "serif"],
-        cormorant: ["var(--font-cormorant)", "serif"],
-        inter: ["var(--font-inter)", "sans-serif"],
-        // Reversible display/heading tokens — see the ROLLBACK note above
-        // --font-display/--font-heading in app/globals.css.
-        display: ["var(--font-display)", "serif"],
-        heading: ["var(--font-heading)", "serif"],
+        // Body — Google Sans (next/font/local in app/layout.tsx)
+        sans: ["var(--font-google-sans)", "system-ui", "sans-serif"],
+        body: ["var(--font-google-sans)", "system-ui", "sans-serif"],
+        // Legacy class name used across components; now resolves to Google Sans.
+        inter: ["var(--font-google-sans)", "system-ui", "sans-serif"],
+        // Headings — Oswald. `display` and `heading` are both kept so components don't change.
+        oswald: ["var(--font-oswald)", "Arial Narrow", "system-ui", "sans-serif"],
+        display: ["var(--font-oswald)", "Arial Narrow", "system-ui", "sans-serif"],
+        heading: ["var(--font-oswald)", "Arial Narrow", "system-ui", "sans-serif"],
       },
       keyframes: {
         shimmer: {

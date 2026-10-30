@@ -12,8 +12,16 @@ export const HERO_VIDEO_URL = process.env.NEXT_PUBLIC_HERO_VIDEO_URL || "";
 export const INSTAGRAM_TOKEN = process.env.NEXT_PUBLIC_INSTAGRAM_TOKEN || "";
 export const INSTAGRAM_USERNAME = process.env.NEXT_PUBLIC_INSTAGRAM_USERNAME || "";
 
-// TODO: Set NEXT_PUBLIC_GOOGLE_MAPS_EMBED_URL with the Google My Business embed URL
-export const GOOGLE_MAPS_EMBED_URL = process.env.NEXT_PUBLIC_GOOGLE_MAPS_EMBED_URL || "";
+// Verified Google Maps listing ("Alessandro Kabát", Bratislava). Review cards and the
+// "View on Google Maps" button link here.
+export const GOOGLE_MAPS_URL =
+  process.env.NEXT_PUBLIC_GOOGLE_MAPS_URL || "https://maps.app.goo.gl/fCf8456QEMdTwamy8";
+
+// Keyless embed of the same place (coordinates from the resolved listing). Override with
+// NEXT_PUBLIC_GOOGLE_MAPS_EMBED_URL (e.g. a Google "Share → Embed a map" URL) if needed.
+export const GOOGLE_MAPS_EMBED_URL =
+  process.env.NEXT_PUBLIC_GOOGLE_MAPS_EMBED_URL ||
+  "https://www.google.com/maps?q=Alessandro+Kab%C3%A1t&ll=48.1403914,17.1236786&z=16&output=embed";
 
 // TODO: Set NEXT_PUBLIC_GOOGLE_PLACE_ID to enable live Google reviews in Testimonials
 export const GOOGLE_PLACE_ID = process.env.NEXT_PUBLIC_GOOGLE_PLACE_ID || "";
@@ -46,12 +54,3 @@ export const RESEND_API_KEY = process.env.RESEND_API_KEY || "";
 export const CONTACT_TO_EMAIL = process.env.CONTACT_TO_EMAIL || "";
 export const CONTACT_FROM_EMAIL =
   process.env.CONTACT_FROM_EMAIL || "La Bella Vita <onboarding@resend.dev>";
-
-// Adobe Fonts (Typekit) web project — the licensed way to use Athelas on the live site.
-// Adobe's Creative Cloud licence covers fonts served from an Adobe Fonts web project, NOT
-// converted/self-hosted files. In Adobe Fonts: create a Web Project, add Athelas, copy the
-// project ID (the 7-char id in https://use.typekit.net/<id>.css) and set it in Vercel.
-// TODO: Set NEXT_PUBLIC_ADOBE_FONTS_KIT_ID. When empty, no request is made and headings
-// fall back to Playfair Display / Cormorant Garamond.
-export const ADOBE_FONTS_KIT_ID = process.env.NEXT_PUBLIC_ADOBE_FONTS_KIT_ID || "";
-export const ADOBE_FONTS_BASE_URL = "https://use.typekit.net";

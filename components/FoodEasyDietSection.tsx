@@ -4,6 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { useT, useContent } from "@/lib/i18n";
+import { Salad } from "lucide-react";
 import { EASYDIET_URL } from "@/lib/config";
 
 export default function FoodEasyDietSection() {
@@ -43,7 +44,7 @@ export default function FoodEasyDietSection() {
                 href={EASYDIET_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group inline-flex items-center px-8 py-3.5 bg-turquoise text-white font-inter font-semibold text-sm rounded-full hover:bg-turquoise/90 hover:shadow-lg hover:shadow-turquoise/25 transition-all duration-300"
+                className="group inline-flex items-center px-8 py-3.5 bg-amber text-gray-900 font-inter font-semibold text-sm rounded-full hover:bg-amber-dark hover:shadow-lg hover:shadow-amber/30 transition-all duration-300"
               >
                 {c("food_button")}
                 <span className="inline-block ml-2 group-hover:translate-x-1 transition-transform duration-300">→</span>
@@ -51,7 +52,7 @@ export default function FoodEasyDietSection() {
             ) : (
               <button
                 onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
-                className="group px-8 py-3.5 bg-turquoise text-white font-inter font-semibold text-sm rounded-full hover:bg-turquoise/90 hover:shadow-lg hover:shadow-turquoise/25 transition-all duration-300"
+                className="group px-8 py-3.5 bg-amber text-gray-900 font-inter font-semibold text-sm rounded-full hover:bg-amber-dark hover:shadow-lg hover:shadow-amber/30 transition-all duration-300"
               >
                 {c("food_button")}
                 <span className="inline-block ml-2 group-hover:translate-x-1 transition-transform duration-300">→</span>
@@ -68,6 +69,7 @@ export default function FoodEasyDietSection() {
             className="relative"
           >
             <div className="relative aspect-[3/4] rounded-3xl overflow-hidden bg-gradient-to-br from-[#f0e0c8] via-[#e8d0b0] to-[#d4b896] shadow-xl">
+              <div className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-t from-black/45 via-black/10 to-transparent" aria-hidden="true" />
               {!imgFailed ? (
                 <Image
                   src="/images/08-jedlo-ako-radost.jpg"
@@ -81,12 +83,15 @@ export default function FoodEasyDietSection() {
                 <div className="absolute inset-0 flex items-center justify-center">
                   <div className="text-center p-8">
                     <div className="w-20 h-20 rounded-full bg-white/30 mx-auto mb-4 flex items-center justify-center">
-                      <span className="text-4xl">🍋</span>
+                      <Salad className="h-10 w-10 text-white" strokeWidth={1.5} aria-hidden="true" />
                     </div>
-                    <p className="font-inter text-white/60 text-xs">EasyDiet</p>
+                    <p className="font-inter text-white/90 text-xs">EasyDiet</p>
                   </div>
                 </div>
               )}
+              <div className="absolute left-4 top-4 z-10 flex h-12 w-12 items-center justify-center rounded-full border border-white/30 bg-black/30 text-amber backdrop-blur-md shadow-lg">
+                <Salad className="h-6 w-6" strokeWidth={1.6} aria-hidden="true" />
+              </div>
             </div>
             <div className="absolute -bottom-5 -left-5 w-28 h-28 rounded-full bg-gold/10 -z-10" />
           </motion.div>

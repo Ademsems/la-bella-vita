@@ -2,50 +2,20 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --font-playfair: 'Playfair Display', serif;
-  --font-cormorant: 'Cormorant Garamond', serif;
-  --font-inter: 'Inter', sans-serif;
-
-  /*
-   * Display/heading font toggle. Font stacks try Athelas / Vanguard first, then fall back to
-   * Playfair Display / Cormorant Garamond, so the site always renders.
-   *   - Athelas: loaded from an Adobe Fonts web project when NEXT_PUBLIC_ADOBE_FONTS_KIT_ID is
-   *     set (see app/layout.tsx + lib/config.ts). Adobe's licence does not allow self-hosting.
-   *   - Both: the @font-face rules below pick up licensed WEBFONT files (.woff2) placed in
-   *     public/fonts/ — e.g. a Vanguard webfont kit bought from Fontspring. A missing file
-   *     just 404s silently (unlike next/font/local, which would fail the build).
-   *
-   * ROLLBACK: to go back to Playfair Display / Cormorant Garamond only,
-   * change these two lines to:
-   *   --font-display: var(--font-playfair), serif;
-   *   --font-heading: var(--font-cormorant), serif;
-   */
-  --font-display: 'Athelas', var(--font-playfair), serif;
-  --font-heading: 'Vanguard', var(--font-cormorant), serif;
-
-  /* Brand colours as CSS vars for easy reuse */
-  --color-turquoise: #4BC6C8;
-  --color-med-blue: #7ED6E0;
-  --color-powder-pink: #F4D7D0;
-  --color-champagne: #F5EFE6;
-  --color-beige: #EDE4D8;
-  --color-gold: #C6A769;
-}
-
-@font-face {
-  font-family: 'Athelas';
-  src: url('/fonts/Athelas-Regular.woff2') format('woff2');
-  font-weight: 400 700;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'Vanguard';
-  src: url('/fonts/Vanguard-Regular.woff2') format('woff2');
-  font-weight: 400 700;
-  font-style: normal;
-  font-display: swap;
+@layer base {
+  :root {
+    /* Fonts are loaded with next/font/local in app/layout.tsx, which defines
+       --font-oswald (headings) and --font-google-sans (body). Tailwind maps them to
+       font-heading / font-display / font-oswald and font-sans / font-body / font-inter. */
+    --color-turquoise: #4BC6C8;
+    --color-med-blue: #7ED6E0;
+    --color-powder-pink: #F4D7D0;
+    --color-champagne: #F5EFE6;
+    --color-beige: #EDE4D8;
+    --color-gold: #C6A769;
+    --color-amber: #F59E0B;
+    --color-amber-dark: #D97706;
+  }
 }
 
 html {
@@ -53,7 +23,7 @@ html {
 }
 
 body {
-  font-family: var(--font-inter), sans-serif;
+  font-family: var(--font-google-sans), system-ui, sans-serif;
   color: #1a1a1a;
   background: #ffffff;
   -webkit-font-smoothing: antialiased;
@@ -61,10 +31,8 @@ body {
 }
 
 /* ── Typography helpers ─────────────────────────────────────────────────── */
-.font-playfair  { font-family: var(--font-playfair), serif; }
-.font-cormorant { font-family: var(--font-cormorant), serif; }
-.font-display   { font-family: var(--font-display); }
-.font-heading   { font-family: var(--font-heading); }
+/* Oswald has no italic — stop the browser faking a slant on headings */
+.font-display, .font-heading, .font-oswald { font-style: normal; }
 
 /* ── Metallic sheen text (gold/turquoise kinetic accents) ────────────────── */
 .text-metallic {

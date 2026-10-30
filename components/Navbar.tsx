@@ -81,7 +81,7 @@ export default function Navbar() {
             onClick={() => scrollTo("contact")}
             className={`hidden sm:block text-[13px] font-semibold px-5 py-2 rounded-full border transition-all duration-300 hover:scale-105 ${
               scrolled
-                ? "bg-turquoise text-white border-turquoise hover:bg-turquoise/90 hover:shadow-lg hover:shadow-turquoise/25"
+                ? "bg-amber text-gray-900 border-amber hover:bg-amber-dark hover:border-amber-dark hover:shadow-lg hover:shadow-amber/30"
                 : "bg-white/10 backdrop-blur-sm text-white border-white/50 hover:bg-white hover:text-turquoise"
             }`}
           >
@@ -118,7 +118,7 @@ export default function Navbar() {
           ))}
           <button
             onClick={() => scrollTo("contact")}
-            className="mt-3 py-3 bg-turquoise text-white font-semibold rounded-full text-sm hover:bg-turquoise/90 transition-colors"
+            className="mt-3 py-3 bg-amber text-gray-900 font-semibold rounded-full text-sm hover:bg-amber-dark transition-colors"
           >
             {t("book")}
           </button>

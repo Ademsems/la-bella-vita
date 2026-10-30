@@ -62,7 +62,7 @@ export default function PersonalCoachingSection() {
 
             <button
               onClick={scrollToContact}
-              className="group btn-sheen px-8 py-3.5 bg-turquoise text-white font-inter font-semibold text-sm rounded-full hover:bg-turquoise/90 hover:scale-105 hover:shadow-lg hover:shadow-turquoise/25 transition-all duration-300"
+              className="group btn-sheen px-8 py-3.5 bg-amber text-gray-900 font-inter font-semibold text-sm rounded-full hover:bg-amber-dark hover:scale-105 hover:shadow-lg hover:shadow-amber/30 transition-all duration-300"
             >
               {c("coaching_button")}
               <span className="inline-block ml-2 group-hover:translate-x-1 transition-transform duration-300">→</span>
@@ -81,6 +81,7 @@ export default function PersonalCoachingSection() {
               intensity={6}
               className="relative aspect-[3/4] rounded-3xl overflow-hidden bg-gradient-to-br from-[#EDE4D8] via-[#d8ccbc] to-[#c4b4a0] shadow-xl border-beam"
             >
+              <div className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-t from-black/45 via-black/10 to-transparent" aria-hidden="true" />
               {!imgFailed ? (
                 <Image
                   src="/images/06-individualny-pristup.jpg"
@@ -94,12 +95,12 @@ export default function PersonalCoachingSection() {
                 <div className="absolute inset-0 flex items-center justify-center">
                   <div className="text-center p-8">
                     <div className="w-20 h-20 rounded-full bg-white/30 mx-auto mb-4 flex items-center justify-center">
-                      <svg className="w-10 h-10 text-white/70" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <svg className="w-10 h-10 text-white/90" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.2}
                           d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
                       </svg>
                     </div>
-                    <p className="font-inter text-white/50 text-xs">Osobný coaching</p>
+                    <p className="font-inter text-white/90 text-xs">Osobný coaching</p>
                   </div>
                 </div>
               )}

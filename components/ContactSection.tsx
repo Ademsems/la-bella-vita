@@ -3,9 +3,9 @@
 import { motion } from "framer-motion";
 import { useT, useContent, useI18n } from "@/lib/i18n";
 import { useState } from "react";
-import { GOOGLE_MAPS_EMBED_URL, WHATSAPP_NUMBER, WHATSAPP_BASE_URL } from "@/lib/config";
+import { MapPin } from "lucide-react";
+import { GOOGLE_MAPS_EMBED_URL, GOOGLE_MAPS_URL, WHATSAPP_NUMBER, WHATSAPP_BASE_URL } from "@/lib/config";
 
-// TODO: Replace GOOGLE_MAPS_EMBED_URL in lib/config.ts with the real Google My Business embed URL
 // TODO: Replace GOOGLE_PLACE_ID in lib/config.ts when live Google reviews are needed
 
 const FIELD_CLASS =
@@ -171,7 +171,7 @@ export default function ContactSection() {
                 />
                 <button
                   type="submit"
-                  className="group btn-sheen w-full py-4 bg-turquoise text-white font-inter font-semibold text-sm rounded-2xl hover:bg-turquoise/90 hover:scale-[1.02] hover:shadow-lg hover:shadow-turquoise/25 transition-all duration-300 inline-flex items-center justify-center gap-2.5"
+                  className="group btn-sheen w-full py-4 bg-amber text-gray-900 font-inter font-semibold text-sm rounded-2xl hover:bg-amber-dark hover:scale-[1.02] hover:shadow-lg hover:shadow-amber/30 transition-all duration-300 inline-flex items-center justify-center gap-2.5"
                 >
                   <WhatsAppIcon />
                   {c("contact_whatsapp_button")}
@@ -186,34 +186,40 @@ export default function ContactSection() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.7, ease: "easeOut" }}
-            className="rounded-3xl overflow-hidden min-h-[420px] shadow-sm border border-champagne"
+            className="flex flex-col gap-4"
           >
-            {GOOGLE_MAPS_EMBED_URL ? (
-              <iframe
-                src={GOOGLE_MAPS_EMBED_URL}
-                width="100%"
-                height="100%"
-                style={{ border: 0, minHeight: "420px" }}
-                allowFullScreen
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                title="La Bella Vita — Google Maps"
-              />
-            ) : (
-              /* TODO: Set GOOGLE_MAPS_EMBED_URL in lib/config.ts */
-              <div className="w-full h-full min-h-[420px] bg-gradient-to-br from-turquoise/8 to-med-blue/10 flex flex-col items-center justify-center gap-4">
+            <div className="relative flex-1 rounded-3xl overflow-hidden min-h-[420px] shadow-sm border border-champagne">
+              {/* Placeholder sits behind the iframe, so it shows if the embed is blocked or still loading */}
+              <div className="absolute inset-0 bg-gradient-to-br from-turquoise/8 to-med-blue/10 flex flex-col items-center justify-center gap-4">
                 <div className="w-14 h-14 rounded-full bg-turquoise/10 flex items-center justify-center">
-                  <svg className="w-7 h-7 text-turquoise" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5}
-                      d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5}
-                      d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                  </svg>
+                  <MapPin className="w-7 h-7 text-turquoise" strokeWidth={1.5} aria-hidden="true" />
                 </div>
-                <p className="font-inter text-sm text-gray-400 font-medium">{t("mapFallback")}</p>
+                <p className="font-inter text-sm text-gray-500 font-medium">{t("mapFallback")}</p>
                 <div className="h-px w-8 bg-gold/40" />
               </div>
-            )}
+              {GOOGLE_MAPS_EMBED_URL && (
+                <iframe
+                  src={GOOGLE_MAPS_EMBED_URL}
+                  width="100%"
+                  height="100%"
+                  style={{ border: 0, minHeight: "420px", position: "relative" }}
+                  allowFullScreen
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  title="La Bella Vita — Google Maps"
+                />
+              )}
+            </div>
+            <a
+              href={GOOGLE_MAPS_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group inline-flex items-center justify-center gap-2 rounded-full border border-amber bg-white px-7 py-3 font-inter text-sm font-semibold text-gray-900 transition-all duration-300 hover:bg-amber hover:shadow-lg hover:shadow-amber/30"
+            >
+              <MapPin className="h-4 w-4 text-amber-dark group-hover:text-gray-900" aria-hidden="true" />
+              {t("viewOnMaps")}
+              <span aria-hidden="true">↗</span>
+            </a>
           </motion.div>
         </div>
       </div>

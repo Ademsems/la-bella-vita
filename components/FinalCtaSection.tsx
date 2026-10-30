@@ -52,7 +52,7 @@ export default function FinalCtaSection() {
 
           <button
             onClick={scrollToContact}
-            className="group btn-sheen px-10 py-4 bg-turquoise text-white font-inter font-semibold text-sm rounded-full hover:bg-turquoise/90 hover:scale-105 hover:shadow-xl hover:shadow-turquoise/30 transition-all duration-400 border border-turquoise/0 hover:border-turquoise"
+            className="group btn-sheen px-10 py-4 bg-amber text-gray-900 font-inter font-semibold text-sm rounded-full hover:bg-amber-dark hover:scale-105 hover:shadow-xl hover:shadow-amber/30 transition-all duration-400 border border-turquoise/0 hover:border-turquoise"
           >
             {c("finalcta_button")}
             <span className="inline-block ml-2 group-hover:translate-x-1 transition-transform duration-300">→</span>

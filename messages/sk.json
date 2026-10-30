@@ -10,7 +10,8 @@
     "book":         "Rezervovať"
   },
   "hero": {
-    "headline": "LA BELLA VITA"
+    "headline": "LA BELLA VITA",
+    "tagline":  "Pohyb · Výživa · Komunita · Nastavenie mysle"
   },
   "whatIsLbv": {
     "tag":     "Filozofia",
@@ -37,6 +38,8 @@
     "tag": "Online coaching"
   },
   "transformations": {
+    "soon":    "Jeho príbeh pripravujeme.",
+    "photoAlt": "Braňo — fotografia z jeho cesty",
     "tag":     "Transformácie",
     "heading": "Transformácie"
   },
@@ -64,12 +67,15 @@
     "heading": "Sleduj nás"
   },
   "testimonials": {
+    "googleLabel": "Recenzia z Google",
+    "viewOnGoogle": "Zobraziť na Google",
     "tag":     "Recenzie",
     "heading": "Čo hovoria klienti"
   },
   "contact": {
     "heading":     "Dohodnite si konzultáciu",
     "subheading":  "Napíšte nám — ozveme sa do 24 hodín a spoločne nastavíme prvý krok.",
+    "viewOnMaps":  "Zobraziť na Google Maps",
     "mapFallback": "Mapa čoskoro",
     "waMessage":   "Dobrý deň Aless, mám záujem o tréning. Moje meno: {name}, Telefón: {phone}, Email: {email}, Správa: {message}"
   },
@@ -144,12 +150,12 @@
   "transform_tagline": "Každý výsledok má svoj príbeh.",
   "transform_intro": "Nezameriavame sa iba na číslo na váhe. Sledujeme energiu. Zdravie. Výkon. Pohyb. Sebavedomie.",
   "transform_visbody_body": "Visbody nám poskytuje detailný pohľad na tvoju telesnú kompozíciu: percento telesného tuku, množstvo svalovej hmoty, viscerálny tuk, rozloženie svalov medzi pravou a ľavou stranou tela, posturálne odchýlky a celkový vývoj tvojej postavy. V kombinácii s pravidelnými kontrolami a individuálnym vedením získavaš jasný obraz o tom, čo sa v tvojom tele skutočne deje a aký progres dosahuješ na svojej ceste k La Bella Vita.",
-  "transform_1_name": "Martina, 34",
-  "transform_1_story": "Po druhom pôrode som sa cítila stratená vo vlastnom tele. Alessandro mi pomohol znovu nájsť sama seba — nielen fyzicky, ale hlavne mentálne. Za osem mesiacov som dosiahla výsledky, o ktorých som si myslela, že už nikdy nebudú možné.",
-  "transform_2_name": "Tomáš, 41",
-  "transform_2_story": "Pracujem v korporáte, sedím osem hodín denne. Chrbtica mi dávala signály, že takto ďalej to nejde. S Alessandrom sme zostavili plán okolo môjho nabitého rozvrhu. Dnes mám silu a energiu, ktorú som mal dvadsaťpäťročný.",
-  "transform_3_name": "Katarína, 28",
-  "transform_3_story": "Nikdy som nebola 'športový typ'. La Bella Vita mi ukázala, že pohyb nemusí byť agresívny ani stresujúci. Teraz sa na každý tréning skutočne tešíme a výsledky hovoria samy za seba.",
+  "transform_1_name": "Braňo",
+  "transform_1_story": "Jeho príbeh pripravujeme.",
+  "transform_2_name": "Tony",
+  "transform_2_story": "Jeho príbeh pripravujeme.",
+  "transform_3_name": "Britský ambasádor",
+  "transform_3_story": "Jeho príbeh pripravujeme.",
   "transform_badge": "Visbody Results",
 
   "cta1_line": "Možno je dnes deň, kedy začneš.",
@@ -197,10 +203,13 @@
   "reviews_tagline": "Skutočné skúsenosti skutočných ľudí.",
   "review_1_text": "Alessandro je neuveriteľný tréner. Za 3 mesiace som schudla 12 kg a cítim sa lepšie ako kedykoľvek predtým. Jeho prístup je motivujúci a profesionálny.",
   "review_1_author": "Martina K.",
+  "review_1_date": "",
   "review_2_text": "Vždy som si myslel, že osobný tréner je luxus. Po spolupráci s Alessandrom viem, že je to investícia, ktorá sa oplatí. Výsledky hovoria za seba.",
   "review_2_author": "Tomáš B.",
+  "review_2_date": "",
   "review_3_text": "La Bella Vita zmenila môj pohľad na fitness. Alessandro nie je len tréner — je to mentor, ktorý vás skutočne zaujíma ako celok.",
   "review_3_author": "Lucia M.",
+  "review_3_date": "",
 
   "finalcta_line_1": "Zdravie nie je samozrejmosť.",
   "finalcta_line_2": "Je to dar, ktorý si zaslúži tvoju pozornosť každý deň.",

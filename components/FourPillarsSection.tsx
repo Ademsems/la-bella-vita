@@ -126,10 +126,10 @@ export default function FourPillarsSection() {
                 )}
 
                 <div className="absolute inset-0 rounded-3xl border border-transparent group-hover:border-gold/50 transition-all duration-500 pointer-events-none z-10" />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/5" />
 
                 <div className="relative z-10 h-full flex flex-col justify-end p-7">
-                  <p className="font-display text-white/60 text-xs tracking-[0.25em] uppercase mb-1">
+                  <p className="font-display text-amber text-xs tracking-[0.25em] uppercase mb-1">
                     {pillar.italian}
                   </p>
                   <h3 className="font-display text-white text-3xl font-semibold mb-3">
@@ -138,13 +138,13 @@ export default function FourPillarsSection() {
 
                   {/* NUTRIZIONE pillar (index 1) has 3 paragraphs incl. inline EasyDiet link */}
                   {i === 1 ? (
-                    <div className="font-inter text-white/80 text-sm leading-relaxed space-y-2">
+                    <div className="font-inter text-white/95 text-sm leading-relaxed space-y-2">
                       <p>{c("pillar_nutrition_body_1")}</p>
                       <p>{renderWithEasyDietLink(c("pillar_nutrition_body_2"))}</p>
                       <p>{c("pillar_nutrition_body_3")}</p>
                     </div>
                   ) : (
-                    <p className="font-inter text-white/80 text-sm leading-relaxed">
+                    <p className="font-inter text-white/95 text-sm leading-relaxed">
                       {bodies[i]}
                     </p>
                   )}

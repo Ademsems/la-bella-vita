@@ -63,7 +63,7 @@ export default function HeroSection() {
       )}
 
       {/* Dark overlay */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-black/60" />
+      <div className="absolute inset-0 bg-gradient-to-b from-black/45 via-black/35 to-black/70" />
 
       {/* Content */}
       <div className="relative z-10 flex-1 flex flex-col items-center justify-center text-center px-6 py-32">
@@ -71,9 +71,14 @@ export default function HeroSection() {
           initial={{ opacity: 0, letterSpacing: "0.5em" }}
           animate={{ opacity: 1, letterSpacing: "0.35em" }}
           transition={{ duration: 1.4, ease: "easeOut" }}
-          className="text-white/70 text-xs font-inter font-medium tracking-[0.35em] uppercase mb-6"
+          className="text-white/90 text-[11px] sm:text-xs font-inter font-medium tracking-[0.25em] sm:tracking-[0.35em] uppercase mb-6 max-w-xl leading-relaxed [text-shadow:0_1px_8px_rgba(0,0,0,0.45)]"
         >
-          Wellness · Movement · Community
+          {t("tagline").split(" · ").map((word, i) => (
+            <span key={word}>
+              {i > 0 && <span className="mx-2 text-amber" aria-hidden="true">·</span>}
+              <span className={i === 0 ? "text-amber" : undefined}>{word}</span>
+            </span>
+          ))}
         </motion.p>
 
         <motion.h1
@@ -102,7 +107,7 @@ export default function HeroSection() {
           className="max-w-2xl mx-auto mb-10 space-y-3"
         >
           {["hero_paragraph_1", "hero_paragraph_2", "hero_paragraph_3", "hero_paragraph_4"].map((key) => (
-            <p key={key} className="font-inter text-white/75 text-sm sm:text-base leading-relaxed">
+            <p key={key} className="font-inter text-white/90 text-sm sm:text-base [text-shadow:0_1px_6px_rgba(0,0,0,0.4)] leading-relaxed">
               {c(key)}
             </p>
           ))}
@@ -116,7 +121,7 @@ export default function HeroSection() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 1.1, ease: "easeOut" }}
           onClick={scrollToContact}
-          className="group btn-sheen px-9 py-4 bg-white text-turquoise font-inter font-semibold text-sm tracking-wide rounded-full border border-gold hover:bg-turquoise hover:text-white hover:border-turquoise hover:scale-105 shadow-lg hover:shadow-turquoise/30 transition-all duration-400"
+          className="group btn-sheen px-9 py-4 bg-amber text-gray-900 font-inter font-semibold text-sm tracking-wide rounded-full border border-amber hover:bg-amber-dark hover:border-amber-dark hover:scale-105 shadow-lg hover:shadow-amber/40 transition-all duration-400"
         >
           {c("hero_button")}
           <span className="inline-block ml-2 group-hover:translate-x-1 transition-transform duration-300">→</span>
