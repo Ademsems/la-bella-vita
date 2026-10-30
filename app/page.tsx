@@ -1,13 +1,13 @@
 import { I18nProvider } from "@/lib/i18n";
 import { fetchContent, getContent, type ContentMap } from "@/lib/content";
 import { SHEET_CSV_URL_SK, SHEET_CSV_URL_EN } from "@/lib/config";
+import { getReviews } from "@/lib/reviews";
 import skMessages from "@/messages/sk.json";
 import enMessages from "@/messages/en.json";
 
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
 import WhatIsLBVSection from "@/components/WhatIsLBVSection";
-import QuoteSection from "@/components/QuoteSection";
 import FourPillarsSection from "@/components/FourPillarsSection";
 import MyStorySection from "@/components/MyStorySection";
 import PersonalCoachingSection from "@/components/PersonalCoachingSection";
@@ -40,9 +40,10 @@ function extractFallback(messages: Record<string, unknown>): ContentMap {
 }
 
 export default async function Home() {
-  const [sheetSk, sheetEn] = await Promise.all([
+  const [sheetSk, sheetEn, reviews] = await Promise.all([
     fetchContent(SHEET_CSV_URL_SK),
     fetchContent(SHEET_CSV_URL_EN),
+    getReviews(),
   ]);
 
   const contentSk = getContent(sheetSk, extractFallback(skMessages));
@@ -54,7 +55,6 @@ export default async function Home() {
         <Navbar />
         <HeroSection />
         <WhatIsLBVSection />
-        <QuoteSection />
         <FourPillarsSection />
         <MyStorySection />
         <PersonalCoachingSection />
@@ -65,9 +65,8 @@ export default async function Home() {
         <FinancingSection />
         <CommunitySection />
         <CorporateSection />
-        <CtaBand variant="cta2" />
         <InstagramSection />
-        <TestimonialsSection />
+        <TestimonialsSection data={reviews} />
         <FinalCtaSection />
         <ContactSection />
         <Footer />

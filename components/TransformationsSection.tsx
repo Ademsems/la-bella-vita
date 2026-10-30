@@ -8,12 +8,13 @@ import TiltCard from "@/components/ui/TiltCard";
 import HudHotspot from "@/components/ui/HudHotspot";
 
 // Braňo's real photos (public/transformation/Brano/). Missing file → brand gradient, never a
-// broken image. Order = display order. Which photo is "before"/"after" is not labelled yet.
+// broken image. Image 1 = AFTER, images 2 and 3 = BEFORE (client-confirmed). Display order is
+// before → after, so the "after" shot ends the strip.
 const BRANO_PHOTOS = [
-  "/transformation/Brano/1.jpeg",
-  "/transformation/Brano/2.jpeg",
-  "/transformation/Brano/3.jpeg",
-];
+  { src: "/transformation/Brano/2.jpeg", kind: "before" },
+  { src: "/transformation/Brano/3.jpeg", kind: "before" },
+  { src: "/transformation/Brano/1.jpeg", kind: "after" },
+] as const;
 
 export default function TransformationsSection() {
   const { t } = useT("transformations");
@@ -21,9 +22,11 @@ export default function TransformationsSection() {
 
   const [failed, setFailed] = useState<Record<string, boolean>>({});
 
-  const items = [1, 2, 3].map((n) => ({
-    name: c(`transform_${n}_name`),
-    story: c(`transform_${n}_story`),
+  // transform_brano_* / _tony_* / _ambassador_* — named keys, so legacy numbered rows
+  // (transform_1_* …) in an old published Sheet can never overwrite these profiles.
+  const items = ["brano", "tony", "ambassador"].map((id) => ({
+    name: c(`transform_${id}_name`),
+    story: c(`transform_${id}_story`),
   }));
 
   const CARD_GRADIENTS = [
@@ -83,7 +86,7 @@ export default function TransformationsSection() {
           className="mb-7 grid grid-cols-1 lg:grid-cols-5 overflow-hidden rounded-3xl border border-champagne bg-white shadow-sm hover:border-gold/30 hover:shadow-xl transition-all duration-500"
         >
           <div className="grid grid-cols-3 gap-2 p-3 sm:p-4 lg:col-span-3">
-            {BRANO_PHOTOS.map((src, p) => (
+            {BRANO_PHOTOS.map(({ src, kind }, p) => (
               <div
                 key={src}
                 className={`relative aspect-[3/4] overflow-hidden rounded-2xl bg-gradient-to-br ${CARD_GRADIENTS[p % CARD_GRADIENTS.length]}`}
@@ -98,7 +101,14 @@ export default function TransformationsSection() {
                     onError={() => setFailed((f) => ({ ...f, [src]: true }))}
                   />
                 )}
-                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
+                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
+                <span
+                  className={`absolute left-2 top-2 rounded-full px-3 py-1 font-inter text-[10px] font-bold uppercase tracking-wider shadow-md sm:text-[11px] ${
+                    kind === "after" ? "bg-amber text-gray-900" : "bg-black/60 text-white backdrop-blur-sm"
+                  }`}
+                >
+                  {t(kind)}
+                </span>
               </div>
             ))}
           </div>

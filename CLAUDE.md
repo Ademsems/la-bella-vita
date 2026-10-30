@@ -42,31 +42,30 @@ Design language: Four Seasons × Apple × Amalfi Coast. Morning light, sea, comm
   WhatsApp lead magnet that also emails the lead via Resend. See "Image Framing",
   "Community Gallery & Lightbox" and "WhatsApp Lead Magnet" below.
 - **v5** (Typography + amber + Braňo + Maps/reviews): Oswald/Google Sans fonts, amber CTA accent, 4-keyword hero badge, text-contrast scrims, Lucide nutrition icon, Braňo's real transformation photos with Tony/British-ambassador slots, Google Maps embed + clickable review cards. See "Typography (v5)", "Amber accent (v5)", "Transformations (v5)", "Google Maps & Reviews (v5)".
+- **v5.1** (Fixes after v5): Online Coaching nutrition icon → Lucide `Salad`; Braňo wired with Before/After badges (named `transform_brano_*` keys); real Google reviews + Places API sync (`lib/reviews.ts`); Quote band and the cta2 "Váš najlepší rok…" band removed; contact subtitle reworded; untracked scratch files git-ignored. See sections below.
 - **v4.2** (Community gallery from real photos): all placeholder tiles replaced by 21 real photos
   (new restaurant-evening shoot + the gym-coaching shots), URL-safe web-sized copies, filter chips
   that hide when empty, "show more" reveal, and the lightbox restyled (frosted frame, gold/turquoise
   arrows, beam-ring dock, neighbour preloading). Camera originals are git-ignored.
 
-## Section Order (v3)
+## Section Order (v3, updated v5.1 — Quote band and the "best year" CTA band removed)
 0. Navbar
 1. Hero (video + gradient fallback, full client copy)
 2. What is La Bella Vita
-3. Quote Band (Schopenhauer, gold underline)
-4. Four Pillars (Movimento / Nutrizione / Comunità / Mentalità)
-5. My Story (About Alessandro — personal, handle with care)
-6. Personal Coaching
-7. Online Coaching (Trainerize)
-8. Transformations (Visbody)
-[CTA Band — between 8 and 9]
-9. Food Collaboration (EasyDiet)
-10. Financing Program
-11. La Bella Vita Community (masonry + filter chips)
-12. Corporate Wellbeing
-[CTA Band — between 12 and 13]
-13. Instagram Feed (graceful token-less fallback)
-14. Testimonials (OPTIONAL — isolated, can be deleted in one step)
-15. Final CTA (Variant 1 — client's favorite)
-16. Contact (form + Maps)
+3. Four Pillars (Movimento / Nutrizione / Comunità / Mentalità)
+4. My Story (About Alessandro — personal, handle with care)
+5. Personal Coaching
+6. Online Coaching (Trainerize)
+7. Transformations (Visbody)
+[CTA Band "cta1" — between 7 and 8]
+8. Food Collaboration (EasyDiet)
+9. Financing Program
+10. La Bella Vita Community (masonry + filter chips)
+11. Corporate Wellbeing
+12. Instagram Feed (graceful token-less fallback)
+13. Google Reviews / Testimonials (OPTIONAL — isolated, can be deleted in one step)
+14. Final CTA (Variant 1 — client's favorite)
+15. Contact (form + Maps)
 Footer
 
 ## External Config (`lib/config.ts`) — all empty by default
@@ -76,7 +75,8 @@ Footer
 | `INSTAGRAM_TOKEN` | `NEXT_PUBLIC_INSTAGRAM_TOKEN` |
 | `INSTAGRAM_USERNAME` | `NEXT_PUBLIC_INSTAGRAM_USERNAME` |
 | `GOOGLE_MAPS_EMBED_URL` | `NEXT_PUBLIC_GOOGLE_MAPS_EMBED_URL` (defaults to a keyless `google.com/maps?q=…&ll=48.1403914,17.1236786&output=embed` of the same place) |
-| `GOOGLE_PLACE_ID` | `NEXT_PUBLIC_GOOGLE_PLACE_ID` |
+| `GOOGLE_PLACE_ID` | `NEXT_PUBLIC_GOOGLE_PLACE_ID` (the `ChIJ…` Place ID; enables live reviews together with the key below) |
+| `GOOGLE_MAPS_API_KEY` | `GOOGLE_MAPS_API_KEY` — **server-only**, Places API (New) key, restrict it to that API |
 | `EASYDIET_URL` | `NEXT_PUBLIC_EASYDIET_URL` |
 | `TRAINERIZE_URL` | `NEXT_PUBLIC_TRAINERIZE_URL` |
 | `SHEET_CSV_URL_SK` | `NEXT_PUBLIC_SHEET_CSV_URL_SK` |
@@ -296,22 +296,36 @@ Turquoise stays the brand/primary colour for everything non-CTA.
 EN `Movement · Nutrition · Community · Mindset`; the component splits on ` · `.
 **Contrast:** hero overlay `black/45→70`, hero text `white/90` + text-shadow, Pillar scrim `black/80 → 40 → 5`, a `black/45→transparent` scrim over the
 Personal/Online/My Story/EasyDiet photos (`z-[1]`), fallback label text `white/90`. **Nutrition icon:** Lucide `Salad` (replaces the 🍋 emoji) — badge over the
-EasyDiet photo and the large fallback icon. (The 🍋 is still in `hero_button` copy — client text, untouched.)
+EasyDiet photo, the large fallback icon, and (v5.1) the "Nutrition" feature pill in Online Coaching (`OnlineCoachingSection.tsx`, `ICONS[1]`, same `w-5 h-5` / turquoise as the others). (The 🍋 is still in `hero_button` copy — client text, untouched.)
 
-## Transformations (v5)
-Slot 1 is **Braňo**, a featured full-width card with his three photos at `public/transformation/Brano/{1,2,3}.jpeg`
-(`/transformation/Brano/N.jpeg`; `next/image`, `onError` → gradient). Slots 2–3 are **Tony** and **British ambassador** placeholders (gradient + person icon + "coming soon").
-Keys `transform_1..3_name/story` were changed to those names; stories are "Jeho príbeh pripravujeme." / "His story is coming soon." — **no testimonial text exists yet**, and
-the old placeholder stories (Martina/Tomáš/Katarína) were removed. Before/after is **not labelled** — it is unknown which photo is which. To add Tony's photo, copy the Braňo block pattern.
-If the published Sheet still has the old `transform_*` rows they will override these JSON values.
+## Transformations (v5 → v5.1)
+Slot 1 is **Braňo**, a featured full-width card using `public/transformation/Brano/{1,2,3}.jpeg` (`/transformation/Brano/N.jpeg`; `next/image`
+serves them as WebP/AVIF automatically — no separate WebP files are committed; `onError` → brand gradient).
+**Asset mapping (client-confirmed, consent confirmed): `1.jpeg` = AFTER ("Po" / "After", amber badge); `2.jpeg` and `3.jpeg` = BEFORE ("Pred" / "Before", dark badge).**
+Display order is before → after (`2, 3, 1`) — see `BRANO_PHOTOS` in `TransformationsSection.tsx`. Badge labels are `transformations.before/after` in `messages/*.json`.
+Slots 2–3 are **Tony** and **British ambassador** placeholders (gradient + person icon + "coming soon").
+**Keys are named, not numbered:** `transform_brano_name/story`, `transform_tony_*`, `transform_ambassador_*` (the old `transform_1..3_*` were removed), so stale numbered rows
+in the published Sheet are never read and cannot overwrite Braňo. There was never a "Martin" — the removed placeholders were Martina / Tomáš / Katarína.
+`transform_brano_story` is **draft copy written without client input** (qualitative only: body recomposition, sustainable habits, energy — no numbers). Get it approved/replaced.
 
-## Google Maps & Reviews (v5)
+## Google Maps & Reviews (v5 → v5.1)
 - `GOOGLE_MAPS_URL` = https://maps.app.goo.gl/fCf8456QEMdTwamy8 (resolves to "Alessandro Kabát", Bratislava, 48.1403914, 17.1236786). Contact section embeds the
   keyless iframe (`GOOGLE_MAPS_EMBED_URL`) over a placeholder (visible if the embed is blocked) and has an external button `contact.viewOnMaps`
   ("Zobraziť na Google Maps" / "View on Google Maps", `target="_blank" rel="noopener noreferrer"`).
-- `TestimonialsSection` cards are `<a>` links to `GOOGLE_MAPS_URL` (stars, Google label, name, optional `review_N_date`, hover "View on Google ↗").
-  **The review texts/names are still the client's earlier placeholder copy (`review_1..3_*`) — NOT verified Google reviews.** Replace them with real ones
-  (Sheet or `messages/*.json`) before presenting them as Google reviews. `review_N_date` is empty → no date shown until filled in.
+- **Reviews (`lib/reviews.ts`, fetched in `app/page.tsx`, passed to `TestimonialsSection` as `data`):**
+  1. If `NEXT_PUBLIC_GOOGLE_PLACE_ID` **and** `GOOGLE_MAPS_API_KEY` are set → `GET https://places.googleapis.com/v1/places/{id}?fields=reviews,rating,userRatingCount&languageCode=sk|en`
+     (key in the `X-Goog-Api-Key` header, server-side only), one call per language, `next: { revalidate: 86400 }` (24 h ISR). Only ≥4★ non-empty reviews are shown (the API returns at most 5).
+  2. Anything else (keys unset, quota/rate limit, network error, empty payload) → `CURATED_REVIEWS`: the **5 real reviews** from the listing (5.0 ★, 5 reviews — Karolina Šumichrastová,
+     Alena Cuperová, Kristína Haladejová, Pedram Khakbaz, Bilal Tyler), copied 2026-10-30. Pedram/Bilal were written in English (SK = Google's translation); the other three are Slovak originals
+     (EN = our translation). Dates are approximate (derived from Google's "6 months ago"), shown as relative time via `Intl.RelativeTimeFormat`. Refresh by hand if you want newer ones.
+  The old `review_N_*` placeholder keys (Martina K., Tomáš B., Lucia M.) were deleted. `reviews_tagline` stays sheet-driven.
+- Cards (`TestimonialsSection`) and the aggregate "5,0 ★ 5 recenzií na Google" pill are `<a>` links to `GOOGLE_MAPS_URL`. **Not yet done:** a Place ID (`ChIJ…`) is not known — the listing URL only exposes the
+  feature ID — so live sync stays off until it is set in Vercel (find it with Google's Place ID Finder).
+
+## Contact copy (v5.1)
+`contact.subheading` is the only place the sentence appears: SK "Napíšte nám — ozveme sa do 24 hodín a nastavíme spolu váš prvý krok." /
+EN "Write to us — we will get back to you within 24 hours and set your first step together." It was already rendered once in the code (no duplicate under the form); if a second copy is seen
+live it comes from the published Google Sheet, not from the repo.
 
 ## WhatsApp Lead Magnet (v4.1)
 `ContactSection.tsx` form: Name, Phone, Email (all required), Message/goals (optional), plus a

@@ -47,3 +47,7 @@ next-env.d.ts
 # Client-supplied full font sets (OFL TTFs, ~7 MB) — the site uses the subset woff2 files in app/fonts/
 /public/fonts/oswald/
 /public/fonts/Google Sans/
+
+# Unreferenced duplicates / scratch files that sit in the project folder
+/public/Aless&Kika-*.jpg
+/sheets.txt

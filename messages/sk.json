@@ -38,6 +38,8 @@
     "tag": "Online coaching"
   },
   "transformations": {
+    "before":   "Pred",
+    "after":    "Po",
     "soon":    "Jeho príbeh pripravujeme.",
     "photoAlt": "Braňo — fotografia z jeho cesty",
     "tag":     "Transformácie",
@@ -67,6 +69,8 @@
     "heading": "Sleduj nás"
   },
   "testimonials": {
+    "basedOn": "{count} recenzií na Google",
+    "ratingLabel": "Hodnotenie na Google",
     "googleLabel": "Recenzia z Google",
     "viewOnGoogle": "Zobraziť na Google",
     "tag":     "Recenzie",
@@ -74,7 +78,7 @@
   },
   "contact": {
     "heading":     "Dohodnite si konzultáciu",
-    "subheading":  "Napíšte nám — ozveme sa do 24 hodín a spoločne nastavíme prvý krok.",
+    "subheading":  "Napíšte nám — ozveme sa do 24 hodín a nastavíme spolu váš prvý krok.",
     "viewOnMaps":  "Zobraziť na Google Maps",
     "mapFallback": "Mapa čoskoro",
     "waMessage":   "Dobrý deň Aless, mám záujem o tréning. Moje meno: {name}, Telefón: {phone}, Email: {email}, Správa: {message}"
@@ -103,9 +107,6 @@
   "whatis_subline_1": "Nie je to fitness program.",
   "whatis_subline_2": "Ale cesta ku kvalitnejšiemu životu.",
   "whatis_closing": "Veríme, že zdravie nie je jedna z priorít. Je to základ, na ktorom stojí všetko ostatné.",
-
-  "quote_text": "Zdravie nie je všetko. Ale bez zdravia je všetko nič.",
-  "quote_author": "— Arthur Schopenhauer",
 
   "pillars_tagline": "Krásny život stojí na štyroch základoch. Každý z nich je nevyhnutný.",
   "pillar_movement_body": "Z vedeckého hľadiska vieme, že pravidelný pohyb výrazne ovplyvňuje hormonálnu rovnováhu, znižuje stres a zlepšuje celkovú kvalitu života. Pohyb teda nie je trest, ale základná ľudská potreba. Je to vstupná brána k La Bella Vita — krásnemu životu.",
@@ -150,12 +151,12 @@
   "transform_tagline": "Každý výsledok má svoj príbeh.",
   "transform_intro": "Nezameriavame sa iba na číslo na váhe. Sledujeme energiu. Zdravie. Výkon. Pohyb. Sebavedomie.",
   "transform_visbody_body": "Visbody nám poskytuje detailný pohľad na tvoju telesnú kompozíciu: percento telesného tuku, množstvo svalovej hmoty, viscerálny tuk, rozloženie svalov medzi pravou a ľavou stranou tela, posturálne odchýlky a celkový vývoj tvojej postavy. V kombinácii s pravidelnými kontrolami a individuálnym vedením získavaš jasný obraz o tom, čo sa v tvojom tele skutočne deje a aký progres dosahuješ na svojej ceste k La Bella Vita.",
-  "transform_1_name": "Braňo",
-  "transform_1_story": "Jeho príbeh pripravujeme.",
-  "transform_2_name": "Tony",
-  "transform_2_story": "Jeho príbeh pripravujeme.",
-  "transform_3_name": "Britský ambasádor",
-  "transform_3_story": "Jeho príbeh pripravujeme.",
+  "transform_brano_name": "Braňo",
+  "transform_brano_story": "Braňo si dal za cieľ zmeniť zloženie tela — menej tuku, viac svalovej hmoty — bez extrémov a bez diéty na pár týždňov. Spoločne sme vybudovali udržateľné návyky: pravidelný pohyb prispôsobený jeho životu, jednoduché stravovanie a dostatok regenerácie. Výsledok vidno na fotografii — a hlavne cítiť: viac energie každý deň.",
+  "transform_tony_name": "Tony",
+  "transform_tony_story": "Jeho príbeh pripravujeme.",
+  "transform_ambassador_name": "Britský ambasádor",
+  "transform_ambassador_story": "Jeho príbeh pripravujeme.",
   "transform_badge": "Visbody Results",
 
   "cta1_line": "Možno je dnes deň, kedy začneš.",
@@ -175,9 +176,6 @@
 
   "community_tagline": "Krásny život sa žije lepšie spolu.",
   "community_body": "Running Club. Volejbalové turnaje. Spoločné raňajky. Workshopy. Komunitné eventy. Budujeme prostredie, v ktorom zdravý životný štýl nie je povinnosť. Je prirodzenou súčasťou života.",
-
-  "cta2_line": "Váš najlepší rok začína jedným krokom.",
-  "cta2_button": "Začnime spolu",
 
   "corporate_headline": "Zdravší zamestnanci. Silnejšia firma.",
   "corporate_overlay": "Investujte\ndo svojich ľudí.",
@@ -201,15 +199,6 @@
   "instagram_button": "Sledovať",
 
   "reviews_tagline": "Skutočné skúsenosti skutočných ľudí.",
-  "review_1_text": "Alessandro je neuveriteľný tréner. Za 3 mesiace som schudla 12 kg a cítim sa lepšie ako kedykoľvek predtým. Jeho prístup je motivujúci a profesionálny.",
-  "review_1_author": "Martina K.",
-  "review_1_date": "",
-  "review_2_text": "Vždy som si myslel, že osobný tréner je luxus. Po spolupráci s Alessandrom viem, že je to investícia, ktorá sa oplatí. Výsledky hovoria za seba.",
-  "review_2_author": "Tomáš B.",
-  "review_2_date": "",
-  "review_3_text": "La Bella Vita zmenila môj pohľad na fitness. Alessandro nie je len tréner — je to mentor, ktorý vás skutočne zaujíma ako celok.",
-  "review_3_author": "Lucia M.",
-  "review_3_date": "",
 
   "finalcta_line_1": "Zdravie nie je samozrejmosť.",
   "finalcta_line_2": "Je to dar, ktorý si zaslúži tvoju pozornosť každý deň.",

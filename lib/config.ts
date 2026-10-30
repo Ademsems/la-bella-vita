@@ -23,8 +23,13 @@ export const GOOGLE_MAPS_EMBED_URL =
   process.env.NEXT_PUBLIC_GOOGLE_MAPS_EMBED_URL ||
   "https://www.google.com/maps?q=Alessandro+Kab%C3%A1t&ll=48.1403914,17.1236786&z=16&output=embed";
 
-// TODO: Set NEXT_PUBLIC_GOOGLE_PLACE_ID to enable live Google reviews in Testimonials
+// Live Google reviews (lib/reviews.ts): set NEXT_PUBLIC_GOOGLE_PLACE_ID (the "ChIJ…" Place ID) AND the
+// server-only GOOGLE_MAPS_API_KEY (Places API (New) enabled, key restricted to that API). Leave either
+// empty and the Testimonials section shows the curated real reviews instead — never an error.
 export const GOOGLE_PLACE_ID = process.env.NEXT_PUBLIC_GOOGLE_PLACE_ID || "";
+export const GOOGLE_PLACES_API_URL = "https://places.googleapis.com/v1/places";
+// Server-only (no NEXT_PUBLIC_ prefix → never inlined into the browser bundle)
+export const GOOGLE_MAPS_API_KEY = process.env.GOOGLE_MAPS_API_KEY || "";
 
 // TODO: Set NEXT_PUBLIC_EASYDIET_URL when the EasyDiet partnership link is ready
 export const EASYDIET_URL = process.env.NEXT_PUBLIC_EASYDIET_URL || "";

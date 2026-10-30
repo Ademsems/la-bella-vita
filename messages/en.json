@@ -38,6 +38,8 @@
     "tag": "Online Coaching"
   },
   "transformations": {
+    "before":   "Before",
+    "after":    "After",
     "soon":    "His story is coming soon.",
     "photoAlt": "Braňo — photo from his journey",
     "tag":     "Transformations",
@@ -67,6 +69,8 @@
     "heading": "Follow Us"
   },
   "testimonials": {
+    "basedOn": "{count} Google reviews",
+    "ratingLabel": "Google rating",
     "googleLabel": "Google review",
     "viewOnGoogle": "View on Google",
     "tag":     "Reviews",
@@ -103,9 +107,6 @@
   "whatis_subline_1": "It is not a fitness programme.",
   "whatis_subline_2": "It is a path to a better quality of life.",
   "whatis_closing": "We believe health is not one priority among many. It is the foundation on which everything else stands.",
-
-  "quote_text": "Health is not everything. But without health, everything is nothing.",
-  "quote_author": "— Arthur Schopenhauer",
 
   "pillars_tagline": "A beautiful life is built on four foundations. Each one is essential.",
   "pillar_movement_body": "From a scientific perspective we know that regular movement significantly influences hormonal balance, reduces stress, and improves overall quality of life. Movement is therefore not a punishment but a fundamental human need. It is the gateway to La Bella Vita — the beautiful life.",
@@ -150,12 +151,12 @@
   "transform_tagline": "Every result has its story.",
   "transform_intro": "We don't focus only on the number on the scale. We track energy. Health. Performance. Movement. Confidence.",
   "transform_visbody_body": "Visbody gives us a detailed view of your body composition: body fat percentage, muscle mass, visceral fat, muscle distribution between left and right, postural deviations, and the overall development of your physique. Combined with regular check-ins and individual guidance, you get a clear picture of what is really happening in your body and what progress you are making on your journey to La Bella Vita.",
-  "transform_1_name": "Braňo",
-  "transform_1_story": "His story is coming soon.",
-  "transform_2_name": "Tony",
-  "transform_2_story": "His story is coming soon.",
-  "transform_3_name": "British ambassador",
-  "transform_3_story": "His story is coming soon.",
+  "transform_brano_name": "Braňo",
+  "transform_brano_story": "Braňo set out to change his body composition — less fat, more muscle — without extremes and without a diet that lasts a few weeks. Together we built sustainable habits: regular movement that fits his life, simple eating and enough recovery. The result shows in the photos — and above all you can feel it: more energy every day.",
+  "transform_tony_name": "Tony",
+  "transform_tony_story": "His story is coming soon.",
+  "transform_ambassador_name": "British ambassador",
+  "transform_ambassador_story": "His story is coming soon.",
   "transform_badge": "Visbody Results",
 
   "cta1_line": "Maybe today is the day you begin.",
@@ -175,9 +176,6 @@
 
   "community_tagline": "A beautiful life is lived better together.",
   "community_body": "Running Club. Volleyball tournaments. Group breakfasts. Workshops. Community events. We are building an environment where a healthy lifestyle is not an obligation. It is a natural part of life.",
-
-  "cta2_line": "Your best year starts with one step.",
-  "cta2_button": "Let's begin together",
 
   "corporate_headline": "Healthier employees. Stronger company.",
   "corporate_overlay": "Invest in\nyour people.",
@@ -201,15 +199,6 @@
   "instagram_button": "Follow",
 
   "reviews_tagline": "Real experiences from real people.",
-  "review_1_text": "Alessandro is an incredible trainer. In 3 months I lost 12 kg and feel better than ever. His approach is motivating and completely professional.",
-  "review_1_author": "Martina K.",
-  "review_1_date": "",
-  "review_2_text": "I always thought a personal trainer was a luxury. After working with Alessandro I know it is an investment that pays for itself. The results speak for themselves.",
-  "review_2_author": "Tomáš B.",
-  "review_2_date": "",
-  "review_3_text": "La Bella Vita changed my view of fitness. Alessandro is not just a trainer — he is a mentor who genuinely cares about you as a whole person.",
-  "review_3_author": "Lucia M.",
-  "review_3_date": "",
 
   "finalcta_line_1": "Health is not a given.",
   "finalcta_line_2": "It is a gift that deserves your attention every day.",
