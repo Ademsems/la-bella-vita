@@ -13,9 +13,10 @@ export const HERO_VIDEO_URL = process.env.NEXT_PUBLIC_HERO_VIDEO_URL || "";
 export const INSTAGRAM_ACCESS_TOKEN = process.env.INSTAGRAM_ACCESS_TOKEN || "";
 export const INSTAGRAM_API_URL = "https://graph.instagram.com/me/media";
 // Only for Facebook-platform tokens ("EAA…"): they need the Instagram professional account's numeric ID.
-// TODO: Set INSTAGRAM_USER_ID (server-only) if the token starts with "EAA"; not needed for "IGAA…" tokens.
+// Not needed for "IGAA…" tokens.
 export const INSTAGRAM_FACEBOOK_API_URL = "https://graph.facebook.com/v21.0";
-export const INSTAGRAM_USER_ID = process.env.INSTAGRAM_USER_ID || "";
+// Public, non-secret account ID of @trainer_aless (shown in Meta's token dialog); override via env if the account changes.
+export const INSTAGRAM_USER_ID = process.env.INSTAGRAM_USER_ID || "17841400649668967";
 export const INSTAGRAM_USERNAME = process.env.NEXT_PUBLIC_INSTAGRAM_USERNAME || "trainer_aless";
 
 // Verified Google Maps listing ("Alessandro Kabát", Bratislava). Review cards and the

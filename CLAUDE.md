@@ -74,7 +74,7 @@ Footer
 |---|---|
 | `HERO_VIDEO_URL` | `NEXT_PUBLIC_HERO_VIDEO_URL` |
 | `INSTAGRAM_ACCESS_TOKEN` | `INSTAGRAM_ACCESS_TOKEN` — **server-only** (replaced the old `NEXT_PUBLIC_INSTAGRAM_TOKEN`, which would have shipped the token to every visitor's browser) |
-| `INSTAGRAM_USER_ID` | `INSTAGRAM_USER_ID` — server-only; only needed when the token starts with `EAA` (Facebook-platform token) |
+| `INSTAGRAM_USER_ID` | `INSTAGRAM_USER_ID` — server-only, optional; defaults to `17841400649668967` (@trainer_aless). Only used for `EAA…` tokens |
 | `INSTAGRAM_USERNAME` | `NEXT_PUBLIC_INSTAGRAM_USERNAME` (defaults to `trainer_aless`; public, used for the follow link) |
 | `GOOGLE_MAPS_EMBED_URL` | `NEXT_PUBLIC_GOOGLE_MAPS_EMBED_URL` (defaults to a keyless `google.com/maps?q=…&ll=48.1403914,17.1236786&output=embed` of the same place) |
 | `GOOGLE_PLACE_ID` | `NEXT_PUBLIC_GOOGLE_PLACE_ID` (the `ChIJ…` Place ID; enables live reviews together with the key below) |
@@ -341,11 +341,14 @@ Fixed: the eyebrow is now the locked `contact.tag` ("Začnime" / "Let's begin");
   (`remotePatterns` already allows any https host); image zooms `scale-105` on hover/focus; frosted-glass overlay (`bg-black/35 backdrop-blur`) with a gold-ringed Instagram glint + 3-line caption.
   `onError` → gradient + Instagram icon, plus a mount-time `img.complete && naturalWidth === 0` check because an error that fires *before hydration* never reaches React's `onError`
   (found while testing; the same latent gap exists in the other `onError` fallbacks).
-- **Token status at time of writing:** the client's token is a valid **`EAA…` Facebook token with `instagram_basic` but no Pages permission**, so `graph.instagram.com` rejects it
-  ("Cannot parse access token") and the Instagram account ID can't be looked up from it → the site shows placeholders. To go live, either (a) generate an Instagram-Login token for the
-  `trainer_aless` account (Meta developer dashboard → Instagram → API setup with Instagram login → generate token; long-lived tokens last 60 days and must be refreshed via
-  `GET graph.instagram.com/refresh_access_token`), or (b) keep the `EAA` token and set `INSTAGRAM_USER_ID` to the Instagram professional account's numeric ID.
-  The token lives in `.env.local` (git-ignored) locally and must be set in Vercel for production. **Never hardcode it in `lib/config.ts`** — the repo is public.
+- **Token status:** the client's token is a **Facebook-platform `EAA…` token** (permissions: `instagram_basic`, `instagram_manage_*`, `instagram_content_publish`, `ads_*`; no Pages access).
+  `graph.instagram.com` rejects it, so the fetcher uses `https://graph.facebook.com/v21.0/{INSTAGRAM_USER_ID}/media`. The account ID for **@trainer_aless is `17841400649668967`**
+  (from Meta's token dialog; public, non-secret) and is the default for `INSTAGRAM_USER_ID` in `lib/config.ts`. Verified 2026-11-05: returns the latest posts (reels use `/reel/` permalinks).
+  **Production needs one Vercel env var: `INSTAGRAM_ACCESS_TOKEN`** (Project → Settings → Environment Variables, Production, then redeploy). The token itself lives only in `.env.local`
+  (git-ignored) and Vercel — **never hardcode it in `lib/config.ts`**, the repo is public. Until the Vercel var is set the live site shows the placeholder tiles.
+  **Expiry:** user tokens last ~60 days at most (short-lived ones, ~1–2 h, are possible). When the feed silently turns back into placeholders, the token expired — check the server log for
+  `[instagram] feed unavailable (400): … expired …` and replace it. A permanent fix is a never-expiring System User token from Meta Business Settings.
+  If the token is ever swapped for an Instagram-Login token (`IGAA…`), no code change is needed — it automatically uses `graph.instagram.com/me/media`.
 
 ## WhatsApp Lead Magnet (v4.1)
 `ContactSection.tsx` form: Name, Phone, Email (all required), Message/goals (optional), plus a
