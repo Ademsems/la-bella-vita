@@ -43,6 +43,7 @@ Design language: Four Seasons × Apple × Amalfi Coast. Morning light, sea, comm
   "Community Gallery & Lightbox" and "WhatsApp Lead Magnet" below.
 - **v5** (Typography + amber + Braňo + Maps/reviews): Oswald/Google Sans fonts, amber CTA accent, 4-keyword hero badge, text-contrast scrims, Lucide nutrition icon, Braňo's real transformation photos with Tony/British-ambassador slots, Google Maps embed + clickable review cards. See "Typography (v5)", "Amber accent (v5)", "Transformations (v5)", "Google Maps & Reviews (v5)".
 - **v5.1** (Fixes after v5): Online Coaching nutrition icon → Lucide `Salad`; Braňo wired with Before/After badges (named `transform_brano_*` keys); real Google reviews + Places API sync (`lib/reviews.ts`); Quote band and the cta2 "Váš najlepší rok…" band removed; contact subtitle reworded; untracked scratch files git-ignored. See sections below.
+- **v5.2** (Live Instagram feed): `lib/instagram.ts` server fetcher (ISR 1 h) + hover-overlay tiles, placeholders on any failure. See "Instagram Feed (v5.2)".
 - **v4.2** (Community gallery from real photos): all placeholder tiles replaced by 21 real photos
   (new restaurant-evening shoot + the gym-coaching shots), URL-safe web-sized copies, filter chips
   that hide when empty, "show more" reveal, and the lightbox restyled (frosted frame, gold/turquoise
@@ -72,8 +73,9 @@ Footer
 | Constant | Env var (Vercel) |
 |---|---|
 | `HERO_VIDEO_URL` | `NEXT_PUBLIC_HERO_VIDEO_URL` |
-| `INSTAGRAM_TOKEN` | `NEXT_PUBLIC_INSTAGRAM_TOKEN` |
-| `INSTAGRAM_USERNAME` | `NEXT_PUBLIC_INSTAGRAM_USERNAME` |
+| `INSTAGRAM_ACCESS_TOKEN` | `INSTAGRAM_ACCESS_TOKEN` — **server-only** (replaced the old `NEXT_PUBLIC_INSTAGRAM_TOKEN`, which would have shipped the token to every visitor's browser) |
+| `INSTAGRAM_USER_ID` | `INSTAGRAM_USER_ID` — server-only; only needed when the token starts with `EAA` (Facebook-platform token) |
+| `INSTAGRAM_USERNAME` | `NEXT_PUBLIC_INSTAGRAM_USERNAME` (defaults to `trainer_aless`; public, used for the follow link) |
 | `GOOGLE_MAPS_EMBED_URL` | `NEXT_PUBLIC_GOOGLE_MAPS_EMBED_URL` (defaults to a keyless `google.com/maps?q=…&ll=48.1403914,17.1236786&output=embed` of the same place) |
 | `GOOGLE_PLACE_ID` | `NEXT_PUBLIC_GOOGLE_PLACE_ID` (the `ChIJ…` Place ID; enables live reviews together with the key below) |
 | `GOOGLE_MAPS_API_KEY` | `GOOGLE_MAPS_API_KEY` — **server-only**, Places API (New) key, restrict it to that API |
@@ -327,6 +329,24 @@ in the published Sheet are never read and cannot overwrite Braňo. There was nev
 EN "Write to us — we will get back to you within 24 hours and set your first step together." It was already rendered once in the code (no duplicate under the form); the cause of the live duplicate was the Sheet's `contact_tagline` row (it held this sentence and fed the eyebrow above the H2).
 Fixed: the eyebrow is now the locked `contact.tag` ("Začnime" / "Let's begin"); `contact_tagline` is no longer read, so that Sheet row can be ignored or deleted.
 
+## Instagram Feed (v5.2)
+- **Fetcher:** `lib/instagram.ts` → `getInstagramPosts()`, called in `app/page.tsx` (server) and passed to `InstagramSection` as `posts`. The token never reaches the browser
+  (`INSTAGRAM_ACCESS_TOKEN`, no `NEXT_PUBLIC_`; verified absent from the HTML and `.next/static`).
+- **Endpoint:** `https://graph.instagram.com/me/media?fields=id,caption,media_type,media_url,permalink,thumbnail_url,timestamp&limit=12` for Instagram-Login tokens (`IGAA…`/`IGQ…`).
+  For Facebook-platform tokens (`EAA…`) it uses `https://graph.facebook.com/v21.0/{INSTAGRAM_USER_ID}/media` instead (needs `INSTAGRAM_USER_ID`; without it → placeholders).
+- **Caching:** `fetch(..., { next: { revalidate: 3600 } })` — at most one Meta request per hour (the page itself revalidates every 5 min because of the Sheet fetch, but this fetch is served from the data cache).
+- **Fallback:** no token / invalid or expired token / non-2xx / network error / malformed JSON → `[]` → the original 6 shimmer tiles + follow link. Meta's error message is logged
+  (`[instagram] feed unavailable (400): …`) **without** the URL/token. The page can never 500 because of Instagram.
+- **Tiles:** latest 6 posts with an image (video → `thumbnail_url` + play badge; carousel → first image). Each is `<a href={permalink} target="_blank" rel="noopener noreferrer">`; `next/image`
+  (`remotePatterns` already allows any https host); image zooms `scale-105` on hover/focus; frosted-glass overlay (`bg-black/35 backdrop-blur`) with a gold-ringed Instagram glint + 3-line caption.
+  `onError` → gradient + Instagram icon, plus a mount-time `img.complete && naturalWidth === 0` check because an error that fires *before hydration* never reaches React's `onError`
+  (found while testing; the same latent gap exists in the other `onError` fallbacks).
+- **Token status at time of writing:** the client's token is a valid **`EAA…` Facebook token with `instagram_basic` but no Pages permission**, so `graph.instagram.com` rejects it
+  ("Cannot parse access token") and the Instagram account ID can't be looked up from it → the site shows placeholders. To go live, either (a) generate an Instagram-Login token for the
+  `trainer_aless` account (Meta developer dashboard → Instagram → API setup with Instagram login → generate token; long-lived tokens last 60 days and must be refreshed via
+  `GET graph.instagram.com/refresh_access_token`), or (b) keep the `EAA` token and set `INSTAGRAM_USER_ID` to the Instagram professional account's numeric ID.
+  The token lives in `.env.local` (git-ignored) locally and must be set in Vercel for production. **Never hardcode it in `lib/config.ts`** — the repo is public.
+
 ## WhatsApp Lead Magnet (v4.1)
 `ContactSection.tsx` form: Name, Phone, Email (all required), Message/goals (optional), plus a
 hidden honeypot field. Primary button = WhatsApp icon + `contact_whatsapp_button`
@@ -368,7 +388,7 @@ All 8 use `next/image` with `fill` + `onError` — if a file is ever deleted/ren
 ## Graceful Degradation Rules
 - Missing image → styled gradient placeholder div, **never** a broken-image icon
 - Missing hero video → full-viewport gradient fallback, identical layout
-- Missing Instagram token → 6 shimmer tiles + follow label, zero crash
+- Missing/invalid Instagram token or API error → 6 shimmer tiles + follow label, zero crash
 - Missing Google Maps URL → styled pin-icon placeholder div
 - Missing GOOGLE_PLACE_ID → skip live fetch, show placeholder review cards
 - Missing EASYDIET_URL / TRAINERIZE_URL → button rendered disabled, no crash

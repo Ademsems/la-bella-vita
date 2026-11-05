@@ -7,10 +7,16 @@
 // TODO: Set NEXT_PUBLIC_HERO_VIDEO_URL to the hosted hero video (mp4 preferred)
 export const HERO_VIDEO_URL = process.env.NEXT_PUBLIC_HERO_VIDEO_URL || "";
 
-// TODO: Set NEXT_PUBLIC_INSTAGRAM_TOKEN with a valid Instagram Basic Display API token
-// TODO: Set NEXT_PUBLIC_INSTAGRAM_USERNAME e.g. "labellavita"
-export const INSTAGRAM_TOKEN = process.env.NEXT_PUBLIC_INSTAGRAM_TOKEN || "";
-export const INSTAGRAM_USERNAME = process.env.NEXT_PUBLIC_INSTAGRAM_USERNAME || "";
+// Instagram feed (lib/instagram.ts). The access token is SERVER-ONLY — no NEXT_PUBLIC_ prefix, so it is
+// never inlined into the browser bundle (a NEXT_PUBLIC_ token would be visible to every visitor).
+// TODO: Set INSTAGRAM_ACCESS_TOKEN in Vercel (and .env.local for local dev). Empty → placeholder tiles.
+export const INSTAGRAM_ACCESS_TOKEN = process.env.INSTAGRAM_ACCESS_TOKEN || "";
+export const INSTAGRAM_API_URL = "https://graph.instagram.com/me/media";
+// Only for Facebook-platform tokens ("EAA…"): they need the Instagram professional account's numeric ID.
+// TODO: Set INSTAGRAM_USER_ID (server-only) if the token starts with "EAA"; not needed for "IGAA…" tokens.
+export const INSTAGRAM_FACEBOOK_API_URL = "https://graph.facebook.com/v21.0";
+export const INSTAGRAM_USER_ID = process.env.INSTAGRAM_USER_ID || "";
+export const INSTAGRAM_USERNAME = process.env.NEXT_PUBLIC_INSTAGRAM_USERNAME || "trainer_aless";
 
 // Verified Google Maps listing ("Alessandro Kabát", Bratislava). Review cards and the
 // "View on Google Maps" button link here.

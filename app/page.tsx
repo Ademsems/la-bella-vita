@@ -2,6 +2,7 @@ import { I18nProvider } from "@/lib/i18n";
 import { fetchContent, getContent, type ContentMap } from "@/lib/content";
 import { SHEET_CSV_URL_SK, SHEET_CSV_URL_EN } from "@/lib/config";
 import { getReviews } from "@/lib/reviews";
+import { getInstagramPosts } from "@/lib/instagram";
 import skMessages from "@/messages/sk.json";
 import enMessages from "@/messages/en.json";
 
@@ -40,10 +41,11 @@ function extractFallback(messages: Record<string, unknown>): ContentMap {
 }
 
 export default async function Home() {
-  const [sheetSk, sheetEn, reviews] = await Promise.all([
+  const [sheetSk, sheetEn, reviews, instagramPosts] = await Promise.all([
     fetchContent(SHEET_CSV_URL_SK),
     fetchContent(SHEET_CSV_URL_EN),
     getReviews(),
+    getInstagramPosts(),
   ]);
 
   const contentSk = getContent(sheetSk, extractFallback(skMessages));
@@ -65,7 +67,7 @@ export default async function Home() {
         <FinancingSection />
         <CommunitySection />
         <CorporateSection />
-        <InstagramSection />
+        <InstagramSection posts={instagramPosts} />
         <TestimonialsSection data={reviews} />
         <FinalCtaSection />
         <ContactSection />
